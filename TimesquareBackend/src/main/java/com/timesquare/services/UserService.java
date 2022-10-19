@@ -1,0 +1,59 @@
+package com.timesquare.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.timesquare.models.User;
+import com.timesquare.repos.UserRepository;
+
+@Service
+public class UserService {
+	
+	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	public List<User> getAllUsers() {
+		return userRepo.findAll();
+	}
+	
+	public User getUserById(Long userId) throws Exception {
+		return userRepo.findById(userId).orElseThrow(
+				() -> new Exception("User not found with id: " + userId));
+	}
+
+	public List<User> getUserByUsername(String username) throws Exception {
+		return userRepo.getUsersByName(username).orElseThrow(
+				() -> new Exception("User not found with name: " + username));
+	}
+	
+	public String registerUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userRepo.save(user);
+		return user.getUsername() + "'s acount is now registered!";
+	}
+	
+	public String updateUser(User user) {
+		if (userRepo.findById(user.getUserId()).isPresent()) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			userRepo.save(user);
+			return user.getFirstName() + " " + user.getLastName()
+				+ "'s account has been updated.";
+		}
+		return "The requested account to update, " + user.getUsername()
+			+ " does not exist.";
+	}
+	
+	public String deleteUserById(Long userId) {
+		if (userRepo.findById(userId).isPresent()) {
+			userRepo.deleteById(userId);
+			return "User with id " + userId + " has been deleted.";
+		}
+		return "User with id " + userId + " does not exist.";
+	}
+}
