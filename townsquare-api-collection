@@ -1,0 +1,1207 @@
+{
+	"info": {
+		"_postman_id": "b775aa74-6234-494b-9b3f-a34d26825e80",
+		"name": "TownSquare-API's",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22501423"
+	},
+	"item": [
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "address-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/address",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "address-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/address/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"address",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "address-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"city\": \"Fuquay-Varina\",\r\n    \"state\": \"NC\",\r\n    \"street\": \"913 Bridlemine Dr.\",\r\n    \"zipcode\": \"27545\",\r\n    \"country\": \"USA\",\r\n    \"apartmentNum\": null,\r\n    \"user\":  {\r\n        \"userId\": 1,\r\n        \"firstName\": \"Ava\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"AvaCutie2007\",\r\n        \"password\": \"$2a$10$SwAISUii/Qb1YjQO3TPfLuws8RoJOibRhd0gcutMLlS9luWMgGk5i\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"AvaCutie2007@yahoo.com\",\r\n        \"profileBio\": \"Sparkle time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-09\",\r\n        \"birthplace\": \"Rutherdforton, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/address/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"address",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "address-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addressId\": 1,\r\n    \"city\": \"Fuquay-Varina\",\r\n    \"state\": \"NC\",\r\n    \"street\": \"913 Bridlemine Dr.\",\r\n    \"zipcode\": \"27545\",\r\n    \"country\": \"USA\",\r\n    \"apartmentNum\": null,\r\n    \"user\": {\r\n        \"userId\": 2,\r\n        \"firstName\": \"Ethan\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"GoodEthan2007\",\r\n        \"password\": \"67890\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"GoodEthan2007@yahoo.com\",\r\n        \"profileBio\": \"One bite at a time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Boone, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/address/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"address",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "address-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/address/delete/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"address",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post_Comment",
+			"item": [
+				{
+					"name": "comment-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/comment/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"OMG this is so funny XD\",\r\n    \"commentDate\": \"2022-10-20\",\r\n    \"likes\": 15,\r\n    \"dislikes\": 0,\r\n    \"post\": {\r\n        \"postId\": 1,\r\n        \"title\": \"Princess Cinderela has seen some better times LOL\",\r\n        \"description\": \"Cinderela before the ball.\",\r\n        \"likes\": 10,\r\n        \"dislikes\": 2,\r\n        \"shares\": 32,\r\n        \"imageUrl\": \"http\",\r\n        \"user\": {\r\n            \"userId\": 1,\r\n            \"firstName\": \"Ava\",\r\n            \"lastName\": \"Perrault\",\r\n            \"username\": \"AvaCutie2007\",\r\n            \"password\": \"$2a$10$WicPkcucQ5wo2xglYBp5Ye6h9cZHX2SM9x3z1dmga85GS6tqzVMsO\",\r\n            \"profileImg\": \"http\",\r\n            \"email\": \"AvaCutie2007@yahoo.com\",\r\n            \"profileBio\": \"Sparkle time!\",\r\n            \"backgroundImg\": \"http\",\r\n            \"date\": \"2007-07-09\",\r\n            \"birthplace\": \"Rutherdforton, NC\",\r\n            \"homeTown\": \"Oxford, NC\"\r\n        }\r\n    },\r\n    \"user\": {\r\n        \"userId\": 1,\r\n        \"firstName\": \"Ava\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"AvaCutie2007\",\r\n        \"password\": \"$2a$10$WicPkcucQ5wo2xglYBp5Ye6h9cZHX2SM9x3z1dmga85GS6tqzVMsO\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"AvaCutie2007@yahoo.com\",\r\n        \"profileBio\": \"Sparkle time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-09\",\r\n        \"birthplace\": \"Rutherdforton, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/comment/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"comment",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/comment/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"comment",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/comment/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"comment",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User_Contact",
+			"item": [
+				{
+					"name": "contact-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/contact",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"contact"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contact-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/contact/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"contact",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contact-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"businessNum\": \"123-456-7890\",\r\n    \"mobileNum\": \"098-765-4321\",\r\n    \"phoneNum\": \"919-339-3801\",\r\n    \"user\": {\r\n        \"userId\": 2,\r\n        \"firstName\": \"Ava\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"AvaCutie2007\",\r\n        \"password\": \"13579\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"AvaCutie2007@yahoo.com\",\r\n        \"profileBio\": \"Sparkle time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Rutherdforton, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/contact/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"contact",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contact-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/contact/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"contact",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contact-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/contact/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"contact",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User_Education",
+			"item": [
+				{
+					"name": "education-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/address",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "address-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/education/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"education",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "education-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/education/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"education",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "education-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/education/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"education",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "education-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/education/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"education",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friend",
+			"item": [
+				{
+					"name": "friend-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/friend/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"friend",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "friend-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/friend/1/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"friend",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "friend-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"friendId\": {\r\n        \"userId\": 1,\r\n        \"friendId\": 2\r\n    },\r\n    \"user\": {\r\n        \"userId\": 1,\r\n        \"firstName\": \"Taylor\",\r\n        \"lastName\": \"Joostema\",\r\n        \"username\": \"TaylorJ1208\",\r\n        \"password\": \"12345\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"TaylorJ1208@yahoo.com\",\r\n        \"profileBio\": \"Living life to the fullest!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2001-12-08\",\r\n        \"birthplace\": \"Raleight, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    },\r\n    \"friend\": {\r\n        \"userId\": 2,\r\n        \"firstName\": \"Ethan\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"GoodEthan2007\",\r\n        \"password\": \"67890\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"GoodEthan2007@yahoo.com\",\r\n        \"profileBio\": \"One bite at a time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Boone, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/friend/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"friend",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User_Image",
+			"item": [
+				{
+					"name": "image-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/image/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"image",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imageUrl\": \"http\",\r\n    \"imageDate\": \"2022-10-20\",\r\n    \"user\": {\r\n        \"userId\": 2,\r\n        \"firstName\": \"Ava\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"AvaCutie2007\",\r\n        \"password\": \"13579\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"AvaCutie2007@yahoo.com\",\r\n        \"profileBio\": \"Sparkle time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Rutherdforton, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/image/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"image",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/image/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"image",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/image/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"image",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User_Post",
+			"item": [
+				{
+					"name": "post-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/post/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"post",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Princess Cinderela has seen some better times LOL\",\r\n    \"description\": \"Cinderela before the ball.\",\r\n    \"likes\": 10,\r\n    \"dislikes\": 2,\r\n    \"shares\": 32,\r\n    \"imageUrl\": \"http\",\r\n    \"user\": {\r\n        \"userId\": 1,\r\n        \"firstName\": \"Ava\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"AvaCutie2007\",\r\n        \"password\": \"13579\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"AvaCutie2007@yahoo.com\",\r\n        \"profileBio\": \"Sparkle time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Rutherdforton, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/post/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"post",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/post/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"post",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/post/delete/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"post",
+								"delete",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friend_Request",
+			"item": [
+				{
+					"name": "request-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/request/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"request",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/request/1/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"request",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestid\": {\r\n        \"receiverId\": 1,\r\n        \"requesterId\": 2\r\n    },\r\n    \"receiver\": {\r\n        \"userId\": 1,\r\n        \"firstName\": \"Ava\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"AvaCutie2007\",\r\n        \"password\": \"$2a$10$SwAISUii/Qb1YjQO3TPfLuws8RoJOibRhd0gcutMLlS9luWMgGk5i\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"AvaCutie2007@yahoo.com\",\r\n        \"profileBio\": \"Sparkle time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-09\",\r\n        \"birthplace\": \"Rutherdforton, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    },\r\n    \"requester\": {\r\n        \"userId\": 2,\r\n        \"firstName\": \"Ethan\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"GoodEthan2007\",\r\n        \"password\": \"67890\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"GoodEthan2007@yahoo.com\",\r\n        \"profileBio\": \"One bite at a time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Boone, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/request/send",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"request",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/request/delete/2/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"request",
+								"delete",
+								"2",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "user-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-get-by-name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/user/name/t",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"user",
+								"name",
+								"t"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Ava\",\r\n    \"lastName\": \"Perrault\",\r\n    \"username\": \"AvaCutie2007\",\r\n    \"password\": \"13579\",\r\n    \"profileImg\": \"http\",\r\n    \"email\": \"AvaCutie2007@yahoo.com\",\r\n    \"profileBio\": \"Sparkle time!\",\r\n    \"backgroundImg\": \"http\",\r\n    \"date\": \"2007-07-10\",\r\n    \"birthplace\": \"Rutherdforton, NC\",\r\n    \"homeTown\": \"Oxford, NC\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 2,\r\n        \"firstName\": \"Ethan\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"GoodEthan2007\",\r\n        \"password\": \"67890\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"GoodEthan2007@yahoo.com\",\r\n        \"profileBio\": \"One bite at a time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Boone, NC\",\r\n        \"homeTown\": \"Oxford, NC\",\r\n        \"comments\": []\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/user/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"user",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Work_Details",
+			"item": [
+				{
+					"name": "work-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/work",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"work"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "work-get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/work/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"work",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "work-add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workplaceId\": 1,\r\n    \"company\": \"Target\",\r\n    \"position\": \"Sales Associate\",\r\n    \"city\": \"Rutherdforton\",\r\n    \"description\": \"Help Target guarantee customer satisfaction upon checking out.\",\r\n    \"startDate\": \"2023-04-22\",\r\n    \"endDate\": null,\r\n    \"user\": {\r\n        \"userId\": 2,\r\n        \"firstName\": \"Ava\",\r\n        \"lastName\": \"Perrault\",\r\n        \"username\": \"AvaCutie2007\",\r\n        \"password\": \"13579\",\r\n        \"profileImg\": \"http\",\r\n        \"email\": \"AvaCutie2007@yahoo.com\",\r\n        \"profileBio\": \"Sparkle time!\",\r\n        \"backgroundImg\": \"http\",\r\n        \"date\": \"2007-07-10\",\r\n        \"birthplace\": \"Rutherdforton, NC\",\r\n        \"homeTown\": \"Oxford, NC\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/api/work/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"work",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "work-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/work/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"work",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "work-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/work/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"work",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
