@@ -1,5 +1,8 @@
 package com.timesquare.dto;
 
+import java.util.List;
+
+import com.timesquare.models.Comment;
 import com.timesquare.models.User;
 
 import lombok.AllArgsConstructor;
@@ -19,5 +22,6 @@ public class PostDTO {
 	private long shares;
 	private String imageUrl;
 	private User user;
+	private List<Comment> comments;
 
 }

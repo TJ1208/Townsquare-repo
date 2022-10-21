@@ -18,6 +18,10 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	public UserService(UserRepository userRepo2) {
+		this.userRepo = userRepo2;
+	}
+
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
 	}
@@ -35,7 +39,8 @@ public class UserService {
 	public String registerUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepo.save(user);
-		return user.getUsername() + "'s acount is now registered!";
+		return user.getFirstName() + " " + user.getLastName()
+			+ "'s acount is now registered!";
 	}
 	
 	public String updateUser(User user) {

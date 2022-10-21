@@ -60,7 +60,7 @@ public class RequestService {
 	public String deleteRequest(Long requesterId, Long receiverId) {
 		if (requestRepo.findById(new RequestId(requesterId, receiverId)).isPresent()) {
 			requestRepo.deleteById(new RequestId(requesterId, receiverId));
-			return "Friend request with id " + requesterId + " has been removed";
+			return "Friend request with id " + requesterId + " has been removed.";
 		}
 		return "No friend request with id " + requesterId + " was found.";
 	}
