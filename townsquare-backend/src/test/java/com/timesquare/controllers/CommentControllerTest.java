@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,33 +22,38 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timesquare.models.Work;
+import com.timesquare.models.Comment;
+import com.timesquare.models.Post;
 import com.timesquare.models.User;
-import com.timesquare.repos.WorkRepository;
-import com.timesquare.services.WorkService;
+import com.timesquare.repos.CommentRepository;
+import com.timesquare.repos.PostRepository;
 import com.timesquare.repos.UserRepository;
+import com.timesquare.services.CommentService;
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class WorkControllerTest {
+public class CommentControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	
-	private Work workplace;
+	private Comment comment;
 	
 	ObjectMapper mapper;
 	
 	@Autowired
-	private WorkRepository workplaceRepo;
+	private CommentRepository commentRepo;
 	
 	@Autowired
-	private WorkService workplaceService;
+	private PostRepository postRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	@BeforeEach
 	void setUp() {
@@ -74,113 +78,116 @@ public class WorkControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		workplaceRepo.save(new Work(1L, "HCL", "Junior Developer", "Cary", null, null, null, user1));
-		workplaceRepo.save(new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user2));
+		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", user1, null);
+		postRepo.save(post);
+		
+		commentRepo.save(new Comment(1L, "This is an amazing view!", new Date(85), 15L, 15L, post, user1));
+		commentRepo.save(new Comment(2L, "The sky line is so pretty!", new Date(34), 110L, 15L, post, user2));
 	
-		workplace = new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user3);
+		comment = new Comment(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user3);
 	}
 	
 	@Test
-	void getAllWorkplaces() throws Exception {
+	void getAllComments() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work")
+				.get("/api/comment")
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getAllUserWorkplaces() throws Exception {
+	void getAllUserComments() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work/{userId}", 2)
+				.get("/api/comment/{userId}", 2)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getWorkById() throws Exception {
+	void getCommentById() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work/id/{workplaceId}", 1)
+				.get("/api/comment/id/{commentId}", 1)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getWorkByIdError() throws Exception {
+	void getCommentByIdError() throws Exception {
 		Exception thrown = assertThrows(
 				Exception.class,
-				() -> workplaceService.getWorkplaceById(10L),
-				"Workplace not found with id " + 10);
-		assertTrue(thrown.getMessage().contains("Workplace not found with id " + 10));
+				() -> commentService.getCommentById(5L),
+				"Comment not found with id " + 5);
+		assertTrue(thrown.getMessage().contains("Comment not found with id " + 5));
 	}
 
 	@Test
-	void addWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(post("/api/work/add")
+	void addComment() throws Exception {
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+				.post("/api/comment/add")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(comment)))
 				.andExpect(status().isCreated())
 				.andReturn();
 		
-		assertEquals(workplace.getUser().getFirstName() + " " + workplace.getUser().getLastName()
-				+ " now works at " + workplace.getCompany() + "!", result.getResponse().getContentAsString());
+		assertEquals(comment.getUser().getFirstName() + " " + comment.getUser().getLastName()
+				+ " commented on your post!", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(put("/api/work/update")
+	void updateComment() throws Exception {
+		MvcResult result = mockMvc.perform(put("/api/comment/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(comment)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Workplace details for " + workplace.getCompany() + " have"
-				+ " been updated.", result.getResponse().getContentAsString());
+		assertEquals(comment.getUser().getFirstName() + " " + comment.getUser().getLastName()
+				+ "'s comment was edited.", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateWorkplaceError() throws Exception {
+	void updateCommentError() throws Exception {
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
-		Work workplace2 = new Work(3L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user3);
-
-		MvcResult result = mockMvc.perform(put("/api/work/update")
+		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", user3, null);
+		Comment newComment = new Comment(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user3);
+		MvcResult result = mockMvc.perform(put("/api/comment/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace2)))
+				.content(mapper.writeValueAsString(newComment)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No workplace details found for the company " + workplace.getCompany(),
-				result.getResponse().getContentAsString());
+		assertEquals(newComment.getUser().getFirstName() + " " + newComment.getUser().getLastName()
+				+ "'s comment was edited.", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/work/delete/{workplaceId}", 2)
+	void deleteComment() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/comment/delete/{commentId}", 2)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(comment)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Workplace deleted with id " + 2, result.getResponse().getContentAsString());
+		assertEquals("Comment deleted with id " + 2, result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteWorkplaceError() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/work/delete/{workplaceId}", 10)
+	void deleteCommentError() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/comment/delete/{commentId}", 5)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(comment)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No workplace found with id " + 10,
-				result.getResponse().getContentAsString());
+		assertEquals("No comment found with id " + 5, result.getResponse().getContentAsString());
 	}
 }

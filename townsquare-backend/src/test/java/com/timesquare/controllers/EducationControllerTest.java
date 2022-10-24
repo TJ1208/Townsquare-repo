@@ -23,33 +23,33 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timesquare.models.Work;
+import com.timesquare.models.Education;
 import com.timesquare.models.User;
-import com.timesquare.repos.WorkRepository;
-import com.timesquare.services.WorkService;
+import com.timesquare.repos.EducationRepository;
 import com.timesquare.repos.UserRepository;
+import com.timesquare.services.EducationService;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class WorkControllerTest {
+public class EducationControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	
-	private Work workplace;
+	private Education education;
 	
 	ObjectMapper mapper;
 	
 	@Autowired
-	private WorkRepository workplaceRepo;
-	
-	@Autowired
-	private WorkService workplaceService;
+	private EducationRepository educationRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private EducationService educationService;
 	
 	@BeforeEach
 	void setUp() {
@@ -74,113 +74,120 @@ public class WorkControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		workplaceRepo.save(new Work(1L, "HCL", "Junior Developer", "Cary", null, null, null, user1));
-		workplaceRepo.save(new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user2));
+		educationRepo.save(new Education(1L, false, true, null, null, "Currently working towards my high school diploma",
+				"Fuquay-Varina Senior High School", "High School Diploma", user1));
+		educationRepo.save(new Education(2L, false, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
+				"Fuquay-Varina Senior High School", "High School Diploma", user2));
 	
-		workplace = new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user3);
+		education = new Education(2L, false, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
+				"Fuquay-Varina Senior High School", "High School Diploma", user3);
 	}
 	
 	@Test
-	void getAllWorkplaces() throws Exception {
+	void getAllEducations() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work")
+				.get("/api/education")
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getAllUserWorkplaces() throws Exception {
+	void getAllUserEducations() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work/{userId}", 2)
+				.get("/api/education/{userId}", 2)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getWorkById() throws Exception {
+	void getEducationById() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work/id/{workplaceId}", 1)
+				.get("/api/education/id/{educationId}", 1)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getWorkByIdError() throws Exception {
+	void getEducationByIdError() throws Exception {
 		Exception thrown = assertThrows(
 				Exception.class,
-				() -> workplaceService.getWorkplaceById(10L),
-				"Workplace not found with id " + 10);
-		assertTrue(thrown.getMessage().contains("Workplace not found with id " + 10));
+				() -> educationService.getEducationById(5L),
+				"User education not found with id " + 5);
+		assertTrue(thrown.getMessage().contains("User education not found with id " + 5));
 	}
 
 	@Test
-	void addWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(post("/api/work/add")
+	void sendEducation() throws Exception {
+		MvcResult result = mockMvc.perform(post("/api/education/add")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(education)))
 				.andExpect(status().isCreated())
 				.andReturn();
 		
-		assertEquals(workplace.getUser().getFirstName() + " " + workplace.getUser().getLastName()
-				+ " now works at " + workplace.getCompany() + "!", result.getResponse().getContentAsString());
+		assertEquals("New education for " + education.getUser().getFirstName() +
+				" " + education.getUser().getLastName() + " has been added.",
+				result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(put("/api/work/update")
+	void updateEducation() throws Exception {
+		MvcResult result = mockMvc.perform(put("/api/education/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(education)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Workplace details for " + workplace.getCompany() + " have"
-				+ " been updated.", result.getResponse().getContentAsString());
+		assertEquals("Education for " + education.getUser().getFirstName() +
+				" " + education.getUser().getLastName() + " has been updated.", 
+				result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateWorkplaceError() throws Exception {
+	void updateEducationError() throws Exception {
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
-		Work workplace2 = new Work(3L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user3);
-
-		MvcResult result = mockMvc.perform(put("/api/work/update")
+		Education newEducation = new Education(3L, false, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
+				"Fuquay-Varina Senior High School", "High School Diploma", user3);
+		MvcResult result = mockMvc.perform(put("/api/education/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace2)))
+				.content(mapper.writeValueAsString(newEducation)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No workplace details found for the company " + workplace.getCompany(),
+		assertEquals("Education with id " + newEducation.getEducationId() 
+				+ " for " + newEducation.getUser().getFirstName() +
+				" " + newEducation.getUser().getLastName() + " was not found.", 
 				result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/work/delete/{workplaceId}", 2)
+	void deleteEducation() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/education/delete/{educationId}", 2)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(education)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Workplace deleted with id " + 2, result.getResponse().getContentAsString());
+		assertEquals("Education deleted successfully.", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteWorkplaceError() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/work/delete/{workplaceId}", 10)
+	void deleteEducationError() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/education/delete/{educationId}", 5)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(education)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No workplace found with id " + 10,
-				result.getResponse().getContentAsString());
+		assertEquals("Education not found with id " + 5
+				, result.getResponse().getContentAsString());
 	}
 }

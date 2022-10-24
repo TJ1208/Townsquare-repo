@@ -1,6 +1,8 @@
 package com.timesquare.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -25,6 +27,7 @@ import com.timesquare.models.Image;
 import com.timesquare.models.User;
 import com.timesquare.repos.ImageRepository;
 import com.timesquare.repos.UserRepository;
+import com.timesquare.services.ImageService;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
@@ -44,6 +47,9 @@ public class ImageControllerTest {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private ImageService imageService;
 	
 	@BeforeEach
 	void setUp() {
@@ -100,6 +106,15 @@ public class ImageControllerTest {
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
+	
+	@Test
+	void getImageByIdError() throws Exception {
+		Exception thrown = assertThrows(
+				Exception.class,
+				() -> imageService.getImageById(5L),
+				"Image does not exist with id" + 5L);
+		assertTrue(thrown.getMessage().contains("Image does not exist with id" + 5L));
+	}
 
 	@Test
 	void sendImage() throws Exception {
@@ -125,6 +140,23 @@ public class ImageControllerTest {
 	}
 	
 	@Test
+	void updateImageError() throws Exception {
+		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
+				"TaylorJ@example.com", "What a beautiful world!", "http",
+				new Date(55), "Raleigh, NC",
+				"Cary, NC", null, null, null, null, null, null, null,
+				null, null));
+		Image newImage = new Image(3L, "http", new java.sql.Date(55), user3);
+		MvcResult result = mockMvc.perform(put("/api/image/update")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(newImage)))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		assertEquals("Image not found with id " + newImage.getImageId(), result.getResponse().getContentAsString());
+	}
+	
+	@Test
 	void deleteImage() throws Exception {
 		MvcResult result = mockMvc.perform(delete("/api/image/delete/{imageId}", 2)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -134,5 +166,17 @@ public class ImageControllerTest {
 				.andReturn();
 		
 		assertEquals("Image deleted successfully", result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	void deleteImageError() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/image/delete/{imageId}", 5)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(image)))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		assertEquals("Image not found with id " + 5, result.getResponse().getContentAsString());
 	}
 }

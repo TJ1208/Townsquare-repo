@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,33 +22,33 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timesquare.models.Work;
+import com.timesquare.models.Address;
 import com.timesquare.models.User;
-import com.timesquare.repos.WorkRepository;
-import com.timesquare.services.WorkService;
+import com.timesquare.repos.AddressRepository;
 import com.timesquare.repos.UserRepository;
+import com.timesquare.services.AddressService;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class WorkControllerTest {
+public class AddressControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	
-	private Work workplace;
+	private Address address;
 	
 	ObjectMapper mapper;
 	
 	@Autowired
-	private WorkRepository workplaceRepo;
-	
-	@Autowired
-	private WorkService workplaceService;
+	private AddressRepository addressRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private AddressService addressService;
 	
 	@BeforeEach
 	void setUp() {
@@ -74,113 +73,117 @@ public class WorkControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		workplaceRepo.save(new Work(1L, "HCL", "Junior Developer", "Cary", null, null, null, user1));
-		workplaceRepo.save(new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user2));
-	
-		workplace = new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user3);
+		addressRepo.save(new Address(1L, "Fuquay-Varina", "NC", "913 Bridlemine Dr.", "27592",
+				"USA", null, user1));
+		addressRepo.save(new Address(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
+				"USA", null, user2));
+		
+		address = new Address(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
+				"USA", null, user3);
 	}
 	
 	@Test
-	void getAllWorkplaces() throws Exception {
+	void getAllAddresss() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work")
+				.get("/api/address")
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getAllUserWorkplaces() throws Exception {
+	void getAllUserAddresss() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work/{userId}", 2)
+				.get("/api/address/{userId}", 2)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getWorkById() throws Exception {
+	void getAddressById() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/work/id/{workplaceId}", 1)
+				.get("/api/address/id/{addressId}", 1)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getWorkByIdError() throws Exception {
+	void getAddressByIdError() throws Exception {
 		Exception thrown = assertThrows(
 				Exception.class,
-				() -> workplaceService.getWorkplaceById(10L),
-				"Workplace not found with id " + 10);
-		assertTrue(thrown.getMessage().contains("Workplace not found with id " + 10));
+				() -> addressService.getAddressById(5L),
+				"Address not found with id: " + 5);
+		assertTrue(thrown.getMessage().contains("Address not found with id: " + 5));
 	}
 
 	@Test
-	void addWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(post("/api/work/add")
+	void addAddress() throws Exception {
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+				.post("/api/address/add")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(address)))
 				.andExpect(status().isCreated())
 				.andReturn();
 		
-		assertEquals(workplace.getUser().getFirstName() + " " + workplace.getUser().getLastName()
-				+ " now works at " + workplace.getCompany() + "!", result.getResponse().getContentAsString());
+		assertEquals(address.getUser().getFirstName() + address.getUser().getLastName() +
+				"'s address has been added.", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(put("/api/work/update")
+	void updateAddress() throws Exception {
+		MvcResult result = mockMvc.perform(put("/api/address/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(address)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Workplace details for " + workplace.getCompany() + " have"
-				+ " been updated.", result.getResponse().getContentAsString());
+		assertEquals(address.getUser().getFirstName() + address.getUser().getLastName()
+				+ "'s address has been updated.", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateWorkplaceError() throws Exception {
+	void updateAddressError() throws Exception {
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
-		Work workplace2 = new Work(3L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user3);
-
-		MvcResult result = mockMvc.perform(put("/api/work/update")
+		Address newAddress = new Address(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
+				"USA", null, user3);
+		
+		MvcResult result = mockMvc.perform(put("/api/address/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace2)))
+				.content(mapper.writeValueAsString(newAddress)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No workplace details found for the company " + workplace.getCompany(),
-				result.getResponse().getContentAsString());
+		assertEquals(newAddress.getUser().getFirstName() + newAddress.getUser().getLastName()
+				+ "'s address has been updated.", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteWorkplace() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/work/delete/{workplaceId}", 2)
+	void deleteAddress() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/address/delete/{addressId}", 2)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(address)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Workplace deleted with id " + 2, result.getResponse().getContentAsString());
+		assertEquals("Users address has been deleted.", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteWorkplaceError() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/work/delete/{workplaceId}", 10)
+	void deleteAddressError() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/address/delete/{addressId}", 5)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(workplace)))
+				.content(mapper.writeValueAsString(address)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No workplace found with id " + 10,
-				result.getResponse().getContentAsString());
+		assertEquals("Could not find address with id: " + 5, result.getResponse().getContentAsString());
 	}
 }

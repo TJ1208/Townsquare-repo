@@ -1,6 +1,8 @@
 package com.timesquare.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -24,8 +26,9 @@ import com.timesquare.models.Contact;
 import com.timesquare.models.User;
 import com.timesquare.repos.ContactRepository;
 import com.timesquare.repos.UserRepository;
+import com.timesquare.services.ContactService;
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ContactControllerTest {
@@ -43,6 +46,9 @@ public class ContactControllerTest {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private ContactService contactService;
 	
 	@BeforeEach
 	void setUp() {
@@ -99,6 +105,15 @@ public class ContactControllerTest {
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
+	
+	@Test
+	void getContactByIdError() throws Exception {
+		Exception thrown = assertThrows(
+				Exception.class,
+				() -> contactService.getContactById(5L),
+				"User contact not found with id " + 5);
+		assertTrue(thrown.getMessage().contains("User contact not found with id " + 5));
+	}
 
 	@Test
 	void addContact() throws Exception {
@@ -126,6 +141,25 @@ public class ContactControllerTest {
 	}
 	
 	@Test
+	void updateContactError() throws Exception {
+		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
+				"TaylorJ@example.com", "What a beautiful world!", "http",
+				new Date(55), "Raleigh, NC",
+				"Cary, NC", null, null, null, null, null, null, null,
+				null, null));
+		Contact newContact = contact = new Contact(2L, "123-456-7890", "098-765-4321", "919-339-3801", user3);
+		
+		MvcResult result = mockMvc.perform(put("/api/contact/update")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(newContact)))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		assertEquals("Contact for " + newContact.getUser().getFirstName() +
+				" " + newContact.getUser().getLastName() + " has been updated.", result.getResponse().getContentAsString());
+	}
+	
+	@Test
 	void deleteContact() throws Exception {
 		MvcResult result = mockMvc.perform(delete("/api/contact/delete/{contactId}", 2)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -135,5 +169,17 @@ public class ContactControllerTest {
 				.andReturn();
 		
 		assertEquals("Contact deleted successfully.", result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	void deleteContactError() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/contact/delete/{contactId}", 5)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(contact)))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		assertEquals("Contact not found with id " + 5, result.getResponse().getContentAsString());
 	}
 }

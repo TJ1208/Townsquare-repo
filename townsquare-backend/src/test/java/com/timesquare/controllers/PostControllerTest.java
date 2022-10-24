@@ -1,6 +1,8 @@
 package com.timesquare.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -24,8 +26,9 @@ import com.timesquare.models.Post;
 import com.timesquare.models.User;
 import com.timesquare.repos.PostRepository;
 import com.timesquare.repos.UserRepository;
+import com.timesquare.services.PostService;
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PostControllerTest {
@@ -43,6 +46,9 @@ public class PostControllerTest {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private PostService postService;
 	
 	@BeforeEach
 	void setUp() {
@@ -99,6 +105,15 @@ public class PostControllerTest {
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
+	
+	@Test
+	void getPostByIdError() throws Exception {
+		Exception thrown = assertThrows(
+				Exception.class,
+				() -> postService.getPostById(5L),
+				"Post not found with id " + 5);
+		assertTrue(thrown.getMessage().contains("Post not found with id " + 5));
+	}
 
 	@Test
 	void addPost() throws Exception {
@@ -126,6 +141,24 @@ public class PostControllerTest {
 	}
 	
 	@Test
+	void updatePostError() throws Exception {
+		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
+				"TaylorJ@example.com", "What a beautiful world!", "http",
+				new Date(55), "Raleigh, NC",
+				"Cary, NC", null, null, null, null, null, null, null,
+				null, null));
+		Post newPost = post = new Post(3L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user3, null);
+		
+		MvcResult result = mockMvc.perform(put("/api/post/update")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(newPost)))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		assertEquals("No Post found with the id " + post.getPostId(), result.getResponse().getContentAsString());
+	}
+	
+	@Test
 	void deletePost() throws Exception {
 		MvcResult result = mockMvc.perform(delete("/api/post/delete/{postId}", 2)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -135,5 +168,17 @@ public class PostControllerTest {
 				.andReturn();
 		
 		assertEquals("Post deleted with id " + 2, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	void deletePostError() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/post/delete/{postId}", 5)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(post)))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		assertEquals("No Post found with id " + 5, result.getResponse().getContentAsString());
 	}
 }

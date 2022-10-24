@@ -23,41 +23,41 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timesquare.models.Request;
-import com.timesquare.models.RequestId;
+import com.timesquare.models.Friend;
+import com.timesquare.models.FriendId;
 import com.timesquare.models.User;
-import com.timesquare.repos.RequestRepository;
+import com.timesquare.repos.FriendRepository;
 import com.timesquare.repos.UserRepository;
-import com.timesquare.services.RequestService;
+import com.timesquare.services.FriendService;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RequestControllerTest {
+public class FriendControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	
-	private Request request;
+	private Friend friend;
 	
 	ObjectMapper mapper;
 	
 	@Autowired
-	private RequestRepository requestRepo;
-	
-	@Autowired
-	private RequestService requestService;
+	private FriendRepository friendRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private FriendService friendService;
 	
 	@BeforeEach
 	void setUp() {
 		
 		mapper = new ObjectMapper();
 		
-		User requester = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
+		User friender = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
@@ -75,129 +75,136 @@ public class RequestControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		requestRepo.save(new Request(new RequestId(2, 2), receiver, receiver));
-		requestRepo.save(new Request(new RequestId(2, 1), receiver, requester));
+		friendRepo.save(new Friend(new FriendId(2L, 2L), receiver, receiver));
+		friendRepo.save(new Friend(new FriendId(2L, 1L), receiver, friender));
 	
-		request = new Request(new RequestId(3, 2), receiver2, receiver);
+		friend = new Friend(new FriendId(3L, 2L), receiver2, receiver);
 	}
 	
 	@Test
-	void getAllRequests() throws Exception {
+	void getAllFriends() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/request")
+				.get("/api/friend")
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getAllUserRequests() throws Exception {
+	void getAllUserFriends() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/request/{receiverId}", 3L)
+				.get("/api/friend/{userId}", 3L)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getRequestById() throws Exception {
+	void getFriendById() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/request/{receiverId}/{requesterId}", 2, 2)
+				.get("/api/friend/{userId}/{friendId}", 2, 2)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
 	@Test
-	void getRequestByIdError() throws Exception {
+	void getFriendByIdError() throws Exception {
 		Exception thrown = assertThrows(
 				Exception.class,
-				() -> requestService.getRequestById(5L, 5L),
-				"No friend request was found"
-						+ " with requester id " + 5 + " and receiver"
-						+ " id " + 5);
-		assertTrue(thrown.getMessage().contains("No friend request was found"
-				+ " with requester id " + 5 + " and receiver"
-				+ " id " + 5));
+				() -> friendService.getFriendById(5L, 5L),
+				"User with the id " + 5 + ", does not"
+						+ " have a friend with id " + 5);
+		assertTrue(thrown.getMessage().contains("User with the id " + 5 + ", does not"
+				+ " have a friend with id " + 5));
 	}
 
 	@Test
-	void sendRequest() throws Exception {
-		MvcResult result = mockMvc.perform(post("/api/request/send")
+	void sendFriend() throws Exception {
+		MvcResult result = mockMvc.perform(post("/api/friend/add")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(request)))
+				.content(mapper.writeValueAsString(friend)))
 				.andExpect(status().isCreated())
 				.andReturn();
 		
-		assertEquals("Your friend request to " + request.getReceiver().getFirstName()
-				+ " " + request.getReceiver().getLastName() + " has been sent!",
-				result.getResponse().getContentAsString());
+		assertEquals(friend.getFriend().getFirstName() + " " + friend.getFriend().getLastName()
+				+ " is now your friend!", result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateRequest() throws Exception {
+	void updateFriend() throws Exception {
 		User receiver = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		User requester = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
+		User friender = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		request = new Request(new RequestId(2, 1), receiver, requester);
-		MvcResult result = mockMvc.perform(put("/api/request/update")
+		friend = new Friend(new FriendId(2L, 1L), receiver, friender);
+		MvcResult result = mockMvc.perform(put("/api/friend/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(request)))
+				.content(mapper.writeValueAsString(friend)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Your friend request to " + request.getReceiver().getFirstName() + " "
-				+ request.getReceiver().getLastName() + " has been updated.",
+		assertEquals("Your friend, " + friend.getUser().getFirstName() + " " 
+				+ friend.getUser().getLastName() + " has been updated.",
 				result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void updateRequestError() throws Exception {
-		MvcResult result = mockMvc.perform(put("/api/request/update")
+	void updateFriendError() throws Exception {
+		User receiver = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
+				"TaylorJ1208@example.com", "What a beautiful world!", "http",
+				new Date(55), "Raleigh, NC",
+				"Cary, NC", null, null, null, null, null, null, null,
+				null, null));
+		
+		User friender = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
+				"Janice@example.com", "Family, friends, and football!", "http",
+				new Date(65), "Oxford, NC",
+				"Raleigh, NC", null, null, null, null, null, null, null,
+				null, null));
+		friend = new Friend(new FriendId(3L, 4L), receiver, friender);
+		MvcResult result = mockMvc.perform(put("/api/friend/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(request)))
+				.content(mapper.writeValueAsString(friend)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No friend request to " + request.getReceiver().getFirstName() +
-				" " + request.getReceiver().getLastName() + " from " +
-				request.getRequester().getFirstName() + " " + 
-				request.getRequester().getLastName() + " was found.",
+		assertEquals("No friend found with the name " +
+				friend.getUser().getFirstName() + " " + friend.getUser().getLastName(),
 				result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteRequest() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/request/delete/{receiverId}/{requesterId}", 2, 2)
+	void deleteFriend() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/friend/delete/{userId}/{friendId}", 2, 2)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(request)))
+				.content(mapper.writeValueAsString(friend)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Friend request with id " + 2 + " has been removed.",
+		assertEquals("Your friend has been removed.",
 				result.getResponse().getContentAsString());
 	}
 	
 	@Test
-	void deleteRequestError() throws Exception {
-		MvcResult result = mockMvc.perform(delete("/api/request/delete/{receiverId}/{requesterId}", 5, 5)
+	void deleteFriendError() throws Exception {
+		MvcResult result = mockMvc.perform(delete("/api/friend/delete/{userId}/{friendId}", 5, 5)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(request)))
+				.content(mapper.writeValueAsString(friend)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("No friend request with id " + 5 + " was found.",
+		assertEquals("No friend exists with id " + 5,
 				result.getResponse().getContentAsString());
 	}
 }

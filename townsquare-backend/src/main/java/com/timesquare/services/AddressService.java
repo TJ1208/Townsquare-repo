@@ -51,7 +51,7 @@ public class AddressService {
 	public String removeAddress(Long addressId) {
 		if (addressRepo.findById(addressId).isPresent()) {
 			addressRepo.deleteById(addressId);
-			return "Users address has been deleted";
+			return "Users address has been deleted.";
 		}
 		return "Could not find address with id: " + addressId;
 	}

@@ -1,6 +1,8 @@
 package com.timesquare.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -23,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timesquare.models.User;
 import com.timesquare.repos.UserRepository;
+import com.timesquare.services.UserService;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
@@ -38,6 +41,9 @@ class UserControllerTest {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private UserService userService;
 	
 	@BeforeEach
 	void setUp() {
@@ -79,12 +85,26 @@ class UserControllerTest {
 	}
 	
 	@Test
+	void getUserByIdError() throws Exception {
+		Exception thrown = assertThrows(
+				Exception.class,
+				() -> userService.getUserById(5L),
+				"User not found with id: " + 5);
+		assertTrue(thrown.getMessage().contains("User not found with id: " + 5));
+	}
+	
+	@Test
 	void getUserByUsername() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
 				.get("/api/user/name/{username}", "Taylor")
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
+	}
+	
+	@Test
+	void getUserByNameError() throws Exception {
+		assertTrue(userService.getUserByUsername("TEST").isEmpty());
 	}
 	
 	@Test
@@ -120,6 +140,20 @@ class UserControllerTest {
 	}
 	
 	@Test
+	void updateUserError() throws Exception {
+		MvcResult result = mockMvc.perform(put("/api/user/update")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(user)))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		assertEquals("The requested account to update, " + user.getUsername()
+		+ " does not exist.",
+				result.getResponse().getContentAsString());
+	}
+	
+	@Test
 	void deleteUser() throws Exception {
 		mockMvc.perform(delete("/api/user/delete/{id}", 1)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -128,6 +162,18 @@ class UserControllerTest {
 				.andExpect(status().isOk());
 		
 		assertEquals(1, userRepo.count());
+			
+	}
+	
+	@Test
+	void deleteUserError() throws Exception {
+		mockMvc.perform(delete("/api/user/delete/{id}", 5)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(user)))
+				.andDo(print())
+				.andExpect(status().isOk());
+		
+		assertEquals(2, userRepo.count());
 			
 	}
 
