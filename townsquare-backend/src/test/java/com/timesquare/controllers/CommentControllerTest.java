@@ -156,15 +156,14 @@ public class CommentControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", user3, null);
-		Comment newComment = new Comment(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user3);
+		Comment newComment = new Comment(3L, "Wish I was there!!", new Date(110), 64L, 4L, post, user3);
 		MvcResult result = mockMvc.perform(put("/api/comment/update")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(newComment)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals(newComment.getUser().getFirstName() + " " + newComment.getUser().getLastName()
-				+ "'s comment was edited.", result.getResponse().getContentAsString());
+		assertEquals("No comment found with the id " + newComment.getCommentId(), result.getResponse().getContentAsString());
 	}
 	
 	@Test

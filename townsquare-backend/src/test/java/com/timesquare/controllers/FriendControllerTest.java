@@ -93,7 +93,7 @@ public class FriendControllerTest {
 	@Test
 	void getAllUserFriends() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/friend/{userId}", 3L)
+				.get("/api/friend/{userId}", 3)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());

@@ -35,9 +35,9 @@ public class RequestController {
 		return requestService.getAllRequests();
 	}
 	
-	@GetMapping("/{receiverId}")
-	public List<Request> getAllUserRequests(@PathVariable Long receiverId) {
-		return requestService.getAllUserRequests(receiverId);
+	@GetMapping("/{userId}")
+	public List<Request> getAllUserRequests(@PathVariable Long userId) {
+		return requestService.getAllUserRequests(userId);
 	}
 	
 	@GetMapping("/{receiverId}/{requesterId}")

@@ -147,7 +147,7 @@ public class ContactControllerTest {
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
-		Contact newContact = contact = new Contact(2L, "123-456-7890", "098-765-4321", "919-339-3801", user3);
+		Contact newContact = contact = new Contact(3L, "123-456-7890", "098-765-4321", "919-339-3801", user3);
 		
 		MvcResult result = mockMvc.perform(put("/api/contact/update")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -155,8 +155,9 @@ public class ContactControllerTest {
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals("Contact for " + newContact.getUser().getFirstName() +
-				" " + newContact.getUser().getLastName() + " has been updated.", result.getResponse().getContentAsString());
+		assertEquals("Contact with id " + contact.getContactId() 
+		+ " for " + contact.getUser().getFirstName() +
+		" " + contact.getUser().getLastName() + " was not found.", result.getResponse().getContentAsString());
 	}
 	
 	@Test

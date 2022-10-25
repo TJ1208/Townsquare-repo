@@ -150,7 +150,7 @@ public class AddressControllerTest {
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
-		Address newAddress = new Address(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
+		Address newAddress = new Address(3L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
 				"USA", null, user3);
 		
 		MvcResult result = mockMvc.perform(put("/api/address/update")
@@ -159,8 +159,9 @@ public class AddressControllerTest {
 				.andExpect(status().isOk())
 				.andReturn();
 		
-		assertEquals(newAddress.getUser().getFirstName() + newAddress.getUser().getLastName()
-				+ "'s address has been updated.", result.getResponse().getContentAsString());
+		assertEquals(newAddress.getUser().getFirstName() + newAddress.getUser().getLastName() +
+				"'s address has not been found with id: " 
+				+ newAddress.getAddressId(), result.getResponse().getContentAsString());
 	}
 	
 	@Test

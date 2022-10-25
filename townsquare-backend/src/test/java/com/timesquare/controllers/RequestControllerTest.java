@@ -93,7 +93,7 @@ public class RequestControllerTest {
 	@Test
 	void getAllUserRequests() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/api/request/{receiverId}", 3L)
+				.get("/api/request/{userId}", 2)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
