@@ -1,4 +1,4 @@
-package com.timesquare.models;
+package com.timesquare.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -9,6 +9,11 @@ import java.sql.Date;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.timesquare.models.FriendId;
+import com.timesquare.models.Post;
+import com.timesquare.models.RequestId;
+import com.timesquare.models.User;
 
 public class EqualsTest {
 	
@@ -25,9 +30,9 @@ public class EqualsTest {
 
 	@Test
 	void testAddressEquals() {
-		Address address = new Address(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
+		AddressDTO address = new AddressDTO(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
 				"USA", null, user);
-		Address newAddress = new Address(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
+		AddressDTO newAddress = new AddressDTO(2L, "Willow Springs", "NC", "1543 Middle Ridge Dr.", "27545",
 				"USA", null, user);
 		boolean equals = address.equals(newAddress);
 		assertEquals(true, equals);
@@ -42,8 +47,8 @@ public class EqualsTest {
 	@Test
 	void testCommentEquals() {
 		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
-		Comment comment = new Comment(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
-		Comment newComment = new Comment(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
+		CommentDTO comment = new CommentDTO(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
+		CommentDTO newComment = new CommentDTO(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
 		boolean equals = comment.equals(newComment);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -56,8 +61,8 @@ public class EqualsTest {
 	
 	@Test
 	void testContactEquals() {
-		Contact contact = new Contact(2L, "123-456-7890", "098-765-4321", "919-339-3801", user);
-		Contact newContact = new Contact(2L, "123-456-7890", "098-765-4321", "919-339-3801", user);
+		ContactDTO contact = new ContactDTO(2L, "123-456-7890", "098-765-4321", "919-339-3801", user);
+		ContactDTO newContact = new ContactDTO(2L, "123-456-7890", "098-765-4321", "919-339-3801", user);
 		boolean equals = contact.equals(newContact);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -70,9 +75,9 @@ public class EqualsTest {
 	
 	@Test
 	void testEducationEquals() {
-		Education education = new Education(2L, true, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
+		EducationDTO education = new EducationDTO(2L, true, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
 				"Fuquay-Varina Senior High School", "High School Diploma", user);
-		Education newEducation = new Education(2L, true, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
+		EducationDTO newEducation = new EducationDTO(2L, true, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
 				"Fuquay-Varina Senior High School", "High School Diploma", user);
 		boolean equals = education.equals(newEducation);
 		assertEquals(true, equals);
@@ -86,8 +91,8 @@ public class EqualsTest {
 	
 	@Test
 	void testFriendEquals() {
-		Friend friend = new Friend(new FriendId(3L, 3L), user, user);
-		Friend newFriend = new Friend(new FriendId(3L, 3L), user, user);
+		FriendDTO friend = new FriendDTO(new FriendId(3L, 3L), user, user);
+		FriendDTO newFriend = new FriendDTO(new FriendId(3L, 3L), user, user);
 		boolean equals = friend.equals(newFriend);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -100,8 +105,8 @@ public class EqualsTest {
 	
 	@Test
 	void testImageEquals() {
-		Image image = new Image(2L, "http", new java.sql.Date(55), user);
-		Image newImage = new Image(2L, "http", new java.sql.Date(55), user);
+		ImageDTO image = new ImageDTO(2L, "http", new java.sql.Date(55), user);
+		ImageDTO newImage = new ImageDTO(2L, "http", new java.sql.Date(55), user);
 		boolean equals = image.equals(newImage);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -114,8 +119,8 @@ public class EqualsTest {
 	
 	@Test
 	void testPostEquals() {
-		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
-		Post newPost = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		PostDTO post = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		PostDTO newPost = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
 		boolean equals = post.equals(newPost);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -128,8 +133,8 @@ public class EqualsTest {
 	
 	@Test
 	void testRequestEquals() {
-		Request request = new Request(new RequestId(3, 2), user, user);
-		Request newRequest = new Request(new RequestId(3, 2), user, user);
+		RequestDTO request = new RequestDTO(new RequestId(3, 2), user, user);
+		RequestDTO newRequest = new RequestDTO(new RequestId(3, 2), user, user);
 		boolean equals = request.equals(newRequest);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -142,11 +147,14 @@ public class EqualsTest {
 	
 	@Test
 	void testUserEquals() {
-		User newUser = new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
+		UserDTO user = new UserDTO(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
-				"Cary, NC", null, null, null, null, null, null, null,
-				null, null);
+				"Cary, NC", null);
+		UserDTO newUser = new UserDTO(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
+				"TaylorJ@example.com", "What a beautiful world!", "http",
+				new Date(55), "Raleigh, NC",
+				"Cary, NC", null);
 		boolean equals = user.equals(newUser);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
@@ -159,8 +167,8 @@ public class EqualsTest {
 	
 	@Test
 	void testWorkEquals() {
-		Work workplace = new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user);
-		Work newWorkplace = new Work(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user);
+		WorkDTO workplace = new WorkDTO(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user);
+		WorkDTO newWorkplace = new WorkDTO(2L, "Foodlion", "Grocery Manager", "Fuquay-Varina", null, null, null, user);
 		boolean equals = workplace.equals(newWorkplace);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
