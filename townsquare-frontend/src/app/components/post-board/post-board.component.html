@@ -1,0 +1,110 @@
+<div class="container-fluid width bg-white border">
+    <br>
+    <div class="container-fluid p-2 border bg-light" style="box-shadow: 0px 0px 10px lightgray;">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-3">
+                <img src="https://res.cloudinary.com/drukcz14j/image/upload/v1659727782/samples/sheep.jpg"
+                    alt="Bunch of sheep" style="border-radius: 50%; width: 8em; height: 8em;" class="point">
+            </div>
+            <div class="col-9">
+                <textarea class="form-control" style="height: 6em;" placeholder="Share your thoughts."></textarea>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-info d-flex flex-col p-1 m-1 align-items-center justify-content-center w-100">
+                    <span class="material-symbols-outlined p-1">
+                        photo_camera
+                    </span>
+                    OR
+                    <span class="material-symbols-outlined p-1">
+                        video_camera_front
+                    </span>
+                </button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-success w-100 m-1">POST</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-1 btn border" style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em;"
+    *ngFor="let post of posts;">
+        <div class="row p-1 m-0" style="border-bottom: 1px solid gray;">
+            <div class="col-2">
+                <img [src]="post.user.profileImg"
+                    alt="Bunch of sheep" style="border-radius: 50%; width: 6em; height: 6em;" class="point">
+            </div>
+            <div class="col-10" style="text-align: left;">
+                <div class="p-1">
+                    <a class="p-1 m-0" style="padding-left: 1em;">{{  post.user.firstName + " " + post.user.lastName  }}</a>
+                    <br>
+                    <a class="p-1 m-0" style="padding-left: 1em;">{{  post.date  }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="text-align: left; padding: 0.5em 0em 0.5em 2em;">
+            <div class="col-12">
+                {{  post.description  }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <img src="https://res.cloudinary.com/drukcz14j/image/upload/v1659727782/samples/sheep.jpg"
+                    alt="Bunch of sheep" style="width: 100%;">
+            </div>
+        </div>
+        <div class="row container-fluid p-1 border-top" style="margin: 1em 0em 0em 0em;">
+            <div class="col-4">
+                <button class="container-fluid btn like">
+                    <span class="material-symbols-outlined p-1 ">
+                        thumb_up
+                    </span>
+                </button>
+            </div>
+            <div class="col-4">
+                <button class="container-fluid btn dislike">
+                    <span class="material-symbols-outlined p-1 ">
+                        thumb_down
+                    </span>
+                </button>
+            </div>
+            <div class="col-4">
+                <button class="container-fluid btn share">
+                    <span class="material-symbols-outlined p-1">
+                        share
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="btn container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"
+        *ngFor="let comment of posts">
+            <div class="row container-fluid p-1 border-bottom m-0 bg-light">
+                <div class="col-1 p-0 m-0">
+                    <img [src]="comment.user.profileImg"
+                        alt="Bunch of sheep" style="border-radius: 50%; width: 4em; height: 4em;" class="point">
+
+                </div>
+                <div class="col-11" style="text-align: left;">
+                    <a class="m-0" style="padding-left: 1em;">{{  comment.user.firstName + " " + comment.user.lastName  }}</a>
+                    <br>
+                    <a class="m-0" style="padding-left: 1em;">{{  comment.date  }}</a>
+                </div>
+            </div>
+            <div class="row container-fluid p-2">
+                <div class="col-10" style="text-align: left; overflow-wrap:break-word;">
+                    <p>{{  comment.description  }}</p>
+                </div>
+                <div class="">
+                    <button class="btn like">
+                        <span class="material-symbols-outlined">
+                            thumb_up
+                        </span>
+                    </button>
+                    <button class="btn dislike">
+                        <span class="material-symbols-outlined">
+                            thumb_down
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

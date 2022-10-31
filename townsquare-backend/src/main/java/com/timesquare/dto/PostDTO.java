@@ -21,6 +21,7 @@ public class PostDTO {
 	private long dislikes;
 	private long shares;
 	private String imageUrl;
+	private java.sql.Date date;
 	private User user;
 	private List<Comment> comments;
 

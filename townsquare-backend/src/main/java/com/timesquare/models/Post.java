@@ -52,6 +52,9 @@ public class Post {
 	@Lob
 	private String imageUrl;
 	
+	@Column(name = "date")
+	private java.sql.Date date;
+	
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false)
 	private User user;

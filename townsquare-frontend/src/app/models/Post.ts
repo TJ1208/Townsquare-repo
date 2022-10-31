@@ -9,6 +9,7 @@ export interface Post {
     dislikes: number,
     shares: number,
     imageUrl: string,
+    date: Date,
     user: User,
     comments: Comment
 }

@@ -1,0 +1,14 @@
+a {
+    font-size: smaller;
+    color: black;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration:underline;
+    cursor: pointer;
+}
+
+div.btn:hover {
+    cursor:default;
+}
