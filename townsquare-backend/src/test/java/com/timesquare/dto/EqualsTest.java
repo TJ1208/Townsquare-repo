@@ -46,7 +46,7 @@ public class EqualsTest {
 	
 	@Test
 	void testCommentEquals() {
-		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
 		CommentDTO comment = new CommentDTO(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
 		CommentDTO newComment = new CommentDTO(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
 		boolean equals = comment.equals(newComment);
@@ -119,8 +119,8 @@ public class EqualsTest {
 	
 	@Test
 	void testPostEquals() {
-		PostDTO post = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
-		PostDTO newPost = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		PostDTO post = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
+		PostDTO newPost = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
 		boolean equals = post.equals(newPost);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);

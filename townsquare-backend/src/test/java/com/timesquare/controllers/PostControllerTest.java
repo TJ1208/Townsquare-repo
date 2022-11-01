@@ -73,10 +73,10 @@ public class PostControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		postRepo.save(new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", user1, null));
-		postRepo.save(new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user2, null));
+		postRepo.save(new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", null, user1, null));
+		postRepo.save(new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user2, null));
 	
-		post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user3, null);
+		post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user3, null);
 	}
 	
 	@Test
@@ -147,7 +147,7 @@ public class PostControllerTest {
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
-		Post newPost = post = new Post(3L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user3, null);
+		Post newPost = post = new Post(3L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user3, null);
 		
 		MvcResult result = mockMvc.perform(put("/api/post/update")
 				.contentType(MediaType.APPLICATION_JSON)

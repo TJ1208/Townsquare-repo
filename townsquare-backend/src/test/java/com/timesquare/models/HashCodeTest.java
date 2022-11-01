@@ -34,7 +34,7 @@ class HashCodeTest {
 	
 	@Test
 	void testCommentHashCode() {
-		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
 		Comment comment = new Comment(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
 		Comment newComment = new Comment(2L, "What a world we live in!", new Date(110), 64L, 4L, post, user);
 		assertEquals(comment.hashCode(), comment.hashCode());
@@ -77,8 +77,8 @@ class HashCodeTest {
 	
 	@Test
 	void testPostHashCode() {
-		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
-		Post newPost = new Post(2L, "A very good place!", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
+		Post newPost = new Post(2L, "A very good place!", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
 		assertEquals(post.hashCode(), post.hashCode());
 		assertNotEquals(newPost.hashCode(), post.hashCode());
 	}

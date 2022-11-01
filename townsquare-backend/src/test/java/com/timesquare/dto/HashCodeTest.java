@@ -39,7 +39,7 @@ class HashCodeTest {
 	
 	@Test
 	void testCommentDTOHashCode() {
-		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		Post post = new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
 		CommentDTO comment = new CommentDTO(2L, "Wish I was there!!", new Date(110), 64L, 4L, post, user);
 		CommentDTO newCommentDTO = new CommentDTO(2L, "What a world we live in!", new Date(110), 64L, 4L, post, user);
 		assertEquals(comment.hashCode(), comment.hashCode());
@@ -82,8 +82,8 @@ class HashCodeTest {
 	
 	@Test
 	void testPostDTOHashCode() {
-		PostDTO post = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
-		PostDTO newPostDTO = new PostDTO(2L, "A very good place!", "It just stinked all the time :(", 1L, 2L, 3L, "http", user, null);
+		PostDTO post = new PostDTO(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
+		PostDTO newPostDTO = new PostDTO(2L, "A very good place!", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user, null);
 		assertEquals(post.hashCode(), post.hashCode());
 		assertNotEquals(newPostDTO.hashCode(), post.hashCode());
 	}

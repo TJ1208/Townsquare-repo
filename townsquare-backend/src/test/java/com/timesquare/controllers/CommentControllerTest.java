@@ -78,7 +78,7 @@ public class CommentControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
 		
-		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", user1, null);
+		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", null, user1, null);
 		postRepo.save(post);
 		
 		commentRepo.save(new Comment(1L, "This is an amazing view!", new Date(85), 15L, 15L, post, user1));
@@ -155,7 +155,7 @@ public class CommentControllerTest {
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null));
-		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", user3, null);
+		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", null, user3, null);
 		Comment newComment = new Comment(3L, "Wish I was there!!", new Date(110), 64L, 4L, post, user3);
 		MvcResult result = mockMvc.perform(put("/api/comment/update")
 				.contentType(MediaType.APPLICATION_JSON)

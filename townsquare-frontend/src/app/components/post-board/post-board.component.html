@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid p-1 btn border" style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em;"
+    <div class="container-fluid p-1 btn border bg-white" style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em;"
     *ngFor="let post of posts;">
         <div class="row p-1 m-0" style="border-bottom: 1px solid gray;">
             <div class="col-2">
@@ -74,9 +74,10 @@
                 </button>
             </div>
         </div>
-        <div class="btn container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"
-        *ngFor="let comment of posts">
-            <div class="row container-fluid p-1 border-bottom m-0 bg-light">
+        <a class="nav-link p-1" style="text-align: right;">{{  showComments ? "hide" : "show"  }} comments {{  post.comments }}</a>
+        <div class="btn shadow-none bg-light container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"
+        *ngFor="let comment of getCommentsByPost(post.postId)" [hidden]="!showComments">
+            <div class="row container-fluid p-1 border-bottom m-0 bg-white">
                 <div class="col-1 p-0 m-0">
                     <img [src]="comment.user.profileImg"
                         alt="Bunch of sheep" style="border-radius: 50%; width: 4em; height: 4em;" class="point">
@@ -85,12 +86,12 @@
                 <div class="col-11" style="text-align: left;">
                     <a class="m-0" style="padding-left: 1em;">{{  comment.user.firstName + " " + comment.user.lastName  }}</a>
                     <br>
-                    <a class="m-0" style="padding-left: 1em;">{{  comment.date  }}</a>
+                    <a class="m-0" style="padding-left: 1em;">{{  comment.commentDate  }}</a>
                 </div>
             </div>
             <div class="row container-fluid p-2">
                 <div class="col-10" style="text-align: left; overflow-wrap:break-word;">
-                    <p>{{  comment.description  }}</p>
+                    <p>{{  comment.comment  }}</p>
                 </div>
                 <div class="">
                     <button class="btn like">

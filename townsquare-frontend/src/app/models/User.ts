@@ -20,13 +20,13 @@ export interface User {
     date: Date,
     birthplace: string,
     homeTown: string,
-    addresses: Address,
-    users: User,
-    friends: Friend,
+    addresses: Address[],
+    users: User[],
+    friends: Friend[],
     images: Image,
-    contacts: Contact,
-    workplaces: Work,
-    educations: Education,
-    posts: Post,
-    comments: Comment
+    contacts: Contact[],
+    workplaces: Work[],
+    educations: Education[],
+    posts: Post[],
+    comments: Comment[]
 }
