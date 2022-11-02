@@ -22,7 +22,7 @@ export class CommentService {
     return this.http.get<Comment>(`http://localhost:8181/api/comment/id/${commentId}`);
   }
 
-  addComment(comment: Comment): Observable<String> {
+  addComment(comment: Comment): Observable<any> {
     return this.http.post<String>(`http://localhost:8181/api/comment/add`, comment);
   }
 

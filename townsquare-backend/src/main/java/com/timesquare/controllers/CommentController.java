@@ -48,9 +48,10 @@ public class CommentController {
 	
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addComment(@RequestBody CommentDTO commentDTO) {
+	public void addComment(@RequestBody CommentDTO commentDTO) {
 		Comment comment = dtoToEntity(commentDTO);
-		return commentService.addComment(comment);
+		commentService.addComment(comment);
+//		return commentService.addComment(comment);
 	}
 	
 	@PutMapping("/update")

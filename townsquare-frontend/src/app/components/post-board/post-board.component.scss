@@ -12,3 +12,39 @@ a:hover {
 div.btn:hover {
     cursor:default;
 }
+
+.hide-comment-box {
+    height: 0em;
+    position: fixed;
+    z-index: -999;
+   
+}
+
+.hide-comments { 
+    max-height: 0;
+    position: fixed;
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+}
+
+.show-comments {
+    max-height: 500px;
+    transition: max-height 0.3s ease-in;
+}
+
+.show-comment-box {
+    transition: 0.3s;
+    height: 4em;
+}
+
+.show-slider {
+    max-height: 500px;
+    transition: max-height 0.3s ease-in;
+    overflow-x: hidden;
+}
+
+.hide-slider {
+    max-height: 0;
+    position: fixed;
+    transition: max-height 0.3s ease-out;
+}

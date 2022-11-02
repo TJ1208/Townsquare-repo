@@ -30,10 +30,10 @@ public class CommentService {
 				() -> new Exception("Comment not found with id " + commentId));
 	}
 	
-	public String addComment(Comment comment) {
+	public void addComment(Comment comment) {
 		commentRepo.save(comment);
-		return comment.getUser().getFirstName() + " " + comment.getUser().getLastName()
-				+ " commented on your post!";
+//		return comment.getUser().getFirstName() + " " + comment.getUser().getLastName()
+//				+ " commented on your post!";
 	}
 	
 	public String updateComment(Comment comment) {

@@ -3,6 +3,7 @@ $secondary-color: black;
 $like-color: #5cb85c;
 $dislike-color: #d9534f;
 $share-color: #5bc0de;
+$comment-color: #0274d87b;
 
 html, body {
     font-family: 'IBM Plex Mono', monospace;
@@ -27,6 +28,11 @@ html, body {
         .show-search {
             display: block;
         }
+        .img-shrink {
+            border-radius: 50%; 
+            width: 8em; 
+            height: 8em;
+        }
         .hide-search {
           display: none;
         }
@@ -35,6 +41,11 @@ html, body {
     @media (max-width: 730px) {
         .show-search {
           display: none;
+        }
+        .img-shrink {
+            border-radius: 50%; 
+            width: 6.5em; 
+            height: 6.5em;
         }
         .hide-search {
             display: block;
@@ -45,6 +56,22 @@ html, body {
         .width {
             width: 35em;
         }
+      }
+
+      .like {
+        color: $like-color;
+      }
+
+      .dislike {
+        color: $dislike-color;
+      }
+
+      .comment {
+        color: $comment-color;
+      }
+
+      .share {
+        color: $share-color;
       }
 
       .point:hover {
@@ -71,4 +98,18 @@ html, body {
         }
         background-color: $share-color;
     }
+    
+    .comment-selected {
+        background-color: $comment-color;
+        color: white;
+    }
+
+    .comment:hover {
+        .material-symbols-outlined {
+            color:white;
+        }
+        background-color: $comment-color;
+    }
+
+    
 }

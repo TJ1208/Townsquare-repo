@@ -11,5 +11,7 @@ export interface Post {
     imageUrl: string,
     date: Date,
     user: User,
-    comments: Comment
+    comments: Comment,
+    showComments: false,
+    showCommentBox: false
 }
