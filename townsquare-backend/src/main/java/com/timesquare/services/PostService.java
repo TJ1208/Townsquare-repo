@@ -30,10 +30,8 @@ public class PostService {
 				() -> new Exception("Post not found with id " + postId));
 	}
 	
-	public String addPost(Post post) {
+	public void addPost(Post post) {
 		postRepo.save(post);
-		return post.getUser().getFirstName() + " " + post.getUser().getLastName()
-				+ " just posted!";
 	}
 	
 	public String updatePost(Post post) {

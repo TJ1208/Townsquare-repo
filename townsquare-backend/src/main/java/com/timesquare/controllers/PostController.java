@@ -48,9 +48,9 @@ public class PostController {
 	
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addPost(@RequestBody PostDTO postDTO) {
+	public void addPost(@RequestBody PostDTO postDTO) {
 		Post post = dtoToEntity(postDTO);
-		return postService.addPost(post);
+		postService.addPost(post);
 	}
 	
 	@PutMapping("/update")

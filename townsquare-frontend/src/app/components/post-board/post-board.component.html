@@ -7,14 +7,14 @@
                     alt="Bunch of sheep" class="point img-shrink">
             </div>
             <div class="col-9">
-                <textarea class="form-control form-control-sm" style="height: 8em;"
-                    placeholder="Share your thoughts."></textarea>
+                <textarea class="form-control form-control-sm" style="height: 8em;" placeholder="Share your thoughts."
+                    [(ngModel)]="post.description"></textarea>
             </div>
             <div class="col-4">
-                <textarea hidden type="text" class="form-control" id="imageuri" required
-                name="imageuri" [(ngModel)]="imageUrl"></textarea>
+                <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
+                    [(ngModel)]="post.imageUrl"></textarea>
                 <button class="btn btn-info d-flex flex-col p-1 m-1 align-items-center justify-content-center w-100"
-                onclick="openWidget()" id="upload_widget">
+                    onclick="openWidget()" id="upload_widget">
                     <span class="material-symbols-outlined p-1">
                         photo_camera
                     </span>
@@ -25,20 +25,21 @@
                 </button>
             </div>
             <div class="col-4">
-                <button class="btn btn-success w-100 m-1">POST</button>
+                <button class="btn btn-success w-100 m-1" (click)="addPost();"
+                    [disabled]="!post.description.trim()">POST</button>
             </div>
         </div>
     </div>
-    <div class="container-fluid p-1 btn border bg-white" style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em;"
-        *ngFor="let post of posts;">
+    <div class="container-fluid p-1 btn border bg-white d-flex flex-column" style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; width: 90%;"
+        *ngFor="let post of posts | slice:0:scrollCount;">
         <div class="row p-1 m-0" style="border-bottom: 1px solid gray;">
             <div class="col-2">
                 <img [src]="post.user.profileImg" alt="Bunch of sheep"
                     style="border-radius: 50%; width: 6em; height: 6em;" class="point">
             </div>
-            <div class="col-10" style="text-align: left;">
-                <div class="p-1">
-                    <a class="nav-link p-0 m-0" style="padding-left: 1em;">{{ post.user.firstName + " " +
+            <div class="col-10" style="text-align: left; padding-left: 1em;">
+                <div>
+                    <a class="nav-link">{{ post.user.firstName + " " +
                         post.user.lastName }}
                         <br>{{ formatDate(post.date) }}</a>
                 </div>
@@ -50,37 +51,50 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <img src="https://res.cloudinary.com/drukcz14j/image/upload/v1659727782/samples/sheep.jpg"
-                    alt="Bunch of sheep" style="width: 100%;">
+            <div class="col-12"
+            [hidden]="!post.imageUrl.trim() ||
+                !(post.imageUrl.endsWith('.jpeg') || post.imageUrl.endsWith('.png') || post.imageUrl.endsWith('.jpg'))">
+                <img [src]="post.imageUrl" style="width: 100%;">
+            </div>
+            <div class="col-12"
+            [hidden]="!(post.imageUrl.endsWith('.mov') || post.imageUrl.endsWith('.webm') || post.imageUrl.endsWith('.mp4'))">
+                <video controls class="w-100">
+                <source [src]="post.imageUrl"
+                [type]="'video/' + post.imageUrl.substring(posts[0].imageUrl.lastIndexOf('.') + 1)">
+                </video>
             </div>
         </div>
         <div class="row container-fluid p-1 border-top" style="margin: 1em 0em 0em 0em;">
             <div class="col-3">
                 <button class="container-fluid btn comment" (click)="displayCommentBox(post)"
                     [ngClass]="{'comment-selected': post.showCommentBox}">
-                    <span class="material-symbols-outlined p-1">
+                    <span class="material-symbols-outlined">
                         comment
                     </span>
                 </button>
             </div>
             <div class="col-3">
-                <button class="container-fluid btn like">
-                    <span class="material-symbols-outlined p-1 ">
+                <button class="container-fluid btn like" (click)="post.isLiked = !post.isLiked; post.isDisliked = false; updatePost(post)"
+                [ngClass]="{'like-pressed': post.isLiked}">
+                    <span class="material-symbols-outlined">
                         thumb_up
                     </span>
+                    <p>{{  post.likes  }}</p>
                 </button>
             </div>
             <div class="col-3">
-                <button class="container-fluid btn dislike">
-                    <span class="material-symbols-outlined p-1 ">
+                <button class="container-fluid btn dislike" 
+                (click)="post.isDisliked = !post.isDisliked; post.isLiked = false; updatePost(post)"
+                [ngClass]="{'dislike-pressed': post.isDisliked}">
+                    <span class="material-symbols-outlined">
                         thumb_down
                     </span>
+                    <p>{{  post.dislikes  }}</p>
                 </button>
             </div>
             <div class="col-3">
                 <button class="container-fluid btn share">
-                    <span class="material-symbols-outlined p-1">
+                    <span class="material-symbols-outlined">
                         share
                     </span>
                 </button>
@@ -93,24 +107,23 @@
                 [(ngModel)]="comment"></textarea>
             <button class="btn share m-1" (click)="postComment(post, comment)"
                 [ngClass]="{'show-comment-box':post.showCommentBox, 'hide-comment-box': !post.showCommentBox}"
-                [disabled]="!comment">
+                [disabled]="!comment.trim()" (click)="comment = ''; changeIcon()">
                 <span class="material-symbols-outlined">
-                    send
+                    {{  sendIcon  }} 
                 </span>
-            </button>
+            </button> 
+            <b *ngIf="sendIcon == 'check'" class="text-success p-0 m-0 nav-link">Sent!</b>
         </div>
         <a class="nav-link p-1" (click)="displayComments(post)" style="text-align: right;">{{ post.showComments ? "hide"
             : "show" }} comments({{ getCommentsCount(post.postId) }})</a>
         <button class="container-fluid btn" style="overflow-y: scroll;"
-        [ngClass]="{'show-slider': post.showComments, 'hide-slider': !post.showComments}">
+            [ngClass]="{'show-slider': post.showComments, 'hide-slider': !post.showComments}">
             <div class="btn shadow-none bg-light container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"
                 *ngFor="let comment of getCommentsByPost(post.postId)">
-                <!-- [hidden]="!post.showComments" -->
                 <div class="row p-1 border-bottom m-0 bg-white">
                     <div class="col-1 p-0 m-0">
                         <img [src]="comment.user.profileImg" alt="Bunch of sheep"
                             style="border-radius: 50%; width: 4em; height: 4em;" class="point">
-
                     </div>
                     <div class="col-11" style="text-align: left;">
                         <a class="nav-link" style="padding-left: 1em;">{{ comment.user.firstName + " " +
@@ -137,7 +150,5 @@
                 </div>
             </div>
         </button>
-
-
     </div>
 </div>

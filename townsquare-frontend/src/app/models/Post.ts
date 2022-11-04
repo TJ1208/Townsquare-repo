@@ -11,7 +11,8 @@ export interface Post {
     imageUrl: string,
     date: Date,
     user: User,
-    comments: Comment,
-    showComments: false,
-    showCommentBox: false
+    showComments?: boolean,
+    showCommentBox?: boolean,
+    isLiked?: boolean,
+    isDisliked?: boolean
 }

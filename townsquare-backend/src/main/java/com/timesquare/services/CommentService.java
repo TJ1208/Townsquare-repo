@@ -32,8 +32,6 @@ public class CommentService {
 	
 	public void addComment(Comment comment) {
 		commentRepo.save(comment);
-//		return comment.getUser().getFirstName() + " " + comment.getUser().getLastName()
-//				+ " commented on your post!";
 	}
 	
 	public String updateComment(Comment comment) {

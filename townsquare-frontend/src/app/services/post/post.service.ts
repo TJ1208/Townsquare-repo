@@ -22,7 +22,7 @@ export class PostService {
     return this.http.get<Post>(`http://localhost:8181/api/post/id/${postId}`);
   }
 
-  addPost(post: Post): Observable<String> {
+  addPost(post: Post): Observable<any> {
     return this.http.post<String>(`http://localhost:8181/api/post/add`, post);
   }
 

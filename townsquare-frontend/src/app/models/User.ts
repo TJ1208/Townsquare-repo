@@ -19,14 +19,5 @@ export interface User {
     backgroundImg: string,
     date: Date,
     birthplace: string,
-    homeTown: string,
-    addresses: Address[],
-    users: User[],
-    friends: Friend[],
-    images: Image,
-    contacts: Contact[],
-    workplaces: Work[],
-    educations: Education[],
-    posts: Post[],
-    comments: Comment[]
+    homeTown: string
 }

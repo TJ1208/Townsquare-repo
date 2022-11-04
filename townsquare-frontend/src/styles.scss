@@ -1,115 +1,141 @@
 $base-color: #5bc0de;
-$secondary-color: black;
+$secondary-color: #292b2c4e;
 $like-color: #5cb85c;
 $dislike-color: #d9534f;
 $share-color: #5bc0de;
 $comment-color: #0274d87b;
 
-html, body {
-    font-family: 'IBM Plex Mono', monospace;
-    background-color: whitesmoke;
-    .material-symbols-rounded {
-        font-size: xx-large;
-        background-color: white;
+html,
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  background-color: whitesmoke;
+
+  .material-symbols-rounded {
+    font-size: xx-large;
+    background-color: white;
+  }
+
+  .material-symbols-rounded:hover {
+    transition: 0.2s;
+    color: white;
+    background-color: $base-color;
+  }
+
+  span.active {
+    color: white;
+    background-color: $base-color;
+  }
+
+  @media (min-width: 730px) {
+    .show-search {
+      display: block;
     }
 
-    .material-symbols-rounded:hover {
-        transition: 0.2s;
-        color: white;
-        background-color: $base-color;
+    .img-shrink {
+      border-radius: 50%;
+      width: 8em;
+      height: 8em;
     }
 
-    span.active {
-        color: white;
-        background-color: $base-color;
+    .hide-search {
+      display: none;
+    }
+  }
+
+  @media (max-width: 730px) {
+    .show-search {
+      display: none;
     }
 
-    @media (min-width: 730px) {
-        .show-search {
-            display: block;
-        }
-        .img-shrink {
-            border-radius: 50%; 
-            width: 8em; 
-            height: 8em;
-        }
-        .hide-search {
-          display: none;
-        }
-      }
-    
-    @media (max-width: 730px) {
-        .show-search {
-          display: none;
-        }
-        .img-shrink {
-            border-radius: 50%; 
-            width: 6.5em; 
-            height: 6.5em;
-        }
-        .hide-search {
-            display: block;
-        }
-      }
-
-      @media (min-width: 730px) {
-        .width {
-            width: 35em;
-        }
-      }
-
-      .like {
-        color: $like-color;
-      }
-
-      .dislike {
-        color: $dislike-color;
-      }
-
-      .comment {
-        color: $comment-color;
-      }
-
-      .share {
-        color: $share-color;
-      }
-
-      .point:hover {
-        cursor: pointer;
-      }
-
-      .like:hover {
-        .material-symbols-outlined {
-            color:white;
-        }
-        background-color: $like-color;
-    }
-    
-    .dislike:hover {
-        .material-symbols-outlined {
-            color:white;
-        }
-        background-color: $dislike-color;
-    }
-    
-    .share:hover {
-        .material-symbols-outlined {
-            color:white;
-        }
-        background-color: $share-color;
-    }
-    
-    .comment-selected {
-        background-color: $comment-color;
-        color: white;
+    .img-shrink {
+      border-radius: 50%;
+      width: 6.5em;
+      height: 6.5em;
     }
 
-    .comment:hover {
-        .material-symbols-outlined {
-            color:white;
-        }
-        background-color: $comment-color;
+    .hide-search {
+      display: block;
+    }
+  }
+
+  @media (min-width: 730px) {
+    .width {
+      width: 35em;
+    }
+  }
+
+  .like {
+    color: $like-color;
+  }
+
+  .dislike {
+    color: $dislike-color;
+  }
+
+  .comment {
+    color: $comment-color;
+  }
+
+  .share {
+    color: $share-color;
+  }
+
+  .point:hover {
+    cursor: pointer;
+  }
+
+  .like:hover {
+    .material-symbols-outlined {
+      color: white;
     }
 
-    
+    background-color: $like-color;
+  }
+
+  .dislike:hover {
+    .material-symbols-outlined {
+      color: white;
+    }
+
+    background-color: $dislike-color;
+  }
+
+  .dislike-pressed {
+    .material-symbols-outlined {
+      color: white;
+    }
+    border: 0.5px solid lightgray;
+    background-color: $dislike-color;
+  }
+
+  .like-pressed {
+    .material-symbols-outlined {
+      color: white;
+    }
+    border: 0.5px solid lightgray;
+    background-color: $like-color;
+  }
+
+  .share:hover {
+    .material-symbols-outlined {
+      color: white;
+    }
+
+    background-color: $share-color;
+  }
+
+  .comment-selected {
+    background-color: $comment-color;
+    color: white;
+  }
+
+  .comment:hover {
+    .material-symbols-outlined {
+      color: white;
+    }
+
+    background-color: $comment-color;
+  }
+
+
 }

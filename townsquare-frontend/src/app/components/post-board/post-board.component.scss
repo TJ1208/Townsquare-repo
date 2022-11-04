@@ -46,5 +46,7 @@ div.btn:hover {
 .hide-slider {
     max-height: 0;
     position: fixed;
+    z-index: -999;
     transition: max-height 0.3s ease-out;
 }
+

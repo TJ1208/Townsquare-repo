@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/Post';
 import { Comment } from 'src/app/models/Comment';
 import { CommentService } from 'src/app/services/comment/comment.service';
@@ -12,14 +12,45 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class PostBoardComponent implements OnInit {
   posts: Post[] = [];
+
   comments$ = new BehaviorSubject<Comment[]>([]);
   cast = this.comments$.asObservable();
+  posts$ = new BehaviorSubject<Post[]>([]);
+  castPost = this.posts$.asObservable();
   comments: Comment[] = [];
-  comment?: Comment;
+  comment: string = "";
+  imageUrl?: string;
   showComments: boolean = false;
   showCommentBox: boolean = false;
-  imageUrl?: string = "";
-  constructor(private postService: PostService, private commentService: CommentService) { }
+  sendIcon: string = "send";
+  scrollCount: number = 10;
+  post: Post = {
+    postId: 0,
+    title: "",
+    description: "",
+    likes: 0,
+    dislikes: 0,
+    shares: 0,
+    imageUrl: "",
+    date: new Date(new Date().getTime() + 8.64e+7),
+    user: {
+      backgroundImg: "http",
+      birthplace: "Rutherdforton, NC",
+      date: new Date("2022-10-31"),
+      email: "AvaCutie2007@yahoo.com",
+      firstName: "Ava",
+      homeTown: "Oxford, NC",
+      lastName: "Perrault",
+      password: "$2a$10$o9BjXSGDicgZ46WHT0xidOAkgUlgM63kf4I7eRucgmF4l8WEdsWfe",
+      profileBio: "Sparkle time!",
+      profileImg: "https://res.cloudinary.com/dwzhlnnwa/image/upload/v1667248607/townsquare/IMG_0907_pxnzza.jpg",
+      userId: 1,
+      username: "AvaCutie2007"
+    }
+  };
+  constructor(private postService: PostService, private commentService: CommentService) {
+
+  }
 
   ngOnInit(): void {
     this.getPosts();
@@ -27,23 +58,46 @@ export class PostBoardComponent implements OnInit {
     this.cast.subscribe((comments) => {
       this.comments = comments;
     })
+    this.castPost.subscribe((posts) => {
+      this.posts = posts;
+    })
   }
 
   retrieveComments(comments: Comment[]) {
     this.comments$.next(comments);
   }
 
+  retrievePosts(posts: Post[]) {
+    this.posts$.next(posts);
+  }
+
+  changeIcon(): void {
+    this.sendIcon = "check";
+    setTimeout(() => {
+      this.sendIcon = "send";
+    }, 2500);
+  }
+
   getPosts(): void {
-    this.postService.getAllPosts().subscribe((posts: Post[]) => {
-      this.posts = posts;
+    this.postService.getAllPosts().subscribe((posts: any) => {
+      this.castPost = posts;
+      this.retrievePosts(posts);
       console.log(posts);
+      console.log(posts[0].imageUrl.substring(posts[0].imageUrl.lastIndexOf('.') + 1));
     })
+  }
+
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY + 2000) >= document.body.offsetHeight) {
+      this.scrollCount += 10;
+    }
   }
 
   getComments(): void {
     this.commentService.getAllComments().subscribe((comments: any) => {
       this.cast = comments;
-      this.comments = comments;
+      // this.comments = comments;
       console.log(comments);
       this.retrieveComments(comments);
     })
@@ -87,7 +141,49 @@ export class PostBoardComponent implements OnInit {
     this.commentService.addComment(commentData).subscribe(() => {
       this.getComments();
       this.getCommentsByPost(post.postId);
+      this.imageUrl = "";
     });
   }
 
+  addPost(): void {
+    this.post.imageUrl = (<HTMLInputElement>document.getElementById("imageuri")).value;
+    this.postService.addPost(this.post).subscribe(() => {
+      this.getPosts();
+    })
+    console.log(this.post);
+    this.post.description = "";
+    this.post.imageUrl = "";
+  }
+
+  updatePost(post: Post): void {
+    if (post.isLiked) {
+      if (!post.isDisliked) {
+        post.likes += 1;
+        this.postService.updatePost(post).subscribe();
+      } else {
+        post.likes -= 1;
+        this.postService.updatePost(post).subscribe();
+      }
+    } else {
+      post.likes -= 1;
+      this.postService.updatePost(post).subscribe();
+      post.dislikes += 1;
+      this.postService.updatePost(post).subscribe();
+    }
+
+    if (post.isDisliked) {
+      if (!post.isLiked) {
+        post.dislikes += 1;
+        this.postService.updatePost(post).subscribe();
+      } else {
+        post.dislikes -= 1;
+        this.postService.updatePost(post).subscribe();
+      }
+    } else {
+      post.dislikes -= 1;
+      this.postService.updatePost(post).subscribe();
+      post.likes += 1;
+      this.postService.updatePost(post).subscribe();
+    }
+  }
 }
