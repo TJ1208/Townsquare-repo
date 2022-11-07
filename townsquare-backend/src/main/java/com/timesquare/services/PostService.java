@@ -34,13 +34,10 @@ public class PostService {
 		postRepo.save(post);
 	}
 	
-	public String updatePost(Post post) {
+	public void updatePost(Post post) {
 		if (postRepo.findById(post.getPostId()).isPresent()) {
 			postRepo.save(post);
-			return post.getUser().getFirstName() + " " + post.getUser().getLastName()
-					+ "'s post has been updated.";
 		}
-		return "No Post found with the id " + post.getPostId();
 	}
 	
 	public String deletePost(Long postId) {

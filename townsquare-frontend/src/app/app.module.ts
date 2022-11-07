@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PostBoardComponent } from './components/post-board/post-board.component';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    PostBoardComponent
+    PostBoardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

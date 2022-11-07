@@ -42,10 +42,10 @@ export class PostBoardComponent implements OnInit {
       homeTown: "Oxford, NC",
       lastName: "Perrault",
       password: "$2a$10$o9BjXSGDicgZ46WHT0xidOAkgUlgM63kf4I7eRucgmF4l8WEdsWfe",
-      profileBio: "Sparkle time!",
-      profileImg: "https://res.cloudinary.com/dwzhlnnwa/image/upload/v1667248607/townsquare/IMG_0907_pxnzza.jpg",
-      userId: 1,
-      username: "AvaCutie2007"
+      profileBio: "One dribble at a time.",
+      profileImg: "https://res.cloudinary.com/dwzhlnnwa/image/upload/v1667845037/townsquare/IMG_1173_rqgkm0.jpg",
+      userId: 2,
+      username: "AvaCutie2007@yahoo.com"
     }
   };
   constructor(private postService: PostService, private commentService: CommentService) {
@@ -97,8 +97,6 @@ export class PostBoardComponent implements OnInit {
   getComments(): void {
     this.commentService.getAllComments().subscribe((comments: any) => {
       this.cast = comments;
-      // this.comments = comments;
-      console.log(comments);
       this.retrieveComments(comments);
     })
   }
@@ -155,35 +153,25 @@ export class PostBoardComponent implements OnInit {
     this.post.imageUrl = "";
   }
 
-  updatePost(post: Post): void {
-    if (post.isLiked) {
-      if (!post.isDisliked) {
+  updatePost(post: Post, e: Event): void {
+    if ((e.target as HTMLInputElement).value == "like") {
+      if (post.isLiked) {
         post.likes += 1;
         this.postService.updatePost(post).subscribe();
-      } else {
+        return;
+      } else if (!post.isLiked) {
         post.likes -= 1;
         this.postService.updatePost(post).subscribe();
       }
-    } else {
-      post.likes -= 1;
-      this.postService.updatePost(post).subscribe();
-      post.dislikes += 1;
-      this.postService.updatePost(post).subscribe();
-    }
-
-    if (post.isDisliked) {
-      if (!post.isLiked) {
+    } else if ((e.target as HTMLInputElement).value == "dislike") {
+      if (post.isDisliked) {
         post.dislikes += 1;
         this.postService.updatePost(post).subscribe();
-      } else {
+        return;
+      } else if (!post.isDisliked) {
         post.dislikes -= 1;
         this.postService.updatePost(post).subscribe();
       }
-    } else {
-      post.dislikes -= 1;
-      this.postService.updatePost(post).subscribe();
-      post.likes += 1;
-      this.postService.updatePost(post).subscribe();
     }
   }
 }

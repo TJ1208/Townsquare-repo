@@ -30,7 +30,8 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid p-1 btn border bg-white d-flex flex-column" style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; width: 90%;"
+    <div class="container-fluid p-1 btn border bg-white d-flex flex-column"
+        style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; width: 90%;"
         *ngFor="let post of posts | slice:0:scrollCount;">
         <div class="row p-1 m-0" style="border-bottom: 1px solid gray;">
             <div class="col-2">
@@ -52,19 +53,29 @@
         </div>
         <div class="row">
             <div class="col-12"
-            [hidden]="!post.imageUrl.trim() ||
+                [hidden]="!post.imageUrl.trim() ||
                 !(post.imageUrl.endsWith('.jpeg') || post.imageUrl.endsWith('.png') || post.imageUrl.endsWith('.jpg'))">
                 <img [src]="post.imageUrl" style="width: 100%;">
             </div>
             <div class="col-12"
-            [hidden]="!(post.imageUrl.endsWith('.mov') || post.imageUrl.endsWith('.webm') || post.imageUrl.endsWith('.mp4'))">
+                [hidden]="!(post.imageUrl.endsWith('.mov') || post.imageUrl.endsWith('.webm') || post.imageUrl.endsWith('.mp4'))">
                 <video controls class="w-100">
-                <source [src]="post.imageUrl"
-                [type]="'video/' + post.imageUrl.substring(posts[0].imageUrl.lastIndexOf('.') + 1)">
+                    <source [src]="post.imageUrl"
+                        [type]="'video/' + post.imageUrl.substring(posts[0].imageUrl.lastIndexOf('.') + 1)">
                 </video>
             </div>
+                <a class="container-fluid" style="text-align: right; text-decoration: none; cursor:default;">
+                {{ post.likes }}<span class="material-symbols-outlined text-success" style="font-size: medium;">
+                    thumb_up
+                </span>
+                {{ post.dislikes }}<span class="material-symbols-outlined text-danger" style="font-size: medium;">
+                    thumb_down
+                </span>
+                {{ post.shares }}<span class="material-symbols-outlined text-info" style="font-size: medium;">
+                    share
+                </span></a>
         </div>
-        <div class="row container-fluid p-1 border-top" style="margin: 1em 0em 0em 0em;">
+        <div class="row container-fluid p-1 border-top" style="margin: 0.2em 0em 0em 0em;">
             <div class="col-3">
                 <button class="container-fluid btn comment" (click)="displayCommentBox(post)"
                     [ngClass]="{'comment-selected': post.showCommentBox}">
@@ -74,22 +85,21 @@
                 </button>
             </div>
             <div class="col-3">
-                <button class="container-fluid btn like" (click)="post.isLiked = !post.isLiked; post.isDisliked = false; updatePost(post)"
-                [ngClass]="{'like-pressed': post.isLiked}">
+                <button class="container-fluid btn like"
+                    (click)="post.isLiked = !post.isLiked; post.isDisliked = false; updatePost(post, $event)"
+                    [ngClass]="{'like-pressed': post.isLiked}" value="like">
                     <span class="material-symbols-outlined">
                         thumb_up
                     </span>
-                    <p>{{  post.likes  }}</p>
                 </button>
             </div>
             <div class="col-3">
-                <button class="container-fluid btn dislike" 
-                (click)="post.isDisliked = !post.isDisliked; post.isLiked = false; updatePost(post)"
-                [ngClass]="{'dislike-pressed': post.isDisliked}">
+                <button class="container-fluid btn dislike"
+                    (click)="post.isDisliked = !post.isDisliked; post.isLiked = false; updatePost(post, $event)"
+                    [ngClass]="{'dislike-pressed': post.isDisliked}" value="dislike">
                     <span class="material-symbols-outlined">
                         thumb_down
                     </span>
-                    <p>{{  post.dislikes  }}</p>
                 </button>
             </div>
             <div class="col-3">
@@ -109,9 +119,9 @@
                 [ngClass]="{'show-comment-box':post.showCommentBox, 'hide-comment-box': !post.showCommentBox}"
                 [disabled]="!comment.trim()" (click)="comment = ''; changeIcon()">
                 <span class="material-symbols-outlined">
-                    {{  sendIcon  }} 
+                    {{ sendIcon }}
                 </span>
-            </button> 
+            </button>
             <b *ngIf="sendIcon == 'check'" class="text-success p-0 m-0 nav-link">Sent!</b>
         </div>
         <a class="nav-link p-1" (click)="displayComments(post)" style="text-align: right;">{{ post.showComments ? "hide"

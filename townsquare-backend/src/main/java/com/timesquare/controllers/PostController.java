@@ -54,9 +54,9 @@ public class PostController {
 	}
 	
 	@PutMapping("/update")
-	public String updatePost(@RequestBody PostDTO postDTO) {
+	public void updatePost(@RequestBody PostDTO postDTO) {
 		Post post = dtoToEntity(postDTO);
-		return postService.updatePost(post);
+		postService.updatePost(post);
 	}
 	
 	@DeleteMapping("/delete/{postId}")
