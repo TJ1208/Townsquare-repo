@@ -2,7 +2,7 @@
     <div class="container-fluid p-0 flex-nowrap">
         <ul class="nav d-flex flex-nowrap">
             <li class="nav-item border rounded">
-                <a class="navbar-brand p-3 m-0 text-black bg-info" href="#">Town<span
+                <a class="navbar-brand p-3 m-0 text-black bg-info" routerLink="/home">Town<span
                         class="text-white">Square</span></a>
             </li>
             <li class="nav-item">
@@ -43,7 +43,7 @@
                 </button>
             </li>
         </ul>
-        <a href="#" class="nav-link">
+        <a class="nav-link" (click)="logout()">
             <span class="material-symbols-rounded btn p-2">
                 logout
             </span>

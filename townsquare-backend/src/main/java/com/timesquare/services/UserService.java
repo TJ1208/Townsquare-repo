@@ -36,6 +36,10 @@ public class UserService {
 				() -> new Exception("User not found with name: " + username));
 	}
 	
+	public User findByUsername(String username) throws Exception {
+		return userRepo.findByUsername(username);
+	}
+	
 	public String registerUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepo.save(user);

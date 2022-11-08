@@ -15,4 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	@Query("SELECT u FROM User u WHERE CONCAT_WS(' ', firstName, lastName) LIKE %:username%")
 	public Optional<List<User>> getUsersByName(@PathVariable String username);
+	
+	@Query("SELECT u FROM User u WHERE u.username = :username")
+	public User findByUsername(@PathVariable String username);
 }

@@ -40,7 +40,6 @@ public class User {
 	private String username;
 	
 	@Column(name = "pasword", nullable = false)
-	@Lob
 	private String password;
 	
 	@Column(name = "profileImg")

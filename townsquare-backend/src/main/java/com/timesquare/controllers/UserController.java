@@ -47,6 +47,11 @@ public class UserController {
 		return userService.getUserByUsername(username);
 	}
 	
+	@GetMapping("/username/{username}")
+	public User findByUsername(@PathVariable String username) throws Exception {
+		return userService.findByUsername(username);
+	}
+	
 	@PostMapping("/register")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String registerUser(@RequestBody UserDTO userDTO) throws ParseException {

@@ -16,6 +16,7 @@
 	<description>Backend application for the timesquare media platform.</description>
 	<properties>
 		<java.version>11</java.version>
+		<infinispan.version>13.0.8.Final</infinispan.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -70,6 +71,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 	</dependencies>
 

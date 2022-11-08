@@ -4,6 +4,8 @@ import { Comment } from 'src/app/models/Comment';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { PostService } from 'src/app/services/post/post.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from 'src/app/models/User';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-post-board',
@@ -12,7 +14,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class PostBoardComponent implements OnInit {
   posts: Post[] = [];
-
+  currentUser: User = this.loginService.getCurrentUser();
   comments$ = new BehaviorSubject<Comment[]>([]);
   cast = this.comments$.asObservable();
   posts$ = new BehaviorSubject<Post[]>([]);
@@ -33,22 +35,10 @@ export class PostBoardComponent implements OnInit {
     shares: 0,
     imageUrl: "",
     date: new Date(new Date().getTime() + 8.64e+7),
-    user: {
-      backgroundImg: "http",
-      birthplace: "Rutherdforton, NC",
-      date: new Date("2022-10-31"),
-      email: "AvaCutie2007@yahoo.com",
-      firstName: "Ava",
-      homeTown: "Oxford, NC",
-      lastName: "Perrault",
-      password: "$2a$10$o9BjXSGDicgZ46WHT0xidOAkgUlgM63kf4I7eRucgmF4l8WEdsWfe",
-      profileBio: "One dribble at a time.",
-      profileImg: "https://res.cloudinary.com/dwzhlnnwa/image/upload/v1667845037/townsquare/IMG_1173_rqgkm0.jpg",
-      userId: 2,
-      username: "AvaCutie2007@yahoo.com"
-    }
+    user: this.currentUser
   };
-  constructor(private postService: PostService, private commentService: CommentService) {
+  constructor(private postService: PostService, private commentService: CommentService,
+    private loginService: LoginService) {
 
   }
 

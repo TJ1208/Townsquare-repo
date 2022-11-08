@@ -4,9 +4,11 @@ import { LoginComponent } from './components/login/login.component';
 import { PostBoardComponent } from './components/post-board/post-board.component';
 
 const routes: Routes = [
+  // canActivate: [AuthGuard], data: {roles: ["Admin"]}
+  // use above statement if using role-based authentication
   { path: "home", component: PostBoardComponent },
   { path: "login", component: LoginComponent },
-  { path: "**", redirectTo: "home" }
+  { path: "**", redirectTo: "login" }
 ];
 
 @NgModule({
