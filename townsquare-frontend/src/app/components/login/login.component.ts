@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       this.authService.setToken(response.jwtToken);
       console.log(response.user);
       if(response.user) {
-        this.loginService.setCurrentUser(response.user);
+        localStorage.setItem("userId", response.user.userId);
       }
       
       this.router.navigate(['/home']);

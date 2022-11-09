@@ -6,6 +6,7 @@ import { PostService } from 'src/app/services/post/post.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login/login.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-post-board',
@@ -14,11 +15,12 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class PostBoardComponent implements OnInit {
   posts: Post[] = [];
-  currentUser: User = this.loginService.getCurrentUser();
   comments$ = new BehaviorSubject<Comment[]>([]);
   cast = this.comments$.asObservable();
   posts$ = new BehaviorSubject<Post[]>([]);
   castPost = this.posts$.asObservable();
+  userId: any = localStorage.getItem("userId");
+  currentUser: any;
   comments: Comment[] = [];
   comment: string = "";
   imageUrl?: string;
@@ -26,20 +28,21 @@ export class PostBoardComponent implements OnInit {
   showCommentBox: boolean = false;
   sendIcon: string = "send";
   scrollCount: number = 10;
-  post: Post = {
-    postId: 0,
-    title: "",
-    description: "",
-    likes: 0,
-    dislikes: 0,
-    shares: 0,
-    imageUrl: "",
-    date: new Date(new Date().getTime() + 8.64e+7),
-    user: this.currentUser
-  };
+  post: Post;
   constructor(private postService: PostService, private commentService: CommentService,
-    private loginService: LoginService) {
-
+    private userService: UserService, private loginService: LoginService) {
+      this.getCurrentUser();
+      this.post = {
+        postId: 0,
+        title: "",
+        description: "",
+        likes: 0,
+        dislikes: 0,
+        shares: 0,
+        imageUrl: "",
+        date: new Date(new Date().getTime() + 8.64e+7),
+        user: this.currentUser
+      };
   }
 
   ngOnInit(): void {
@@ -50,6 +53,12 @@ export class PostBoardComponent implements OnInit {
     })
     this.castPost.subscribe((posts) => {
       this.posts = posts;
+    })
+  }
+
+  getCurrentUser(): void  {
+    this.userService.getUserById(parseInt(this.userId)).subscribe((user: User) => {
+      this.currentUser = user;
     })
   }
 

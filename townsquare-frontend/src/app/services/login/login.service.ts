@@ -8,7 +8,6 @@ import { User } from 'src/app/models/User';
   providedIn: 'root'
 })
 export class LoginService {
-  currentUser: any;
   requestHeader = new HttpHeaders(
     { "No-Auth": "True" }
   )
@@ -19,11 +18,4 @@ export class LoginService {
     return this.http.post<any>(`http://localhost:8181/authenticate`, loginData, { headers: this.requestHeader });
   }
 
-  setCurrentUser(user: User): void {
-    this.currentUser = user;
-  }
-
-  getCurrentUser(): User {
-    return this.currentUser;
-  }
 }

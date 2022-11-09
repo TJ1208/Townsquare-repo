@@ -38,8 +38,8 @@
         <ul class="nav flex-wrap">
             <li class="nav-item">
                 <button class="btn btn-rounded material-symbols-rounded p-0">
-                    <img src="https://res.cloudinary.com/drukcz14j/image/upload/v1659727782/samples/sheep.jpg"
-                        alt="Bunch of sheep" style="border-radius: 50%; width: 1.5em; height: 1.5em;">
+                    <img [src]="userImg == null ? '' : userImg"
+                        alt="" style="border-radius: 50%; width: 1.5em; height: 1.5em;">
                 </button>
             </li>
         </ul>
