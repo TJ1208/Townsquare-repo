@@ -13,13 +13,19 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthService } from './services/auth/auth.service';
+import { SignupComponent } from './components/signup/signup.component';
+import { ErrorComponent } from './components/error/error.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     PostBoardComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent,
+    ErrorComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  showLoginError: boolean = false;
   constructor(private loginService: LoginService, private authService: AuthService,
     private router: Router) { }
 
@@ -22,14 +22,15 @@ export class LoginComponent implements OnInit {
 
   login(loginForm: NgForm) {
     this.loginService.login(loginForm.value).subscribe((response: any) => {
+      console.log(loginForm.value);
       this.authService.setToken(response.jwtToken);
-      console.log(response.user);
       if(response.user) {
         localStorage.setItem("userId", response.user.userId);
       }
-      
+      this.showLoginError = false;
       this.router.navigate(['/home']);
     }, (error) => {
+      this.showLoginError = true;
        console.log(error);
     });
   }

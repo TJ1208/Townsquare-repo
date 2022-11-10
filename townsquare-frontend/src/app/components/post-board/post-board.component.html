@@ -4,7 +4,7 @@
     <div class="container-fluid p-2 border bg-light" style="box-shadow: 0px 0px 10px lightgray;">
         <div class="row align-items-center justify-content-center">
             <div class="col-3">
-                <img [src]="currentUser == null ? '' : currentUser.profileImg" class="point img-shrink">
+                <img routerLink="/profile" [src]="currentUser == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : currentUser.profileImg" class="point img-shrink">
             </div>
             <div class="col-9">
                 <textarea class="form-control form-control-sm" style="height: 8em;" placeholder="Share your thoughts."
@@ -35,7 +35,7 @@
         *ngFor="let post of posts | slice:0:scrollCount;">
         <div class="row p-1 m-0" style="border-bottom: 1px solid gray;">
             <div class="col-2">
-                <img [src]="post.user.profileImg" alt="Bunch of sheep"
+                <img [src]="post.user.profileImg"
                     style="border-radius: 50%; width: 6em; height: 6em;" class="point">
             </div>
             <div class="col-10" style="text-align: left; padding-left: 1em;">
@@ -132,7 +132,7 @@
                 *ngFor="let comment of getCommentsByPost(post.postId)">
                 <div class="row p-1 border-bottom m-0 bg-white">
                     <div class="col-1 p-0 m-0">
-                        <img [src]="comment.user.profileImg" alt="Bunch of sheep"
+                        <img [src]="comment.user.profileImg"
                             style="border-radius: 50%; width: 4em; height: 4em;" class="point">
                     </div>
                     <div class="col-11" style="text-align: left;">

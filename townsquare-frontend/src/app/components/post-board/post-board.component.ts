@@ -31,7 +31,6 @@ export class PostBoardComponent implements OnInit {
   post: Post;
   constructor(private postService: PostService, private commentService: CommentService,
     private userService: UserService, private loginService: LoginService) {
-      this.getCurrentUser();
       this.post = {
         postId: 0,
         title: "",
@@ -46,6 +45,7 @@ export class PostBoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCurrentUser();
     this.getPosts();
     this.getComments();
     this.cast.subscribe((comments) => {
@@ -58,6 +58,7 @@ export class PostBoardComponent implements OnInit {
 
   getCurrentUser(): void  {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user: User) => {
+      this.post.user = user;
       this.currentUser = user;
     })
   }
@@ -81,8 +82,6 @@ export class PostBoardComponent implements OnInit {
     this.postService.getAllPosts().subscribe((posts: any) => {
       this.castPost = posts;
       this.retrievePosts(posts);
-      console.log(posts);
-      console.log(posts[0].imageUrl.substring(posts[0].imageUrl.lastIndexOf('.') + 1));
     })
   }
 

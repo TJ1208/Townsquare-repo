@@ -40,11 +40,11 @@ public class UserService {
 		return userRepo.findByUsername(username);
 	}
 	
-	public String registerUser(User user) {
+	public void registerUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepo.save(user);
-		return user.getFirstName() + " " + user.getLastName()
-			+ "'s acount is now registered!";
+//		return user.getFirstName() + " " + user.getLastName()
+//			+ "'s acount is now registered!";
 	}
 	
 	public String updateUser(User user) {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
@@ -7,6 +7,10 @@ import { User } from 'src/app/models/User';
   providedIn: 'root'
 })
 export class UserService {
+  
+  requestHeader = new HttpHeaders(
+    { "No-Auth": "True" }
+  )
 
   constructor(private http: HttpClient) { }
 
@@ -22,8 +26,8 @@ export class UserService {
     return this.http.get<User>(`http://localhost:8181/api/user/${userId}`);
   }
 
-  addUser(user: User): Observable<String> {
-    return this.http.post<String>(`http://localhost:8181/api/user/register`, user);
+  addUser(user: User): Observable<any> {
+    return this.http.post<any>(`http://localhost:8181/api/user/register`, user, { headers: this.requestHeader });
   }
 
   updateUser(user: User): Observable<String> {
