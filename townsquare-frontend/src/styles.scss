@@ -18,12 +18,12 @@ body {
   .material-symbols-rounded:hover {
     transition: 0.2s;
     color: white;
-    background-color: $base-color;
+    background-color: #0274d87b;
   }
 
   span.active {
     color: white;
-    background-color: $base-color;
+    background-color: #0274d87b;
   }
 
   @media (min-width: 730px) {
