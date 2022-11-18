@@ -1,23 +1,44 @@
 <app-navbar></app-navbar>
 <div class="container-fluid p-0 m-0"
-    style="position: relative; background-image: linear-gradient(#0274d87b, whitesmoke);">
-    <img class="container landscape img-fluid rounded mx-auto d-block border border-rounded p-0 m-0"
-        src="https://res.cloudinary.com/dwzhlnnwa/image/upload/v1668719619/townsquare/kz5lb65naamuxf5i5dr5.jpg">
-
-    <div class="container-fluid p-0 m-0" style="position: absolute; top: 75%;">
+    style="position: relative; background-image: linear-gradient(#1250867b, whitesmoke);">
+    <img class="container landscape img-fluid rounded mx-auto d-block p-0 m-0"
+        [src]="userProfile.backgroundImg.trim() == '' ? '' : userProfile.backgroundImg">
+    <div class="container-fluid p-0 m-0 profile-pic">
         <div class="container">
-            <img routerLink="/profile"
-                src="http://res.cloudinary.com/dwzhlnnwa/image/upload/v1668199100/townsquare/w7vc1wkpdhuf1gvqtn7d.jpg"
-                alt="" style="border-radius: 50%; max-width: 7em;"
+            <textarea hidden type="text" class="form-control" #backgroundImage ngModel id="imageuri" required name="imageuri"
+                [(ngModel)]="userProfile.backgroundImg"></textarea>
+            <div class="container-sm background-pic-edit">
+                <span class="material-symbols-rounded btn btn-sm btn-light btn-rounded p-2"
+                    (click)="updatePictureModal(background)" id="upload_widget" style="float: right;">
+                    edit
+                </span>
+            </div>
+        </div>
+
+        <div class="container-sm">
+            <img routerLink="/profile" [src]="userProfile.profileImg" alt="" style="border-radius: 50%; max-width: 7em;"
                 class="img-fluid border border-4 material-symbols-rounded p-0 m-3">
             <div class="container-fluid p-0 m-0" style="position: absolute; top: 75%;">
-
+                <textarea hidden type="text" class="form-control" id="imageuri2" required name="imageuri2"
+                    [(ngModel)]="userProfile.profileImg"></textarea>
                 <span class="material-symbols-rounded btn btn-sm btn-light btn-rounded p-2" style="margin-left: 5em;">
                     edit
                 </span>
-
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- Edit Background picture Modal -->
+<ng-template #background let-modal>
+
+    <div class="modal-body">            <div>
+                <img [src]="userProfile.backgroundImg.trim() == '' ? '' : backgroundImage.value" class="img-fluid rounded">
+            </div>
+            <div class="container-fluid d-flex flex-nowrap p-1">
+                <button class="btn btn-info w-100 m-1" onclick="openWidget()">Edit</button>
+                <button class="btn btn-success w-100 m-1" (click)="updateBackgroundPic(); modal.dismiss()">Save</button>
+            </div>
+            <button type="button" class="btn btn-light w-100 m-1" (click)="modal.dismiss()">Cancel</button>
+        </div>
+</ng-template>

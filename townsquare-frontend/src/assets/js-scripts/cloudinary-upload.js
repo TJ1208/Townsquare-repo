@@ -60,6 +60,7 @@ let myWidget = cloudinary.createUploadWidget({
     // console.log('Done! Here is the image info: ', result.info);
     document.getElementById("imageuri").select();
     document.getElementById("imageuri").value = result.info.url;
+    return document.getElementById("imageuri").value;
     // document.getElementById("productimage").src = result.info.url;
     // document.getElementById("productimage").hidden = false;
     // document.getElementById("upload_widget").textContent = "Change Image";

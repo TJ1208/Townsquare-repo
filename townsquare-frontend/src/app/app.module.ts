@@ -17,6 +17,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgbModule
   ],
   providers: [
     AuthGuard, 

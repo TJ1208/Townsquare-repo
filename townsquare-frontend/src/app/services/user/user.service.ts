@@ -30,8 +30,8 @@ export class UserService {
     return this.http.post<any>(`http://localhost:8181/api/user/register`, user, { headers: this.requestHeader });
   }
 
-  updateUser(user: User): Observable<String> {
-    return this.http.put<String>(`http://localhost:8181/api/user/update`, user);
+  updateUser(user: User): Observable<any> {
+    return this.http.put<any>(`http://localhost:8181/api/user/update`, user);
   }
 
   deleteUser(userId: number): Observable<String> {

@@ -62,9 +62,9 @@ public class UserController {
 	}
 	
 	@PutMapping("/update")
-	public String updateUser(@RequestBody UserDTO userDTO) throws ParseException {
+	public void updateUser(@RequestBody UserDTO userDTO) throws ParseException {
 		User user = dtoToEntity(userDTO);
-		return userService.updateUser(user);
+		userService.updateUser(user);
 	}
 	
 	@DeleteMapping("/delete/{userId}")

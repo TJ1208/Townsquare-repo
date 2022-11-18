@@ -14,7 +14,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(loginData: any): Observable<any> {
+  login(loginData: NgForm): Observable<any> {
     return this.http.post<any>(`http://localhost:8181/authenticate`, loginData, { headers: this.requestHeader });
   }
 

@@ -40,6 +40,10 @@ body {
     .hide-search {
       display: none;
     }
+
+    .width {
+      width: 35em;
+    }
   }
 
   @media (max-width: 730px) {
@@ -58,9 +62,33 @@ body {
     }
   }
 
-  @media (min-width: 730px) {
-    .width {
-      width: 35em;
+  @media (max-width: 768px) {
+    .profile-pic {
+      position: absolute;
+      top: 60%;
+      overflow: hidden;
+    }
+
+    .background-pic-edit {
+      position: relative;
+      top: 9em;
+      left: 1em;
+      overflow: hidden;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .profile-pic {
+      position: absolute;
+      top: 75%;
+      overflow: hidden;
+    }
+
+    .background-pic-edit {
+      position: absolute;
+      top: 20%;
+      overflow: hidden;
+      margin: 1em;
     }
   }
 

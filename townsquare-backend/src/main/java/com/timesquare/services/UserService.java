@@ -47,15 +47,11 @@ public class UserService {
 //			+ "'s acount is now registered!";
 	}
 	
-	public String updateUser(User user) {
+	public void updateUser(User user) {
 		if (userRepo.findById(user.getUserId()).isPresent()) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userRepo.save(user);
-			return user.getFirstName() + " " + user.getLastName()
-				+ "'s account has been updated.";
 		}
-		return "The requested account to update, " + user.getUsername()
-			+ " does not exist.";
 	}
 	
 	public String deleteUserById(Long userId) {

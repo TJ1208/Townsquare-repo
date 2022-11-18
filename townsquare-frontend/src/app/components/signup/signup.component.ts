@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
     birthplace: "",
     backgroundImg: "",
     homeTown: "",
-    date: this.date
+    birthDate: this.date
   }
   constructor(private loginService: LoginService, private authService: AuthService,
     private router: Router, private userService: UserService) { }
@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
       this.maxDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-0" + new Date().getDate();
     }
     console.log(this.maxDate);
-    console.log(this.user.date instanceof Date);
+    console.log(this.user.birthDate instanceof Date);
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
     }
@@ -58,7 +58,7 @@ export class SignupComponent implements OnInit {
       birthplace: "",
       backgroundImg: "",
       homeTown: "",
-      date: this.user.date
+      birthDate: this.user.birthDate
     }
 
     this.userService.addUser(this.user).subscribe((user: any) => {

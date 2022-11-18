@@ -17,7 +17,7 @@ export interface User {
     email: string,
     profileBio: string,
     backgroundImg: string,
-    date: Date,
+    birthDate: Date,
     birthplace: string,
     homeTown: string
 }
