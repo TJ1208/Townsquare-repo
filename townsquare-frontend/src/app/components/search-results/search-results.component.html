@@ -1,15 +1,20 @@
 <app-navbar></app-navbar>
 <div>
-    <div class="container-fluid width justify-content-center align-items-center" style="margin-top: 1em;">
-        <div class="d-flex flex-wrap">
+    <div class="container-fluid main width-50 justify-content-center align-items-center bg-light">
+        <div class="d-flex flex-wrap justify-content-center">
             <div class="m-2" *ngFor="let user of users;">
-                <button class="btn justify-content-center">
-                    <div class="d-flex flex-column justify-content-start align-items-start">
+                <button class="btn shadow-none border" style="width: 15em;" *ngIf="user.userId != userId">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
                         <img (click)="viewUser(user)"
                             [src]="user.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : user.profileImg"
                             class="img-shrink">
                         <p class="m-1" style="text-align: center;">{{ user.firstName + ' ' + user.lastName }}</p>
                     </div>
+                        <button class="btn m-1 share container-fluid">
+                            <span class="material-symbols-outlined">
+                                person_add
+                            </span>
+                        </button>
                 </button>
             </div>
         </div>

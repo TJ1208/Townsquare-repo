@@ -41,9 +41,11 @@ export class NavbarComponent implements OnInit {
   searchUser(username: string): void {
     localStorage.setItem("search", username);
     this.router.navigate(['/user/search']);
-    setTimeout(() => {
-      location.reload();
-    })
+    if (this.router.url == "/user/search") {
+      setTimeout(() => {
+        location.reload();
+      }, 1)
+    }
   }
 
 }

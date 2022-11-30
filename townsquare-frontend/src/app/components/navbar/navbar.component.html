@@ -1,7 +1,7 @@
 <div class="sticky-top nav navbar bg-light p-0 m-0 flex-wrap">
     <div class="container-fluid p-0 flex-nowrap">
         <ul class="nav d-flex flex-nowrap">
-            <li class="nav-item rounded">
+            <li class="nav-item rounded" style="margin-left: -0.2em;">
                 <a class="navbar-brand p-3 m-0 text-black rounded" style="background-color: #1250867b"
                     routerLink="/home">Town<span class="text-white">Square</span></a>
             </li>
@@ -35,7 +35,8 @@
                 <input class="form-control shadow-none bg-white p-2" placeholder="Explore the community." list="users"
                     name="users" (keyup.enter)="searchUser(input.value); input.value = ''" #input>
                 <datalist id="users">
-                    <option *ngFor="let user of users | slice:0:5;" [value]="user.firstName + ' ' + user.lastName"></option>
+                    <option *ngFor="let user of users | slice:0:5;" [value]="user.firstName + ' ' + user.lastName">
+                    </option>
                 </datalist>
             </div>
         </li>
@@ -67,9 +68,10 @@
                     </button>
                 </div>
                 <input class="form-control shadow-none bg-white p-2" placeholder="Explore the community." list="users"
-                    name="users" (keyup.enter)="searchUser(input.value); input.value = ''" #input>
+                    name="users" (keyup.enter)="searchUser(input2.value); input2.value = ''" #input2>
                 <datalist id="users">
-                    <option *ngFor="let user of users | slice:0:5;" [value]="user.firstName + ' ' + user.lastName"></option>
+                    <option *ngFor="let user of users | slice:0:5;" [value]="user.firstName + ' ' + user.lastName">
+                    </option>
                 </datalist>
             </div>
         </li>

@@ -11,14 +11,17 @@ import { UserService } from 'src/app/services/user/user.service';
 export class SearchResultsComponent implements OnInit {
   searchString: any = localStorage.getItem("search");
   users: User[] = [];
+  userId: any = localStorage.getItem("userId");
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    this.userId = parseInt(this.userId);
     this.searchUsers();
   }
 
   searchUsers(): void {
-    this.userService.getUserByUsername(this.searchString).subscribe((users) => {
+    this.userService.getUserByUsername(this.searchString).subscribe((users: User[]) => {
+      users
       this.users = users;
     })
   }
