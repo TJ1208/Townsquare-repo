@@ -2,13 +2,13 @@
     <div class="container-fluid p-0 flex-nowrap">
         <ul class="nav d-flex flex-nowrap">
             <li class="nav-item rounded">
-                <a class="navbar-brand p-3 m-0 text-black rounded" style="background-color: #1250867b" routerLink="/home">Town<span
-                        class="text-white">Square</span></a>
+                <a class="navbar-brand p-3 m-0 text-black rounded" style="background-color: #1250867b"
+                    routerLink="/home">Town<span class="text-white">Square</span></a>
             </li>
             <li class="nav-item">
                 <a routerLink="/home" class="nav-link">
                     <span class="material-symbols-rounded btn h-100 d-flex align-items-center p-2"
-                    routerLinkActive="active">
+                        routerLinkActive="active">
                         home
                     </span>
                 </a>
@@ -32,14 +32,19 @@
                         </span>
                     </button>
                 </div>
-                <input type="text" class="form-control shadow-none bg-white p-2" placeholder="Explore the community.">
+                <input class="form-control shadow-none bg-white p-2" placeholder="Explore the community." list="users"
+                    name="users" (keyup.enter)="searchUser(input.value); input.value = ''" #input>
+                <datalist id="users">
+                    <option *ngFor="let user of users | slice:0:5;" [value]="user.firstName + ' ' + user.lastName"></option>
+                </datalist>
             </div>
         </li>
         <ul class="nav flex-wrap">
             <li class="nav-item">
                 <button class="btn btn-rounded material-symbols-rounded p-0">
-                    <img routerLink="/profile" [src]="userImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : userImg"
-                        alt="" style="border-radius: 50%; width: 1.5em; height: 1.5em;">
+                    <img routerLink="/profile"
+                        [src]="userImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : userImg" alt=""
+                        style="border-radius: 50%; width: 1.5em; height: 1.5em;">
                 </button>
             </li>
         </ul>
@@ -60,9 +65,12 @@
                             </span>
                         </span>
                     </button>
-
                 </div>
-                <input type="text" class="form-control shadow-none bg-white" placeholder="Explore the community.">
+                <input class="form-control shadow-none bg-white p-2" placeholder="Explore the community." list="users"
+                    name="users" (keyup.enter)="searchUser(input.value); input.value = ''" #input>
+                <datalist id="users">
+                    <option *ngFor="let user of users | slice:0:5;" [value]="user.firstName + ' ' + user.lastName"></option>
+                </datalist>
             </div>
         </li>
     </ul>

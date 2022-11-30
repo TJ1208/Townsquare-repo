@@ -2,21 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from './../../models/User';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject } from 'rxjs';
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { Friend } from 'src/app/models/Friend';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
-export class ProfileComponent implements OnInit {
-  newPicture$ = new BehaviorSubject<string>('');
-  cast = this.newPicture$.asObservable();
-  userId: any = localStorage.getItem("userId");
+export class UserComponent implements OnInit {
   friends: Friend[] = [];
+  userId: any = localStorage.getItem("visitedUser");
   userProfile: User = {
     userId: 0,
     firstName: '',
@@ -32,22 +29,28 @@ export class ProfileComponent implements OnInit {
     homeTown: ''
   };
   constructor(private userService: UserService, private modalService: NgbModal,
-      private friendService: FriendService, private router: Router) { }
+    private friendService: FriendService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.getUserProfile();
   }
 
   getUserProfile() {
+    console.log(this.userId);
     this.userService.getUserById(parseInt(this.userId)).subscribe((userProfile) => {
       this.userProfile = userProfile;
+      console.log(userProfile);
       this.getUserFriends();
     })
   }
 
   getUserFriends() {
+    console.log(this.userProfile.userId);
     this.friendService.getAllUserFriends(this.userProfile.userId).subscribe((friends) => {
       this.friends = friends;
+      console.log(this.friends);
+      console.log(friends);
     })
   }
 
@@ -69,7 +72,11 @@ export class ProfileComponent implements OnInit {
 
   userProfileRedirect(friend: Friend): void {
     localStorage.setItem("visitedUser", friend.friend.userId.toString());
-    this.router.navigate(['/user']);
+    this.userId = localStorage.getItem("visitedUser");
+    this.getUserProfile();
+    if (friend.friend.userId.toString() == localStorage.getItem("userId")) {
+      this.router.navigate(['/profile']);
+    }
   }
 
 }

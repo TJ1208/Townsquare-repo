@@ -18,6 +18,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserComponent } from './components/user/user.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     SignupComponent,
     ErrorComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,

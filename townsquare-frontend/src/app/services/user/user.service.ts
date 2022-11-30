@@ -7,7 +7,6 @@ import { User } from 'src/app/models/User';
   providedIn: 'root'
 })
 export class UserService {
-  
   requestHeader = new HttpHeaders(
     { "No-Auth": "True" }
   )

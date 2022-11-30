@@ -58,7 +58,7 @@ public class User {
 	private String backgroundImg;
 	
 	@Column(name = "birthDate", nullable = false)
-	private java.sql.Date date;
+	private java.sql.Date birthDate;
 	
 	@Column(name = "birthplace")
 	private String birthplace;

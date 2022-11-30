@@ -28,7 +28,7 @@ public class UserDTO {
 	private String profileBio;
 	@Lob
 	private String backgroundImg;
-	private java.sql.Date date;
+	private java.sql.Date birthDate;
 	private String birthplace;
 	private String homeTown;
 	private List<Address> addresses;

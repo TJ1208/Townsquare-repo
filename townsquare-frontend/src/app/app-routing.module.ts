@@ -4,7 +4,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/login/login.component';
 import { PostBoardComponent } from './components/post-board/post-board.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   // canActivate: [AuthGuard], data: {roles: ["Admin"]}
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: "signup", component: SignupComponent },
   { path: "error", component: ErrorComponent },
   { path: "profile", component: ProfileComponent },
+  { path: "user", component: UserComponent },
+  { path: "user/search", component: SearchResultsComponent },
   { path: "**", redirectTo: "login" }
 ];
 

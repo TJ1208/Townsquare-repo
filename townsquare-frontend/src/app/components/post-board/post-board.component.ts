@@ -3,7 +3,7 @@ import { Post } from 'src/app/models/Post';
 import { Comment } from 'src/app/models/Comment';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { PostService } from 'src/app/services/post/post.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -30,7 +30,7 @@ export class PostBoardComponent implements OnInit {
   scrollCount: number = 10;
   post: Post;
   constructor(private postService: PostService, private commentService: CommentService,
-    private userService: UserService, private loginService: LoginService) {
+    private userService: UserService) {
       this.post = {
         postId: 0,
         title: "",

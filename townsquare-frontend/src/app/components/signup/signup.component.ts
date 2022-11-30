@@ -60,7 +60,7 @@ export class SignupComponent implements OnInit {
       homeTown: "",
       birthDate: this.user.birthDate
     }
-
+    console.log(this.user);
     this.userService.addUser(this.user).subscribe((user: any) => {
       this.loginForm = {
         username: this.user.email,
