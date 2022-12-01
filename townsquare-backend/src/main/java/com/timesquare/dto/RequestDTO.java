@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RequestDTO {
 	
-	private RequestId requestid;
+	private RequestId requestId;
 	private User receiver;
 	private User requester;
 

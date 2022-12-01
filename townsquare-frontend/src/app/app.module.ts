@@ -20,6 +20,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './components/user/user.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { FriendRequestsComponent } from './components/friend-requests/friend-requests.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SearchResultsComponent } from './components/search-results/search-resul
     ErrorComponent,
     ProfileComponent,
     UserComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    FriendRequestsComponent
   ],
   imports: [
     BrowserModule,

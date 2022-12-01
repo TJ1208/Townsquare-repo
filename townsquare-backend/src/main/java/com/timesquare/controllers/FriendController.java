@@ -48,9 +48,9 @@ public class FriendController {
 	
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addFriend(@RequestBody FriendDTO friendDTO) throws ParseException {
+	public void addFriend(@RequestBody FriendDTO friendDTO) throws ParseException {
 		Friend friend = dtoToEntity(friendDTO);
-		return friendService.addFriend(friend);
+		friendService.addFriend(friend);
 	}
 	
 	@PutMapping("/update")
@@ -60,9 +60,9 @@ public class FriendController {
 	}
 	
 	@DeleteMapping("/delete/{userId}/{friendId}")
-	public String removeFriend(@PathVariable Long userId,
+	public void removeFriend(@PathVariable Long userId,
 			@PathVariable Long friendId) {
-		return friendService.removeFriend(userId, friendId);
+		friendService.removeFriend(userId, friendId);
 	}
 	
 	private Friend dtoToEntity(FriendDTO friendDTO) throws ParseException {

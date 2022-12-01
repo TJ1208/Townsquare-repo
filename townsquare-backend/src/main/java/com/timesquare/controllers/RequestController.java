@@ -40,6 +40,11 @@ public class RequestController {
 		return requestService.getAllUserRequests(userId);
 	}
 	
+	@GetMapping("/sent/{requesterId}")
+	public List<Request> getAllUserSentRequests(@PathVariable Long requesterId) {
+		return requestService.getAllUserSentRequests(requesterId);
+	}
+	
 	@GetMapping("/{receiverId}/{requesterId}")
 	public Request getRequestById(@PathVariable Long receiverId,
 			@PathVariable Long requesterId) throws Exception {
@@ -48,9 +53,9 @@ public class RequestController {
 	
 	@PostMapping("/send")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String sendRequest(@RequestBody RequestDTO requestDTO) throws ParseException {
+	public void sendRequest(@RequestBody RequestDTO requestDTO) throws ParseException {
 		Request request = dtoToEntity(requestDTO);
-		return requestService.sendRequest(request);
+		requestService.sendRequest(request);
 	}
 	
 	@PutMapping("/update")
@@ -60,9 +65,9 @@ public class RequestController {
 	}
 	
 	@DeleteMapping("/delete/{receiverId}/{requesterId}")
-	public String deleteRequest(@PathVariable Long receiverId,
+	public void deleteRequest(@PathVariable Long receiverId,
 			@PathVariable Long requesterId) {
-		return requestService.deleteRequest(requesterId, receiverId);
+		requestService.deleteRequest(requesterId, receiverId);
 	}
 	
 	private Request dtoToEntity(RequestDTO requestDTO) throws ParseException {

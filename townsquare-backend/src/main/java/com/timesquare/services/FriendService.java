@@ -32,10 +32,8 @@ public class FriendService {
 						+ " have a friend with id " + friendId));
 	}
 	
-	public String addFriend(Friend friend) {
+	public void addFriend(Friend friend) {
 		friendRepo.save(friend);
-		return friend.getFriend().getFirstName() + " " + friend.getFriend().getLastName()
-				+ " is now your friend!";
 	}
 	
 	public String updateFriend(Friend friend) {
@@ -50,11 +48,9 @@ public class FriendService {
 
 	}
 	
-	public String removeFriend(Long userId, Long friendId) {
+	public void removeFriend(Long userId, Long friendId) {
 		if(friendRepo.findById(new FriendId(userId, friendId)).isPresent()) {
 			friendRepo.deleteById(new FriendId(userId, friendId));
-			return "Your friend has been removed.";
 		}
-		return "No friend exists with id " + friendId;
 	}
 }

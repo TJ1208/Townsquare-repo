@@ -1,20 +1,56 @@
 <app-navbar></app-navbar>
 <div>
-    <div class="container-fluid main width-50 justify-content-center align-items-center bg-light">
+    <div class="container-fluid width-50 justify-content-center align-items-center bg-light">
         <div class="d-flex flex-wrap justify-content-center">
-            <div class="m-2" *ngFor="let user of users;">
+            <div class="m-2" style="padding-top: 2em;" *ngFor="let user of users;">
                 <button class="btn shadow-none border" style="width: 15em;" *ngIf="user.userId != userId">
                     <div class="d-flex flex-column justify-content-center align-items-center">
+                        <span style="position: relative; left: 50%; margin-bottom: -1em;"
+                            class="text-success p-0 material-symbols-outlined" *ngIf="findFriend(user)">
+                            person
+                        </span>
+                        <span style="position: relative; left: 50%; margin-bottom: -1em;"
+                            class="text-info p-0 material-symbols-outlined" *ngIf="findRequest(user)"
+                            title="pending friend request">
+                            pending
+                        </span>
                         <img (click)="viewUser(user)"
                             [src]="user.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : user.profileImg"
                             class="img-shrink">
                         <p class="m-1" style="text-align: center;">{{ user.firstName + ' ' + user.lastName }}</p>
                     </div>
-                        <button class="btn m-1 share container-fluid">
+                    <button class="btn m-1 container-fluid share" (click)="sendFriendRequest(user)"
+                        *ngIf="!isFriend && !findRequest(user) && !findFriendRequest(user)">
+                        <span class="material-symbols-outlined">
+                            person_add
+                        </span>
+                    </button>
+                    <button class="btn m-1 dislike container-fluid" (click)="removeFriend(user)" *ngIf="isFriend">
+                        <span class="material-symbols-outlined">
+                            person_remove
+                        </span>
+                    </button>
+                    <div class="d-flex justify-content-center align-items-center" *ngIf="findFriendRequest(user)">
+                        <button class="btn m-1 container-fluid share" (click)="null">
                             <span class="material-symbols-outlined">
-                                person_add
+                                check_circle
                             </span>
                         </button>
+                        <button class="btn m-1 dislike container-fluid" (click)="null">
+                            <span class="material-symbols-outlined">
+                                cancel
+                            </span>
+                        </button>
+                    </div>
+
+                    <div *ngIf="!isFriend && findRequest(user)">
+                        <button class="btn m-1 dislike container-fluid" (click)="deleteRequest(user)"
+                            title="cancel friend request">
+                            <span class="material-symbols-outlined">
+                                cancel
+                            </span>
+                        </button>
+                    </div>
                 </button>
             </div>
         </div>

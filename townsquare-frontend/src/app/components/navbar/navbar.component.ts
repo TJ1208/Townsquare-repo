@@ -40,8 +40,8 @@ export class NavbarComponent implements OnInit {
 
   searchUser(username: string): void {
     localStorage.setItem("search", username);
-    this.router.navigate(['/user/search']);
-    if (this.router.url == "/user/search") {
+    this.router.navigate(['/user-search']);
+    if (this.router.url == "/user-search") {
       setTimeout(() => {
         location.reload();
       }, 1)

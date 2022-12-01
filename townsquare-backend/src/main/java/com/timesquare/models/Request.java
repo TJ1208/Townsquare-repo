@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Request {
 	
 	@EmbeddedId
-	private RequestId requestid;
+	private RequestId requestId;
 	
 	@ManyToOne
 	@MapsId("receiverId")

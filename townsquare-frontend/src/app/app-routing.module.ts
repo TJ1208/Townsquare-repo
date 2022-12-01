@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
+import { FriendRequestsComponent } from './components/friend-requests/friend-requests.component';
 import { LoginComponent } from './components/login/login.component';
 import { PostBoardComponent } from './components/post-board/post-board.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: "error", component: ErrorComponent },
   { path: "profile", component: ProfileComponent },
   { path: "user", component: UserComponent },
-  { path: "user/search", component: SearchResultsComponent },
+  { path: "user-search", component: SearchResultsComponent },
+  { path: "friend-requests", component: FriendRequestsComponent },
   { path: "**", redirectTo: "login" }
 ];
 

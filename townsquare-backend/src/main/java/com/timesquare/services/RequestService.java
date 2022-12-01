@@ -26,6 +26,12 @@ public class RequestService {
 				.collect(Collectors.toList());
 	}
 	
+	public List<Request> getAllUserSentRequests(Long requesterId) {
+		return requestRepo.findAll().stream()
+				.filter((request) -> request.getRequester().getUserId() == requesterId)
+				.collect(Collectors.toList());
+	}
+	
 	public Request getRequestById(Long receiverId, Long requesterId) throws Exception {
 		return requestRepo.findById(new RequestId(receiverId, requesterId))
 				.orElseThrow(() -> new Exception("No friend request was found"
@@ -33,12 +39,8 @@ public class RequestService {
 						+ " id " + receiverId));
 	}
 	
-	public String sendRequest(Request request) {
+	public void sendRequest(Request request) {
 		requestRepo.save(request);
-		return "Your friend request to " + 
-				request.getReceiver().getFirstName() + " "
-				+ request.getReceiver().getLastName() + 
-				" has been sent!";
 	}
 	
 	public String updateRequest(Request request) {
@@ -57,11 +59,9 @@ public class RequestService {
 		
 	}
 	
-	public String deleteRequest(Long requesterId, Long receiverId) {
+	public void deleteRequest(Long requesterId, Long receiverId) {
 		if (requestRepo.findById(new RequestId(requesterId, receiverId)).isPresent()) {
 			requestRepo.deleteById(new RequestId(requesterId, receiverId));
-			return "Friend request with id " + requesterId + " has been removed.";
 		}
-		return "No friend request with id " + requesterId + " was found.";
 	}
 }
