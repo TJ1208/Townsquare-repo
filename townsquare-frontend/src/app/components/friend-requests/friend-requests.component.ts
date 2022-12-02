@@ -20,25 +20,46 @@ export class FriendRequestsComponent implements OnInit {
   requests$ = new BehaviorSubject<Request[]>([]);
   cast = this.sentRequests$.asObservable();
   castRequests = this.requests$.asObservable();
+  friends: Friend[] = [];
+  friends$ = new BehaviorSubject<Friend[]>([]);
+  castFriends = this.friends$.asObservable();
+  showFriends: boolean = true;
+  showFriendRequests: boolean = false;
+  showSentRequests: boolean = false;
   constructor(private requestService: RequestService, private router: Router,
     private friendService: FriendService) { }
 
   ngOnInit(): void {
     this.getFriendRequests();
     this.getSentRequests();
+    this.getUserFriends();
     this.cast.subscribe((sentRequests) => {
       this.sentRequests = sentRequests;
     })
     this.castRequests.subscribe((requests) => {
       this.requests = requests;
     })
+    this.castFriends.subscribe((friends) => {
+      this.friends = friends;
+    })
   }
 
-  retrieveSentRequests(sentRequests: Request[]) {
+  getUserFriends(): void {
+    this.friendService.getAllUserFriends(parseInt(this.userId)).subscribe((friends: any) => {
+      this.cast = friends;
+      this.retrieveFriends(friends);
+    })
+  }
+
+  retrieveFriends(friends: Friend[]): void {
+    this.friends$.next(friends);
+  }
+
+  retrieveSentRequests(sentRequests: Request[]): void {
     this.sentRequests$.next(sentRequests);
   }
 
-  retrieveRequests(requests: Request[]) {
+  retrieveRequests(requests: Request[]): void {
     this.requests$.next(requests);
   }
 
@@ -83,14 +104,13 @@ export class FriendRequestsComponent implements OnInit {
     this.friendService.addFriend(friendReceiver).subscribe();
     this.friendService.addFriend(friendRequester).subscribe();
 
-    this.requestService.deleteRequest(request.receiver.userId, request.requester.userId).subscribe();
     this.requestService.deleteRequest(request.requester.userId, request.receiver.userId).subscribe(() => {
       this.getFriendRequests();
+      this.getUserFriends();
     });
   }
 
   declineFriendRequest(request: Request): void {
-    this.requestService.deleteRequest(request.receiver.userId, request.requester.userId).subscribe();
     this.requestService.deleteRequest(request.requester.userId, request.receiver.userId).subscribe(() => {
       this.getFriendRequests();
     });
@@ -100,6 +120,13 @@ export class FriendRequestsComponent implements OnInit {
     this.requestService.deleteRequest(request.requester.userId, request.receiver.userId).subscribe(() => {
       this.getSentRequests()
     })
+  }
+
+  removeFriend(friend: Friend): void {
+    this.friendService.deleteFriend(friend.user.userId, friend.friend.userId).subscribe();
+    this.friendService.deleteFriend(friend.friend.userId, friend.user.userId).subscribe(() => {
+      this.getUserFriends();
+    });
   }
 
 }

@@ -31,12 +31,12 @@
                         </span>
                     </button>
                     <div class="d-flex justify-content-center align-items-center" *ngIf="findFriendRequest(user)">
-                        <button class="btn m-1 container-fluid share" (click)="null">
+                        <button class="btn m-1 container-fluid share" (click)="acceptFriendRequest(user)">
                             <span class="material-symbols-outlined">
                                 check_circle
                             </span>
                         </button>
-                        <button class="btn m-1 dislike container-fluid" (click)="null">
+                        <button class="btn m-1 dislike container-fluid" (click)="declineFriendRequest(user)">
                             <span class="material-symbols-outlined">
                                 cancel
                             </span>

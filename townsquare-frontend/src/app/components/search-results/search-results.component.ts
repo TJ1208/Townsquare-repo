@@ -114,17 +114,15 @@ export class SearchResultsComponent implements OnInit {
   }
 
   findFriendRequest(user: User): boolean {
-    console.log(user);
-    console.log(this.friendRequests);
     if (this.friendRequests.find((request: Request) => request.requester.userId == user.userId)) {
-      console.log("hey");
       return true;
     }
     return false;
   }
 
   removeFriend(user: User): void {
-    this.friendService.deleteFriend(parseInt(this.userId), user.userId).subscribe(() => {
+    this.friendService.deleteFriend(parseInt(this.userId), user.userId).subscribe();
+    this.friendService.deleteFriend(user.userId, parseInt(this.userId)).subscribe(() => {
       this.getAllUserFriends();
     });
 
@@ -147,6 +145,43 @@ export class SearchResultsComponent implements OnInit {
   deleteRequest(user: User): void {
     this.requestService.deleteRequest(parseInt(this.userId), user.userId).subscribe(() => {
       this.getRequests();
+    });
+  }
+
+  acceptFriendRequest(user: User): void {
+    let friendReceiver: Friend = {
+      friendId: {
+        userId: parseInt(this.userId),
+        friendId: user.userId
+      },
+      user: this.user,
+      friend: user
+    }
+
+    let friendRequester: Friend = {
+      friendId: {
+        userId: user.userId,
+        friendId: parseInt(this.userId)
+      },
+      user: user,
+      friend: this.user
+    }
+
+    this.friendService.addFriend(friendReceiver).subscribe();
+    this.friendService.addFriend(friendRequester).subscribe();
+
+    this.requestService.deleteRequest(user.userId, this.userId).subscribe(() => {
+      this.getFriendRequests();
+      this.getRequests();
+      this.getAllUserFriends();
+    });
+  }
+
+  declineFriendRequest(user: User): void {
+    this.requestService.deleteRequest(user.userId, this.userId).subscribe(() => {
+      this.getFriendRequests();
+      this.getRequests();
+      this.getAllUserFriends();
     });
   }
 

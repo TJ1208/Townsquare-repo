@@ -1,12 +1,72 @@
 <app-navbar></app-navbar>
-<div>
-    <div class="container-fluid width-50 justify-content-center align-items-center bg-light">
-        <h3 class="p-2 d-flex justify-content-center display-7 jumbotron-fluid">Friend Requests</h3>
+<div class=" container-sm  p-2 navbar d-flex justify-content-center">
+    <ul class="nav d-flex flex-nowrap container-fluid bg-light">
+        <li class="nav-item rounded container-fluid">
+            <a (click)="showSentRequests = false; showFriendRequests = false; showFriends = true"
+                [ngClass]="{'friends': showFriends }"
+                class="btn m-1 share container-fluid nav-link hover d-flex flex-column justify-content-center align-items-center"
+                style="height: 7em;">
+                <span class="material-symbols-outlined">
+                    person
+                </span>
+                <p class="p-0 m-0">Friends</p>
+            </a>
+        </li>
+        <li class="nav-item rounded container-fluid">
+            <a (click)="showSentRequests = false; showFriendRequests = true; showFriends = false"
+                [ngClass]="{'friend-requests': showFriendRequests}"
+                class="btn m-1 share container-fluid nav-link hover d-flex flex-column justify-content-center align-items-center"
+                style="height: 7em;">
+                <span class="material-symbols-outlined">
+                    person_remove
+                </span>
+                <p class="p-0 m-0">Friend Requests</p>
+            </a>
+
+        </li>
+        <li class="nav-item rounded container-fluid">
+            <a (click)="showSentRequests = true; showFriendRequests = false; showFriends = false"
+                [ngClass]="{'sent-requests': showSentRequests }"
+                class="btn m-1 share nav-link hover d-flex flex-column justify-content-center align-items-center"
+                style="height: 7em;">
+                <span class="material-symbols-outlined">
+                    person_remove
+                </span>
+                <p class="p-0 m-0">Sent Requests</p>
+            </a>
+        </li>
+    </ul>
+    <div class="container-fluid width-50 justify-content-center align-items-center bg-light" *ngIf="showFriends">
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="m-2 bg-white" *ngIf="friends.length == 0">
+                <p>Your Friends List Is Empty :(</p>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center align-items-center" *ngIf="friends.length > 0">
+                <div class="m-2 bg-white" *ngFor="let friend of friends;">
+                    <button class="btn shadow-none border" style="width: 15em;">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <img (click)="viewUser(friend.friend)"
+                                [src]="friend.friend.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : friend.friend.profileImg"
+                                class="img-shrink">
+                            <p class="m-1" style="text-align: center;">{{ friend.friend.firstName + ' ' +
+                                friend.friend.lastName }}</p>
+                        </div>
+                        <button class="btn m-1 dislike container-fluid" (click)="removeFriend(friend)" title="unfriend">
+                            <span class="material-symbols-outlined">
+                                person_remove
+                            </span>
+                        </button>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid width-50 justify-content-center align-items-center bg-light" *ngIf="showFriendRequests">
         <div class="d-flex flex-wrap justify-content-center">
             <div class="m-2 bg-white" *ngIf="requests.length == 0">
                 <p>No Incoming Friend Requests.</p>
             </div>
-            <div class="d-flex" *ngIf="requests.length > 0">
+            <div class="d-flex flex-wrap justify-content-center align-items-center" *ngIf="requests.length > 0">
                 <div class="m-2 bg-white" *ngFor="let request of requests;">
                     <button class="btn shadow-none border" style="width: 15em;">
                         <div class="d-flex flex-column justify-content-center align-items-center">
@@ -17,12 +77,14 @@
                                 request.requester.lastName }}</p>
                         </div>
                         <div class="d-flex justify-content-center align-items-center">
-                            <button class="btn m-1 container-fluid share" (click)="acceptFriendRequest(request)">
+                            <button class="btn m-1 container-fluid share" (click)="acceptFriendRequest(request)"
+                                title="accept friend request">
                                 <span class="material-symbols-outlined">
                                     check_circle
                                 </span>
                             </button>
-                            <button class="btn m-1 dislike container-fluid" (click)="declineFriendRequest(request)">
+                            <button class="btn m-1 dislike container-fluid" (click)="declineFriendRequest(request)"
+                                title="decline friend request">
                                 <span class="material-symbols-outlined">
                                     cancel
                                 </span>
@@ -33,13 +95,12 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid width-50 justify-content-center align-items-center bg-light">
-        <h3 class="p-2 d-flex justify-content-center display-7 jumbotron-fluid">Sent Requests</h3>
+    <div class="container-fluid width-50 justify-content-center align-items-center bg-light" *ngIf="showSentRequests">
         <div class="d-flex flex-wrap justify-content-center">
             <div class="m-2 bg-white" *ngIf="sentRequests.length == 0">
                 <p>No Outgoing Friend Requests.</p>
             </div>
-            <div class="d-flex" *ngIf="sentRequests.length > 0">
+            <div class="d-flex flex-wrap justify-content-center align-items-center" *ngIf="sentRequests.length > 0">
                 <div class="m-2 bg-white" *ngFor="let sentRequest of sentRequests">
                     <button class="btn shadow-none border" style="width: 15em;">
                         <span style="position: relative; left: 50%; margin-bottom: -1em;"
