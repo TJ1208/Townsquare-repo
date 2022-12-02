@@ -37,7 +37,7 @@
                 <input class="form-control shadow-none bg-white p-2" placeholder="Explore the community." list="users"
                     name="users" (keyup.enter)="searchUser(input.value); input.value = ''" #input ngModel>
                 <datalist id="users">
-                    <option *ngFor="let user of users" [value]="user.firstName + ' ' + user.lastName" ngModel>
+                    <option *ngFor="let user of users" [value]="user.firstName + ' ' + user.lastName">
                     </option>
                 </datalist>
             </div>
