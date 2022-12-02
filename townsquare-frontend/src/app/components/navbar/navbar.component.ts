@@ -13,6 +13,9 @@ export class NavbarComponent implements OnInit {
   userId: any = localStorage.getItem("userId");
   userImg: any;
   users: User[] = [];
+  userNames: User[] = [];
+  keyword: string = "firstName";
+  searchWord: string = "";
   constructor(private router: Router, private authService: AuthService,
     private userService: UserService) { }
 
@@ -23,14 +26,24 @@ export class NavbarComponent implements OnInit {
 
   getAllUsers(): void {
     this.userService.getAllUsers().subscribe((users) => {
+      this.userNames = users.filter((user) => user.firstName = user.firstName + ' ' + user.lastName);
       this.users = users;
-      console.log(this.users);
+      console.log(this.userNames);
     })
   }
   getCurrentUserImage(): void {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user) => {
       this.userImg = user.profileImg;
     })
+  }
+
+  selectEvent(user: any): void {
+    console.log(user);
+    // this.searchUser(user.firstName);
+  }
+
+  updateSearchWord(search: string): void {
+    this.searchWord = search;
   }
 
   logout(): void {

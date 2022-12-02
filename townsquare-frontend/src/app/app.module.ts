@@ -22,6 +22,8 @@ import { UserComponent } from './components/user/user.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { FriendRequestsComponent } from './components/friend-requests/friend-requests.component';
 
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,8 @@ import { FriendRequestsComponent } from './components/friend-requests/friend-req
     HttpClientModule,
     FormsModule,
     RouterModule,
-    NgbModule
+    NgbModule,
+    AutocompleteLibModule
   ],
   providers: [
     AuthGuard, 

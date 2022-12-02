@@ -16,34 +16,44 @@
             <li class="nav-item">
                 <a routerLink="/friend-requests" class="nav-link">
                     <span class="material-symbols-rounded btn h-100 d-flex align-items-center p-2"
-                    routerLinkActive="active">
+                        routerLinkActive="active">
                         group
                     </span>
                 </a>
             </li>
         </ul>
-        <li class="nav-item p-2 w-100 show-search">
-            <div class="input-group btn-rounded">
-                <div class="input-group-prepend bg-white">
-                    <button class="p-0 m-0 btn" style="border-right: 1px solid black;" (click)="searchUser(input.value)"
-                    [disabled]="!(input.value.trim() != '')">
-                        <span class="input-group-text border-0 shadow p-0 bg-white">
-                            <span class="material-symbols-rounded h-100 d-flex align-items-center p-2 rounded">
-                                person_search
-                            </span>
-                        </span>
-                    </button>
+        <ul class="nav align-items-center flex-nowrap show-search w-100">
+            <li class="nav-item d-flex">
+                <button class="m-0 p-0 btn" (click)="searchUser(searchWord)"
+                    [disabled]="!(searchWord.trim() != '')">
+                    <span class="material-symbols-rounded btn h-100 d-flex align-items-center" style="padding: 0em 1em 0em 1em;">
+                        person_search
+                    </span>
+                </button>
+                <div class="ng-autocomplete w-100">
+                    <ng-autocomplete [data]="userNames" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate" placeholder="Explore the community."
+                        (selected)="selectEvent($event)" (inputChanged)="updateSearchWord($event)"
+                        (keyup.enter)="searchUser(searchWord)">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                        <div class="d-flex justify-content-start align-items-center">
+                            <img routerLink="/profile"
+                                [src]="item.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : item.profileImg"
+                                alt="" style="border-radius: 50%; width: 3em; height: 3em; margin-left: 1em;">
+                            <a [innerHTML]="item.firstName"></a>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
                 </div>
-                <input class="form-control shadow-none bg-white p-2" placeholder="Explore the community." list="users"
-                    name="users" (keyup.enter)="searchUser(input.value); input.value = ''" #input ngModel>
-                <datalist id="users">
-                    <option *ngFor="let user of users" [value]="user.firstName + ' ' + user.lastName">
-                    </option>
-                </datalist>
-            </div>
-        </li>
+            </li>
+        </ul>
         <ul class="nav flex-wrap">
-            <li class="nav-item">
+            <li class="nav-item" style="margin-left: 1em;">
                 <button class="btn btn-rounded material-symbols-rounded p-0">
                     <img routerLink="/profile"
                         [src]="userImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : userImg" alt=""
@@ -58,24 +68,31 @@
         </a>
     </div>
     <ul class="nav align-items-center flex-nowrap hide-search w-100">
-        <li class="nav-item p-2">
-            <div class="input-group bg-white btn-rounded">
-                <div class="input-group-prepend">
-                    <button autofocus class="p-0 m-0 btn" style="border-right: 1px solid black;" (click)="searchUser(input.value)"
-                    [disabled]="!(input2.value.trim() != '')">
-                        <span class=" input-group-text border-0 shadow p-0 bg-white">
-                            <span class="material-symbols-rounded h-100 d-flex align-items-center p-2 rounded">
-                                person_search
-                            </span>
-                        </span>
-                    </button>
-                </div>
-                <input class="form-control shadow-none bg-white p-2" placeholder="Explore the community." list="users"
-                    name="users" (keyup.enter)="searchUser(input2.value); input2.value = ''" #input2 ngModel>
-                <datalist id="users">
-                    <option *ngFor="let user of users | slice:0:5;" [value]="user.firstName + ' ' + user.lastName">
-                    </option>
-                </datalist>
+        <li class="nav-item d-flex">
+            <button class="m-0 btn" style="padding: 0em 2em 0em 2em;" (click)="searchUser(searchWord)"
+                [disabled]="!(searchWord.trim() != '')">
+                <span class="material-symbols-rounded d-flex align-items-center">
+                    person_search
+                </span>
+            </button>
+            <div class="ng-autocomplete w-100">
+                <ng-autocomplete [data]="userNames" [searchKeyword]="keyword" [itemTemplate]="itemTemplate2"
+                    [notFoundTemplate]="notFoundTemplate2" placeholder="Explore the community."
+                    (selected)="selectEvent($event)" (inputChanged)="updateSearchWord($event)"
+                    (keyup.enter)="searchUser(searchWord)">
+                </ng-autocomplete>
+                <ng-template #itemTemplate2 let-item>
+                    <div class="d-flex justify-content-start align-items-center">
+                        <img routerLink="/profile"
+                            [src]="item.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : item.profileImg"
+                            alt="" style="border-radius: 50%; width: 3em; height: 3em; margin-left: 1em;">
+                        <a [innerHTML]="item.firstName"></a>
+                    </div>
+                </ng-template>
+
+                <ng-template #notFoundTemplate2 let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
             </div>
         </li>
     </ul>
