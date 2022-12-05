@@ -31,7 +31,7 @@
                     </span>
                 </button>
                 <div class="ng-autocomplete w-100">
-                    <ng-autocomplete [data]="userNames" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                    <ng-autocomplete [data]="searchWord.trim() == '' ? [] : userNames" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
                         [notFoundTemplate]="notFoundTemplate" placeholder="Explore the community."
                         (selected)="selectEvent($event)" (inputChanged)="updateSearchWord($event)"
                         (keyup.enter)="searchUser(searchWord)">

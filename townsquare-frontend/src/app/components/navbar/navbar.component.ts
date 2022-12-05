@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
 
   getAllUsers(): void {
     this.userService.getAllUsers().subscribe((users) => {
-      this.userNames = users.filter((user) => user.firstName = user.firstName + ' ' + user.lastName);
+      this.userNames = users.filter((user) => user.userId != this.userId).filter((user) => user.firstName = user.firstName + ' ' + user.lastName);
       this.users = users;
       console.log(this.userNames);
     })
@@ -37,9 +37,13 @@ export class NavbarComponent implements OnInit {
     })
   }
 
-  selectEvent(user: any): void {
-    console.log(user);
-    // this.searchUser(user.firstName);
+  selectEvent(user: User): void {
+    localStorage.setItem("visitedUser", user.userId.toString());
+    this.router.navigate(['/user']);
+    if (this.router.url == '/user') {
+      location.reload();
+    }
+
   }
 
   updateSearchWord(search: string): void {

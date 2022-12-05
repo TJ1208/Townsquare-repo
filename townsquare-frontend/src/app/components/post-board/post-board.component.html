@@ -16,7 +16,7 @@
                 <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
                     [(ngModel)]="post.imageUrl"></textarea>
                 <button class="btn btn-info d-flex flex-col p-1 m-1 align-items-center justify-content-center w-100"
-                    onclick="openWidget()" id="upload_widget">
+                    onclick="openWidget('imageuri', null)" id="upload_widget">
                     <span class="material-symbols-outlined p-1">
                         photo_camera
                     </span>
@@ -59,8 +59,8 @@
         <div class="row">
             <div [hidden]="post.imageUrl.trim() == ''">
                 <div class="col-12"
-                    [hidden]=" !(post.imageUrl.endsWith('.webp')) && !(post.imageUrl.endsWith('.gif')) &&
-                !(post.imageUrl.endsWith('.jpeg') && !(post.imageUrl.endsWith('.png')) && !(post.imageUrl.endsWith('.jpg')))">
+                    [hidden]="!(post.imageUrl.endsWith('.webp')) && !(post.imageUrl.endsWith('.gif')) &&
+                    !(post.imageUrl.endsWith('.jpeg')) && !(post.imageUrl.endsWith('.png')) && !(post.imageUrl.endsWith('.jpg'))">
                     <img [src]="post.imageUrl" style="width: 100%;">
                 </div>
                 <div class="col-12"

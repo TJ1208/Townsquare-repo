@@ -102,12 +102,12 @@ export class FriendRequestsComponent implements OnInit {
     }
 
     this.friendService.addFriend(friendReceiver).subscribe();
-    this.friendService.addFriend(friendRequester).subscribe();
-
-    this.requestService.deleteRequest(request.requester.userId, request.receiver.userId).subscribe(() => {
+    this.friendService.addFriend(friendRequester).subscribe(() => {
       this.getFriendRequests();
       this.getUserFriends();
     });
+
+    this.requestService.deleteRequest(request.requester.userId, request.receiver.userId).subscribe();
   }
 
   declineFriendRequest(request: Request): void {
@@ -123,10 +123,10 @@ export class FriendRequestsComponent implements OnInit {
   }
 
   removeFriend(friend: Friend): void {
-    this.friendService.deleteFriend(friend.user.userId, friend.friend.userId).subscribe();
-    this.friendService.deleteFriend(friend.friend.userId, friend.user.userId).subscribe(() => {
+    this.friendService.deleteFriend(friend.user.userId, friend.friend.userId).subscribe(() => {
       this.getUserFriends();
     });
+    this.friendService.deleteFriend(friend.friend.userId, friend.user.userId).subscribe();
   }
 
 }

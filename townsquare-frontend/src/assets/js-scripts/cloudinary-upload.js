@@ -1,5 +1,7 @@
 const url = "https://api.cloudinary.com/dwzhlnnwa/image/upload/townsquare/c_crop,g_custom";
 const form = document.getElementById("imageuploadform");
+let globalId = '';
+let globalSrc = '';
 console.log("In the 'cloudinary-upload.js' script");
 
 function uploadImage() {
@@ -42,8 +44,8 @@ let myWidget = cloudinary.createUploadWidget({
       menuIcons: "#5A616A",
       textDark: "#000000",
       textLight: "#FFFFFF",
-      link:  "#0275d8",
-      action:  "#FF620C",
+      link: "#0275d8",
+      action: "#FF620C",
       inactiveTabIcon: "#0E2F5A",
       error: "#F44235",
       inProgress: "#0078FF",
@@ -54,20 +56,24 @@ let myWidget = cloudinary.createUploadWidget({
       background: "#0E2F5B99"
     }
   }
-  }, (error, result) => {
+}, (error, result) => {
   if (!error && result && result.event === "success") {
     console.log('Done! Here is the image info: ', result.info);
-    document.getElementById("imageuri").select();
-    document.getElementById("imageuri").value = result.info.url;
+    document.getElementById(globalId).select();
+    document.getElementById(globalId).value = result.info.url;
     // document.getElementById(globalId).value;
-    // document.getElementById(globalSrc).src = result.info.url;
+    if (globalSrc) {
+      document.getElementById(globalSrc).src = result.info.url;
+    }
     // document.getElementById(globalSrc).hidden = false;
     // document.getElementById("upload_widget").textContent = "Change Image";
-    console.log("Image URL is " + result.info.url);
+    // console.log("Image URL is " + result.info.url);
   }
 }
 )
 
-function openWidget() {
+function openWidget(id, src) {
+  globalId = id;
+  globalSrc = src;
   myWidget.open();
 }
