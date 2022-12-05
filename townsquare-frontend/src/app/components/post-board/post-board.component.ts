@@ -82,6 +82,7 @@ export class PostBoardComponent implements OnInit {
     this.postService.getAllPosts().subscribe((posts: any) => {
       this.castPost = posts;
       this.retrievePosts(posts);
+      console.log(posts);
     })
   }
 
@@ -146,9 +147,12 @@ export class PostBoardComponent implements OnInit {
     this.postService.addPost(this.post).subscribe(() => {
       this.getPosts();
     })
-    console.log(this.post);
     this.post.description = "";
     this.post.imageUrl = "";
+  }
+
+  alert(): void {
+    console.log("hello");
   }
 
   updatePost(post: Post, e: Event): void {

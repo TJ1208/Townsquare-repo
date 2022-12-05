@@ -4,7 +4,9 @@
     <div class="container-fluid p-2 border bg-light" style="box-shadow: 0px 0px 10px lightgray; margin-bottom: 1em;">
         <div class="row align-items-center justify-content-center">
             <div class="col-3">
-                <img routerLink="/profile" [src]="currentUser == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : currentUser.profileImg" class="point img-shrink">
+                <img routerLink="/profile"
+                    [src]="currentUser == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : currentUser.profileImg"
+                    class="point img-shrink">
             </div>
             <div class="col-9">
                 <textarea class="form-control form-control-sm" style="height: 8em;" placeholder="Share your thoughts."
@@ -35,8 +37,7 @@
         *ngFor="let post of posts | slice:0:scrollCount;">
         <div class="row p-1 m-0" style="border-bottom: 1px solid gray;">
             <div class="col-2">
-                <img [src]="post.user.profileImg"
-                    style="border-radius: 50%; width: 6em; height: 6em;" class="point">
+                <img [src]="post.user.profileImg" style="border-radius: 50%; width: 6em; height: 6em;" class="point">
             </div>
             <div class="col-10" style="text-align: left; padding-left: 1em;">
                 <div>
@@ -51,20 +52,27 @@
                 {{ post.description }}
             </div>
         </div>
+        <!-- <video controls class="w-100">
+            <source src="https://res.cloudinary.com/dwzhlnnwa/video/upload/v1670250382/townsquare/fxpnty0iwlsl6kvnejjx.mp4"
+                type="video/mp4">
+        </video> -->
         <div class="row">
-            <div class="col-12"
-                [hidden]="!post.imageUrl.trim() ||
-                !(post.imageUrl.endsWith('.jpeg') || post.imageUrl.endsWith('.png') || post.imageUrl.endsWith('.jpg'))">
-                <img [src]="post.imageUrl" style="width: 100%;">
+            <div [hidden]="post.imageUrl.trim() == ''">
+                <div class="col-12"
+                    [hidden]=" !(post.imageUrl.endsWith('.webp')) && !(post.imageUrl.endsWith('.gif')) &&
+                !(post.imageUrl.endsWith('.jpeg') && !(post.imageUrl.endsWith('.png')) && !(post.imageUrl.endsWith('.jpg')))">
+                    <img [src]="post.imageUrl" style="width: 100%;">
+                </div>
+                <div class="col-12"
+                    [hidden]="!(post.imageUrl.endsWith('.mov')) && !(post.imageUrl.endsWith('.webm')) && !(post.imageUrl.endsWith('.mp4'))">
+                    <video controls class="w-100">
+                        <source [src]="post.imageUrl"
+                            [type]="'video/' + post.imageUrl.substring(post.imageUrl.lastIndexOf('.') + 1)">
+                    </video>
+                </div>
             </div>
-            <div class="col-12"
-                [hidden]="!(post.imageUrl.endsWith('.mov') || post.imageUrl.endsWith('.webm') || post.imageUrl.endsWith('.mp4'))">
-                <video controls class="w-100">
-                    <source [src]="post.imageUrl"
-                        [type]="'video/' + post.imageUrl.substring(posts[0].imageUrl.lastIndexOf('.') + 1)">
-                </video>
-            </div>
-                <a class="container-fluid" style="text-align: right; text-decoration: none; cursor:default;">
+
+            <a class="container-fluid" style="text-align: right; text-decoration: none; cursor:default;">
                 {{ post.likes }}<span class="material-symbols-outlined text-success" style="font-size: medium;">
                     thumb_up
                 </span>
@@ -132,8 +140,8 @@
                 *ngFor="let comment of getCommentsByPost(post.postId)">
                 <div class="row p-1 border-bottom m-0 bg-white">
                     <div class="col-1 p-0 m-0">
-                        <img [src]="comment.user.profileImg"
-                            style="border-radius: 50%; width: 4em; height: 4em;" class="point">
+                        <img [src]="comment.user.profileImg" style="border-radius: 50%; width: 4em; height: 4em;"
+                            class="point">
                     </div>
                     <div class="col-11" style="text-align: left;">
                         <a class="nav-link" style="padding-left: 1em;">{{ comment.user.firstName + " " +

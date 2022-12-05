@@ -1,7 +1,5 @@
 const url = "https://api.cloudinary.com/dwzhlnnwa/image/upload/townsquare/c_crop,g_custom";
 const form = document.getElementById("imageuploadform");
-let globalId = '';
-let globalSrc = '';
 console.log("In the 'cloudinary-upload.js' script");
 
 function uploadImage() {
@@ -59,19 +57,17 @@ let myWidget = cloudinary.createUploadWidget({
   }, (error, result) => {
   if (!error && result && result.event === "success") {
     console.log('Done! Here is the image info: ', result.info);
-    document.getElementById(globalId).select();
-    document.getElementById(globalId).value = result.info.url;
-    document.getElementById(globalId).value;
-    document.getElementById(globalSrc).src = result.info.url;
-    document.getElementById(globalSrc).hidden = false;
+    document.getElementById("imageuri").select();
+    document.getElementById("imageuri").value = result.info.url;
+    // document.getElementById(globalId).value;
+    // document.getElementById(globalSrc).src = result.info.url;
+    // document.getElementById(globalSrc).hidden = false;
     // document.getElementById("upload_widget").textContent = "Change Image";
     console.log("Image URL is " + result.info.url);
   }
 }
 )
 
-function openWidget(id, src) {
-  globalId = id;
-  globalSrc = src;
+function openWidget() {
   myWidget.open();
 }
