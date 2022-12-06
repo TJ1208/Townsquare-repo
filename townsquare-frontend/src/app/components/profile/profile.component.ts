@@ -72,4 +72,6 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/user']);
   }
 
+  
+
 }

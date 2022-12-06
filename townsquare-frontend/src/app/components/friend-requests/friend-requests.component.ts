@@ -101,11 +101,11 @@ export class FriendRequestsComponent implements OnInit {
       friend: request.receiver
     }
 
-    this.friendService.addFriend(friendReceiver).subscribe();
-    this.friendService.addFriend(friendRequester).subscribe(() => {
+    this.friendService.addFriend(friendReceiver).subscribe(() => {
       this.getFriendRequests();
       this.getUserFriends();
     });
+    this.friendService.addFriend(friendRequester).subscribe();
 
     this.requestService.deleteRequest(request.requester.userId, request.receiver.userId).subscribe();
   }

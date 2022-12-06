@@ -22,13 +22,20 @@
                 <div class="friends-desktop">
                     <div class="d-flex" style="margin-left: 20em; margin-bottom: -3em;"
                         [ngStyle]="{'margin-top': friends.length == 0 ? '5em' : '-0.5em'}">
-                        <div *ngFor="let friend of friends;">
-                            <button class="btn btn-rounded p-0" style="margin-left: -2.5em;">
+                        <div *ngFor="let friend of friends | slice:0:5;">
+                            <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" [title]="friend.friend.firstName + ' ' + friend.friend.lastName">
                                 <img (click)="userProfileRedirect(friend)"
                                     [src]="friend.friend.profileImg == '' ? '' : friend.friend.profileImg"
                                     style="border-radius: 50%; width: 7em; height: 7em;">
                             </button>
                         </div>
+                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" *ngIf="friends.length > 5">
+                            <button
+                                style="border-radius: 50%; width: 6em; height: 6em; font-weight: bolder; font-size: larger;"
+                                class="border border-none bg-light text-secondary">
+                                + {{ friends.length - 5 }}
+                            </button>
+                        </button>
                     </div>
                 </div>
                 <textarea hidden type="text" class="form-control" id="imageuri2" required name="imageuri2"
@@ -41,13 +48,20 @@
             <div class="friends-mobile">
                 <div class="d-flex" style="margin-left: 5em; "
                     [ngStyle]="{'margin-top': friends.length == 0 ? '5em' : '1em'}">
-                    <div *ngFor="let friend of friends;">
-                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;">
+                    <div *ngFor="let friend of friends | slice:0:5;">
+                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" [title]="friend.friend.firstName + ' ' + friend.friend.lastName">
                             <img (click)="userProfileRedirect(friend)"
                                 [src]="friend.friend.profileImg == '' ? '' : friend.friend.profileImg"
                                 style="border-radius: 50%; width: 7em; height: 7em;">
                         </button>
                     </div>
+                    <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" *ngIf="friends.length > 5">
+                        <button
+                            style="border-radius: 50%; width: 6em; height: 6em; font-weight: bolder; font-size: larger;"
+                            class="border border-none bg-light text-secondary">
+                            + {{ friends.length - 5 }}
+                        </button>
+                    </button>
                 </div>
             </div>
         </div>

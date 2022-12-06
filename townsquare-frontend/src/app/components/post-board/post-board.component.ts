@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-board',
@@ -30,7 +31,7 @@ export class PostBoardComponent implements OnInit {
   scrollCount: number = 10;
   post: Post;
   constructor(private postService: PostService, private commentService: CommentService,
-    private userService: UserService) {
+    private userService: UserService, private router: Router) {
       this.post = {
         postId: 0,
         title: "",
@@ -61,6 +62,16 @@ export class PostBoardComponent implements OnInit {
       this.post.user = user;
       this.currentUser = user;
     })
+  }
+
+  viewUser(user: any): void {
+    if (user.user.userId != this.userId) {
+      localStorage.setItem('visitedUser', user.user.userId.toString());
+      this.router.navigate(['/user']);
+    } else {
+      this.router.navigate(['/profile']);
+    }
+    
   }
 
   retrieveComments(comments: Comment[]) {
@@ -133,7 +144,7 @@ export class PostBoardComponent implements OnInit {
       likes: 0,
       dislikes: 0,
       post: post,
-      user: post.user
+      user: this.post.user
     }
     this.commentService.addComment(commentData).subscribe(() => {
       this.getComments();
@@ -149,10 +160,6 @@ export class PostBoardComponent implements OnInit {
     })
     this.post.description = "";
     this.post.imageUrl = "";
-  }
-
-  alert(): void {
-    console.log("hello");
   }
 
   updatePost(post: Post, e: Event): void {
