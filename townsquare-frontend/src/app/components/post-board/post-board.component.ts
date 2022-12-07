@@ -30,6 +30,7 @@ export class PostBoardComponent implements OnInit {
   sendIcon: string = "send";
   scrollCount: number = 10;
   post: Post;
+  url: string = this.router.url;
   constructor(private postService: PostService, private commentService: CommentService,
     private userService: UserService, private router: Router) {
       this.post = {
@@ -91,9 +92,13 @@ export class PostBoardComponent implements OnInit {
 
   getPosts(): void {
     this.postService.getAllPosts().subscribe((posts: any) => {
+      if (this.url == "/profile") {
+        posts = posts.filter((post: any) => post.user.userId == this.userId);
+      } else if (this.url == "/user") {
+        posts = posts.filter((post: any) => post.user.userId == localStorage.getItem("visitedUser"));
+      }
       this.castPost = posts;
       this.retrievePosts(posts);
-      console.log(posts);
     })
   }
 

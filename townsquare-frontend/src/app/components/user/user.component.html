@@ -17,18 +17,26 @@
         <div class="container-sm">
             <img routerLink="/profile" [src]="userProfile.profileImg" alt=""
                 style="border-radius: 50%; width: 7em; height: 7em;"
-                class="img-fluid border border-4 material-symbols-rounded p-0 m-1">
-            <div class="container-fluid profile-edit" style="position: absolute;">
+                class="img-fluid border border-4 material-symbols-rounded">
+            <div class="container-sm profile-edit" style="position: absolute; margin-bottom: 2em;">
                 <div class="friends-desktop">
                     <div class="d-flex" style="margin-left: 20em; margin-bottom: -3em;"
                         [ngStyle]="{'margin-top': friends.length == 0 ? '5em' : '-0.5em'}">
-                        <div *ngFor="let friend of friends;">
-                            <button class="btn btn-rounded p-0" style="margin-left: -2.5em;">
+                        <div *ngFor="let friend of friends | slice:0:5;">
+                            <button class="btn btn-rounded p-0" style="margin-left: -2.5em;"
+                                [title]="friend.friend.firstName + ' ' + friend.friend.lastName">
                                 <img (click)="userProfileRedirect(friend)"
                                     [src]="friend.friend.profileImg == '' ? '' : friend.friend.profileImg"
                                     style="border-radius: 50%; width: 7em; height: 7em;">
                             </button>
                         </div>
+                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" *ngIf="friends.length > 5">
+                            <button routerLink="/friend-requests"
+                                style="border-radius: 50%; width: 6em; height: 6em; font-weight: bolder; font-size: larger;"
+                                class="border border-none bg-light text-secondary">
+                                + {{ friends.length - 5 }}
+                            </button>
+                        </button>
                     </div>
                 </div>
                 <textarea hidden type="text" class="form-control" id="imageuri2" required name="imageuri2"
@@ -39,44 +47,66 @@
                 </span>
             </div>
             <div class="friends-mobile">
-                <div class="d-flex" style="margin-left: 5em; "
+                <div class="d-flex" style="margin-left: 2em;"
                     [ngStyle]="{'margin-top': friends.length == 0 ? '5em' : '1em'}">
-                    <div *ngFor="let friend of friends;">
-                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;">
+                    <div *ngFor="let friend of friends | slice:0:5;">
+                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;"
+                            [title]="friend.friend.firstName + ' ' + friend.friend.lastName">
                             <img (click)="userProfileRedirect(friend)"
                                 [src]="friend.friend.profileImg == '' ? '' : friend.friend.profileImg"
                                 style="border-radius: 50%; width: 7em; height: 7em;">
                         </button>
                     </div>
+                    <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" *ngIf="friends.length > 5">
+                        <button routerLink="/friend-requests"
+                            style="border-radius: 50%; width: 6em; height: 6em; font-weight: bolder; font-size: larger;"
+                            class="border border-none bg-light text-secondary">
+                            + {{ friends.length - 5 }}
+                        </button>
+                    </button>
                 </div>
             </div>
+
         </div>
     </div>
-    <!-- Edit background picture Modal -->
-    <ng-template #background let-modal>
-        <div class="modal-body">
-            <div class="d-flex justify-content-center align-items-center">
-                <img [src]="userProfile.backgroundImg" id="postimage" class="img-fluid rounded">
-            </div>
-            <div class="container-fluid d-flex flex-nowrap p-1">
-                <button class="btn btn-info w-100 m-1" onclick="openWidget('imageuri', 'postimage')">Edit</button>
-                <button class="btn btn-success w-100 m-1" (click)="updateBackgroundPic(); modal.dismiss()">Save</button>
-            </div>
-            <button type="button" class="btn btn-light w-100 m-1" (click)="modal.dismiss()">Cancel</button>
+</div>
+<div class="container-fluid">
+    <div class="container-sm">
+        <div class="friends-mobile" style="margin-top: 14em;">
+            <app-profile-content></app-profile-content>
         </div>
-    </ng-template>
-    <!-- Edit profile picture Modal -->
-    <ng-template #profile let-modal>
-        <div class="modal-body">
-            <div class="d-flex justify-content-center align-items-center">
-                <img [src]="userProfile.profileImg" id="profileimage"
-                    style="border-radius: 50%; width: 7em; height: 7em;"
-                    class="img-fluid border border-4 material-symbols-rounded p-0 m-3">
-            </div>
-            <div class="container-fluid d-flex flex-nowrap p-1">
-                <button class="btn btn-info w-100 m-1" onclick="openWidget('imageuri2', 'profileimage')">Edit</button>
-                <button class="btn btn-success w-100 m-1" (click)="updateProfilePic(); modal.dismiss()">Save</button>
-            </div>
-            <button type="button" class="btn btn-light w-100 m-1" (click)="modal.dismiss()">Cancel</button>
+
+        <div class="friends-desktop" style="margin-top: 8em;">
+            <app-profile-content></app-profile-content>
         </div>
-    </ng-template>
+    </div>
+</div>
+
+
+<!-- Edit background picture Modal -->
+<ng-template #background let-modal>
+    <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center">
+            <img [src]="userProfile.backgroundImg" id="postimage" class="img-fluid rounded">
+        </div>
+        <div class="container-fluid d-flex flex-nowrap p-1">
+            <button class="btn btn-info w-100 m-1" onclick="openWidget('imageuri', 'postimage')">Edit</button>
+            <button class="btn btn-success w-100 m-1" (click)="updateBackgroundPic(); modal.dismiss()">Save</button>
+        </div>
+        <button type="button" class="btn btn-light w-100 m-1" (click)="modal.dismiss()">Cancel</button>
+    </div>
+</ng-template>
+<!-- Edit profile picture Modal -->
+<ng-template #profile let-modal>
+    <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center">
+            <img [src]="userProfile.profileImg" id="profileimage" style="border-radius: 50%; width: 7em; height: 7em;"
+                class="img-fluid border border-4 material-symbols-rounded p-0 m-3">
+        </div>
+        <div class="container-fluid d-flex flex-nowrap p-1">
+            <button class="btn btn-info w-100 m-1" onclick="openWidget('imageuri2', 'profileimage')">Edit</button>
+            <button class="btn btn-success w-100 m-1" (click)="updateProfilePic(); modal.dismiss()">Save</button>
+        </div>
+        <button type="button" class="btn btn-light w-100 m-1" (click)="modal.dismiss()">Cancel</button>
+    </div>
+</ng-template>

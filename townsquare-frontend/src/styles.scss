@@ -9,6 +9,9 @@ html,
 body {
   font-family: 'IBM Plex Mono', monospace;
   background-color: whitesmoke;
+  .btn {
+    text-transform: none;
+  }
 
   .material-symbols-rounded {
     font-size: xx-large;
@@ -108,6 +111,30 @@ body {
       position: absolute;
       top: 20%;
       overflow: hidden;
+      margin: 1em;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .profile-content {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+
+    .width-profile {
+      margin-left: 1em;
+      width: 35em;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .profile-content {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .width-profile {
+      width: 100%;
       margin: 1em;
     }
   }

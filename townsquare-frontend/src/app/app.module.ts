@@ -23,6 +23,7 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { FriendRequestsComponent } from './components/friend-requests/friend-requests.component';
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ProfileContentComponent } from './components/profile-content/profile-content.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     ProfileComponent,
     UserComponent,
     SearchResultsComponent,
-    FriendRequestsComponent
+    FriendRequestsComponent,
+    ProfileContentComponent
   ],
   imports: [
     BrowserModule,

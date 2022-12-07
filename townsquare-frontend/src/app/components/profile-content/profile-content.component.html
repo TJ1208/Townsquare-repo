@@ -1,0 +1,60 @@
+<div class="bg-light">
+    <p>{{ user.profileBio }}</p>
+    <div class="profile-content">
+        <div class="width-profile">
+            <div class="container-fluid btn shadow-sm border p-0 m-0" style="cursor: default;">
+                <div style="text-align: left;">
+                    <h5 class="bg-white p-2 border">Info</h5>
+                    <div>
+                        <div class="d-flex align-items-center p-2">
+                            <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
+                                account_circle
+                            </span>
+                            <p class="p-0 m-0">Name is <span>{{ user.firstName + ' ' + user.lastName }}</span></p>
+                        </div>
+                        <div class="d-flex align-items-center p-2">
+                            <span class="material-symbols-outlined text-warning" style="padding-right: 0.5em;">
+                                cake
+                            </span>
+                            <p class="p-0 m-0">Birthday on <span>{{ formatDate(user.birthDate) }}</span></p>
+                        </div>
+                        <div class="d-flex align-items-center p-2" *ngFor="let address of addresses;">
+                            <span class="material-symbols-outlined text-primary" style="padding-right: 0.5em;">
+                                house
+                            </span>
+                            <p class="p-0 m-0">Lives in <span>{{ address.city + ", " + address.state }}</span></p>
+                        </div>
+                        <div class="d-flex align-items-center p-2">
+                            <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
+                                home_pin
+                            </span>
+                            <p class="p-0 m-0">From <span>{{ user.homeTown }}</span></p>
+                        </div>
+                        <div class="d-flex align-items-center p-2">
+                            <span class="material-symbols-outlined text-success" style="padding-right: 0.5em;">
+                                school
+                            </span>
+                            <div *ngFor="let education of educations">
+                                <p class="p-0 m-0" *ngIf="!education.graduated">Studied at <span>{{ education.school
+                                        }}</span></p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-2">
+                            <span class="material-symbols-outlined text-secondary" style="padding-right: 0.5em;">
+                                demography
+                            </span>
+                            <div *ngFor="let education of educations">
+                                <p class="p-0 m-0" *ngIf="education.graduated">Went to <span>{{ education.school
+                                        }}</span></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <app-post-board></app-post-board>
+        </div>
+    </div>
+</div>
