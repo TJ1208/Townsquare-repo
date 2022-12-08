@@ -9,6 +9,10 @@ html,
 body {
   font-family: 'IBM Plex Mono', monospace;
   background-color: whitesmoke;
+  p, h1, h2, h3, h4, h5, a, textarea {
+    
+  }
+
   .btn {
     text-transform: none;
   }
@@ -46,12 +50,12 @@ body {
 
     .profile-pic {
       position: absolute;
-      top: 60%;
+      top: 70%;
       overflow: hidden;
     }
 
     .profile-edit {
-      top: 55%;
+      top: 50%;
     }
 
     .friends-desktop {
@@ -60,13 +64,6 @@ body {
 
     .friends-mobile {
       display: block;
-    }
-
-    .background-pic-edit {
-      position: relative;
-      top: 8.5em;
-      left: 1em;
-      overflow: hidden;
     }
   }
 
@@ -123,7 +120,7 @@ body {
 
     .width-profile {
       margin-left: 1em;
-      width: 35em;
+      width: 70%;
     }
   }
 
@@ -136,6 +133,11 @@ body {
     .width-profile {
       width: 100%;
       margin: 1em;
+    }
+
+    .background-pic-edit {
+      position: absolute;
+      top: 30%;
     }
   }
 

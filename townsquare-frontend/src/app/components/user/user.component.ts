@@ -76,6 +76,8 @@ export class UserComponent implements OnInit {
     this.getUserProfile();
     if (friend.friend.userId.toString() == localStorage.getItem("userId")) {
       this.router.navigate(['/profile']);
+    } else {
+      location.reload();
     }
   }
 

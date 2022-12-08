@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container-fluid p-0 m-0"
     style="position: relative;  background-image: linear-gradient(#1250867b, whitesmoke);">
-    <img class="container landscape img-fluid rounded mx-auto d-block p-0 m-0"
+    <img class="container-lg landscape img-fluid rounded mx-auto d-block p-0 m-0"
         [src]="userProfile.backgroundImg.trim() == '' ? '' : userProfile.backgroundImg">
     <div class="container-fluid p-0 m-0 profile-pic">
         <div class="container">
@@ -14,11 +14,11 @@
                 </span>
             </div>
         </div>
-        <div class="container-sm">
+        <div class="container-lg">
             <img routerLink="/profile" [src]="userProfile.profileImg" alt=""
                 style="border-radius: 50%; width: 7em; height: 7em;"
                 class="img-fluid border border-4 material-symbols-rounded">
-            <div class="container-sm profile-edit" style="position: absolute; margin-bottom: 2em;">
+            <div class="container-lg profile-edit" style="position: absolute; margin-bottom: 2em;">
                 <div class="friends-desktop">
                     <div class="d-flex" style="margin-left: 20em; margin-bottom: -3em;"
                         [ngStyle]="{'margin-top': friends.length == 0 ? '5em' : '-0.5em'}">
@@ -71,7 +71,7 @@
     </div>
 </div>
 <div class="container-fluid">
-    <div class="container-sm">
+    <div class="container-lg">
         <div class="friends-mobile" style="margin-top: 14em;">
             <app-profile-content></app-profile-content>
         </div>

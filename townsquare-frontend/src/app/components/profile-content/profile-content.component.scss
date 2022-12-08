@@ -5,3 +5,15 @@
 span {
     font-weight: bold;
 }
+
+a.btn:hover {
+    color: white;
+    background: lightgray;
+}
+
+.friend-hover:hover {
+    transition: 0.3s;
+    // color: white;
+    background-color: rgb(226, 222, 222);
+}
+

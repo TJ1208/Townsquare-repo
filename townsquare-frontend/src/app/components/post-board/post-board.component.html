@@ -2,22 +2,23 @@
     <app-navbar></app-navbar>
 </div>
 
-<div class="container-fluid bg-white border main"
-[ngClass]="{'width': url == '/home'}">
+<div class="container-fluid bg-white main" [ngClass]="{'width': url == '/home'}" style="margin-top: 1em;">
     <br>
     <div class="container-fluid p-2 border bg-light" style="box-shadow: 0px 0px 10px lightgray; margin-bottom: 1em;"
-    *ngIf="url == '/profile' || url == '/home'">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-3">
+        *ngIf="url == '/profile' || url == '/home'">
+        <div class="d-flex align-items-center justify-content-center flex-nowrap">
+            <div class="w-25 m-2 d-flex justify-content-center">
                 <img routerLink="/profile"
                     [src]="currentUser == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : currentUser.profileImg"
                     class="point img-shrink">
             </div>
-            <div class="col-9">
+            <div class="container-fluid">
                 <textarea class="form-control form-control-sm" style="height: 8em;" placeholder="Share your thoughts."
                     [(ngModel)]="post.description"></textarea>
             </div>
-            <div class="col-4">
+        </div>
+        <div class="d-flex align-items-center justify-content-center flex-nowrap">
+            <div class="container-fluid">
                 <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
                     [(ngModel)]="post.imageUrl"></textarea>
                 <button class="btn btn-info d-flex flex-col p-1 m-1 align-items-center justify-content-center w-100"
@@ -31,23 +32,24 @@
                     </span>
                 </button>
             </div>
-            <div class="col-4">
+            <div class="container-fluid">
                 <button class="btn btn-success w-100 m-1" (click)="addPost();"
                     [disabled]="!post.description.trim()">POST</button>
             </div>
         </div>
     </div>
+    <p class="lead" style="text-align: center;" *ngIf="posts.length == 0">No posts so far!</p>
     <div class="container-fluid p-1 btn border bg-white d-flex flex-column"
-        style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; width: 90%;"
+        style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; margin-bottom: 1em; width: 90%;"
         *ngFor="let post of posts | slice:0:scrollCount;">
-        <div class="row p-1 m-0" style="border-bottom: 1px solid gray;">
-            <div class="col-2">
+        <div class="d-flex p-1 m-0" style="border-bottom: 1px solid gray;">
+            <div class="d-flex justify-content-center">
                 <img [src]="post.user.profileImg" style="border-radius: 50%; width: 6em; height: 6em;" class="point"
-                (click)="viewUser(post)">
+                    (click)="viewUser(post)">
             </div>
-            <div class="col-10" style="text-align: left; padding-left: 1em;">
+            <div class="container-fluid" style="text-align: left; padding-left: 1em;">
                 <div>
-                    <a class="nav-link" (click)="viewUser(post)">{{ post.user.firstName + " " +
+                    <a class="hover-a" (click)="viewUser(post)">{{ post.user.firstName + " " +
                         post.user.lastName }}
                         <br>{{ formatDate(post.date) }}</a>
                 </div>
@@ -55,7 +57,7 @@
         </div>
         <div class="row" style="text-align: left; padding: 0.5em 0em 0.5em 2em;">
             <div class="col-12">
-                {{ post.description }}
+                <p>{{ post.description }}</p>
             </div>
         </div>
         <div class="row">
@@ -146,7 +148,8 @@
                             class="point" (click)="viewUser(comment)">
                     </div>
                     <div class="col-11" style="text-align: left;">
-                        <a class="nav-link" style="padding-left: 1em;" (click)="viewUser(comment)">{{ comment.user.firstName + " " +
+                        <a class="nav-link" style="padding-left: 1em;" (click)="viewUser(comment)">{{
+                            comment.user.firstName + " " +
                             comment.user.lastName }}
                             <br>{{ formatDate(comment.commentDate) }}</a>
                     </div>
