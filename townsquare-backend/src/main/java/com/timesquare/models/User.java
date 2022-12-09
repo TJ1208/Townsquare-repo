@@ -102,5 +102,9 @@ public class User {
 	@JsonIgnore
 	private List<Comment> comments;
 	
+	@OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Request> requests;
+	
 
 }

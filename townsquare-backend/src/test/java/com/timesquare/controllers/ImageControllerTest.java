@@ -60,19 +60,19 @@ public class ImageControllerTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user2 = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		imageRepo.save(new Image(1L, "http", new java.sql.Date(55), user1));
 		imageRepo.save(new Image(2L, "http", new java.sql.Date(55), user2));
@@ -145,7 +145,7 @@ public class ImageControllerTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		Image newImage = new Image(3L, "http", new java.sql.Date(55), user3);
 		MvcResult result = mockMvc.perform(put("/api/image/update")
 				.contentType(MediaType.APPLICATION_JSON)

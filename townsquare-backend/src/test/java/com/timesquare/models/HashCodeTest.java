@@ -19,7 +19,7 @@ class HashCodeTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null);
+				null, null, null);
 	}
 
 	@Test
@@ -97,7 +97,7 @@ class HashCodeTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null);
+				null, null, null);
 		assertEquals(user.hashCode(), user.hashCode());
 		assertNotEquals(newUser.hashCode(), user.hashCode());
 	}

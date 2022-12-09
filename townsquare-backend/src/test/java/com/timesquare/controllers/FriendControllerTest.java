@@ -61,19 +61,19 @@ public class FriendControllerTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User receiver = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User receiver2 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		friendRepo.save(new Friend(new FriendId(2L, 2L), receiver, receiver));
 		friendRepo.save(new Friend(new FriendId(2L, 1L), receiver, friender));
@@ -137,13 +137,13 @@ public class FriendControllerTest {
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User friender = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		friend = new Friend(new FriendId(2L, 1L), receiver, friender);
 		MvcResult result = mockMvc.perform(put("/api/friend/update")
@@ -163,13 +163,13 @@ public class FriendControllerTest {
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User friender = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		friend = new Friend(new FriendId(3L, 4L), receiver, friender);
 		MvcResult result = mockMvc.perform(put("/api/friend/update")
 				.contentType(MediaType.APPLICATION_JSON)

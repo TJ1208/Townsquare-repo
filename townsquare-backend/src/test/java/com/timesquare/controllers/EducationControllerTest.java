@@ -60,19 +60,19 @@ public class EducationControllerTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user2 = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		educationRepo.save(new Education(1L, false, true, null, null, "Currently working towards my high school diploma",
 				"Fuquay-Varina Senior High School", "High School Diploma", user1));
@@ -151,7 +151,7 @@ public class EducationControllerTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		Education newEducation = new Education(3L, false, true, new Date(55), new Date(65), "Graduated with a High School Diploma", 
 				"Fuquay-Varina Senior High School", "High School Diploma", user3);
 		MvcResult result = mockMvc.perform(put("/api/education/update")

@@ -59,19 +59,19 @@ public class PostControllerTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user2 = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		postRepo.save(new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", null, user1, null));
 		postRepo.save(new Post(2L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user2, null));
@@ -146,7 +146,7 @@ public class PostControllerTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		Post newPost = post = new Post(3L, "Not such a good place...", "It just stinked all the time :(", 1L, 2L, 3L, "http", null, user3, null);
 		
 		MvcResult result = mockMvc.perform(put("/api/post/update")

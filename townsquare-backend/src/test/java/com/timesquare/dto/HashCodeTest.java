@@ -24,7 +24,7 @@ class HashCodeTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null);
+				null, null, null);
 	}
 
 	@Test

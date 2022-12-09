@@ -51,19 +51,19 @@ class UserControllerTest {
 				"JohnDoe@example.com", "Living my best life!", "http",
 				new Date(55), "Raleigh, NC",
 				"Oxford, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		userRepo.save(new User(2L, "Janice", "Doe", "Janice", "67890", "http",
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		mapper = new ObjectMapper();
 		
 		user = new User(3L, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null);
+				null, null, null);
 	}
 	
 	@Test
@@ -126,7 +126,7 @@ class UserControllerTest {
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null);
+				null, null, null);
 		MvcResult result = mockMvc.perform(put("/api/user/update")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(updatedUser)))

@@ -61,19 +61,19 @@ public class RequestControllerTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User receiver = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User receiver2 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		requestRepo.save(new Request(new RequestId(2, 2), receiver, receiver));
 		requestRepo.save(new Request(new RequestId(2, 1), receiver, requester));
@@ -140,13 +140,13 @@ public class RequestControllerTest {
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User requester = userRepo.save(new User(1, "Janice", "Doe", "Janice", "67890", "http",
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		request = new Request(new RequestId(2, 1), receiver, requester);
 		MvcResult result = mockMvc.perform(put("/api/request/update")

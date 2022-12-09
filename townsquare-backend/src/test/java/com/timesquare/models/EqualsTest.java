@@ -20,7 +20,7 @@ public class EqualsTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null);
+				null, null, null);
 	}
 
 	@Test
@@ -146,7 +146,7 @@ public class EqualsTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null);
+				null, null, null);
 		boolean equals = user.equals(newUser);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);

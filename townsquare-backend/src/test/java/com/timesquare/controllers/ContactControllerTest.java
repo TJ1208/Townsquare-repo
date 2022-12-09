@@ -59,19 +59,19 @@ public class ContactControllerTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user2 = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		contactRepo.save(new Contact(1L, "123-456-7890", "098-765-4321", "919-339-3801", user1));
 		contactRepo.save(new Contact(2L, "123-456-7890", "098-765-4321", "919-339-3801", user2));
@@ -146,7 +146,7 @@ public class ContactControllerTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		Contact newContact = contact = new Contact(3L, "123-456-7890", "098-765-4321", "919-339-3801", user3);
 		
 		MvcResult result = mockMvc.perform(put("/api/contact/update")

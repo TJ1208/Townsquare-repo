@@ -64,19 +64,19 @@ public class CommentControllerTest {
 				"Janice@example.com", "Family, friends, and football!", "http",
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user2 = userRepo.save(new User(2, "Taylor", "Joostema", "TaylorJ1208", "12345", "http",
 				"TaylorJ1208@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		User user3 = userRepo.save(new User(3, "Taylor", "Joostema", "TaylorJ", "12345", "http",
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		
 		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", null, user1, null);
 		postRepo.save(post);
@@ -154,7 +154,7 @@ public class CommentControllerTest {
 				"TaylorJ@example.com", "What a beautiful world!", "http",
 				new Date(55), "Raleigh, NC",
 				"Cary, NC", null, null, null, null, null, null, null,
-				null, null));
+				null, null, null));
 		Post post = new Post(1L, "Best place ever!", "It really is!", 1L, 2L, 3L, "http", null, user3, null);
 		Comment newComment = new Comment(3L, "Wish I was there!!", new Date(110), 64L, 4L, post, user3);
 		MvcResult result = mockMvc.perform(put("/api/comment/update")
