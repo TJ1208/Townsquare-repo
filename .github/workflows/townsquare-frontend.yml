@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'production'
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -53,6 +53,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'townsquare-frontend'
-          slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_FrontEnd }}
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DE4E159DE8C4F8287AD350DD391471A }}
           package: .
