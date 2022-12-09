@@ -60,11 +60,18 @@
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default; margin-top: 2em;">
                     <div style="text-align: left;">
                         <h5 class="bg-white p-2 border">Friends</h5>
-                        <div class="d-flex flex-wrap justify-content-center m-0 p-0">
-                            <div class="p-2 rounded friend-hover" *ngFor="let friend of friends;" style="cursor: pointer;">
+                        <p class="d-flex flex-column justify-content-center align-items-center"
+                        style="font-weight: bold; font-size: small;" *ngIf="friends.length == 0">
+                            <span class="material-symbols-outlined text-info p-1" style="font-size: 30px;">
+                                person_pin
+                            </span>
+                            No friends so far
+                        </p>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center m-0 p-0">
+                            <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center" *ngFor="let friend of friends;" style="cursor: pointer;">
                                     <img [src]="friend.friend.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : friend.friend.profileImg"
-                                    class="border" style="border-radius: 10%; width: 10em; height: 10em;">
-                                <p class="card-text" style="font-weight: bold; text-align: center;">{{ friend.friend.firstName + ' ' + friend.friend.lastName }}</p>
+                                    class="border img-shrink" style="border-radius: 10%;">
+                                <p class="card-text" style="font-weight: bold;">{{ friend.friend.firstName + ' ' + friend.friend.lastName }}</p>
                             </div>
                         </div>
                     </div>

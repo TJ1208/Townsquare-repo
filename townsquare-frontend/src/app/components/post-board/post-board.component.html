@@ -2,7 +2,7 @@
     <app-navbar></app-navbar>
 </div>
 
-<div class="container-fluid bg-white main" [ngClass]="{'width': url == '/home'}" style="margin-top: 1em;">
+<div class="container-fluid bg-white main" [ngClass]="{'width': url == '/home'}" style="margin-top: 1em; margin-bottom: 5em;">
     <br>
     <div class="container-fluid p-2 border bg-light" style="box-shadow: 0px 0px 10px lightgray; margin-bottom: 1em;"
         *ngIf="url == '/profile' || url == '/home'">
@@ -38,7 +38,12 @@
             </div>
         </div>
     </div>
-    <p class="lead" style="text-align: center;" *ngIf="posts.length == 0">No posts so far!</p>
+    <p class="d-flex flex-column justify-content-center align-items-center"
+    style="font-size: small; font-weight: bold;" *ngIf="posts.length == 0">Not much going on
+        <span class="material-symbols-outlined p-1 text-info" style="font-size: 50px;">
+            cabin
+        </span>
+    </p>
     <div class="container-fluid p-1 btn border bg-white d-flex flex-column"
         style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; margin-bottom: 1em; width: 90%;"
         *ngFor="let post of posts | slice:0:scrollCount;">
@@ -87,8 +92,8 @@
                 </span>
             </a>
         </div>
-        <div class="row container-fluid p-1 border-top" style="margin: 0.2em 0em 0em 0em;">
-            <div class="col-3">
+        <div class="container-fluid d-flex justify-content-center align-items-center border-top" style="margin: 0.2em 0em 0em 0em;">
+            <div class="container-fluid p-1 m-0">
                 <button class="container-fluid btn comment" (click)="displayCommentBox(post)"
                     [ngClass]="{'comment-selected': post.showCommentBox}">
                     <span class="material-symbols-outlined">
@@ -96,7 +101,7 @@
                     </span>
                 </button>
             </div>
-            <div class="col-3">
+            <div class="container-fluid p-1 m-0">
                 <button class="container-fluid btn like"
                     (click)="post.isLiked = !post.isLiked; post.isDisliked = false; updatePost(post, $event)"
                     [ngClass]="{'like-pressed': post.isLiked}" value="like">
@@ -105,7 +110,7 @@
                     </span>
                 </button>
             </div>
-            <div class="col-3">
+            <div class="container-fluid p-1 m-0">
                 <button class="container-fluid btn dislike"
                     (click)="post.isDisliked = !post.isDisliked; post.isLiked = false; updatePost(post, $event)"
                     [ngClass]="{'dislike-pressed': post.isDisliked}" value="dislike">
@@ -114,7 +119,7 @@
                     </span>
                 </button>
             </div>
-            <div class="col-3">
+            <div class="container-fluid p-1 m-0">
                 <button class="container-fluid btn share">
                     <span class="material-symbols-outlined">
                         share
@@ -142,12 +147,12 @@
             [ngClass]="{'show-slider': post.showComments, 'hide-slider': !post.showComments}">
             <div class="btn shadow-none bg-light container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"
                 *ngFor="let comment of getCommentsByPost(post.postId)">
-                <div class="row p-1 border-bottom m-0 bg-white">
-                    <div class="col-1 p-0 m-0">
+                <div class="d-flex p-1 m-0">
+                    <div class="d-flex justify-content-center">
                         <img [src]="comment.user.profileImg" style="border-radius: 50%; width: 4em; height: 4em;"
                             class="point" (click)="viewUser(comment)">
                     </div>
-                    <div class="col-11" style="text-align: left;">
+                    <div class="container-fluid p-0 m-0" style="text-align: left;">
                         <a class="nav-link" style="padding-left: 1em;" (click)="viewUser(comment)">{{
                             comment.user.firstName + " " +
                             comment.user.lastName }}

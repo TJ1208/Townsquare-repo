@@ -9,9 +9,15 @@ html,
 body {
   font-family: 'IBM Plex Mono', monospace;
   background-color: whitesmoke;
-  p, h1, h2, h3, h4, h5, a, textarea {
-    
-  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  a,
+  textarea {}
 
   .btn {
     text-transform: none;
@@ -36,6 +42,14 @@ body {
   @media (max-width: 768px) {
     .show-search {
       display: none;
+    }
+
+    .show-logo {
+      display: none;
+    }
+
+    .show-short-logo {
+      display: block;
     }
 
     .img-shrink {
@@ -67,9 +81,38 @@ body {
     }
   }
 
+  @media (min-width: 500px) {
+    .width-button {
+      margin: 0.5em;
+    }
+
+    .width-picture {
+      width: 15em;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .width-button {
+      margin: 0em;
+      padding: 0.1em;
+    }
+
+    .width-picture {
+      width: 10em;
+    }
+  }
+
   @media (min-width: 768px) {
     .show-search {
       display: block;
+    }
+
+    .show-logo {
+      display: block;
+    }
+
+    .show-short-logo {
+      display: none;
     }
 
     .img-shrink {
@@ -91,7 +134,7 @@ body {
       top: 75%;
       overflow: hidden;
     }
-    
+
     .friends-mobile {
       display: none;
     }
@@ -181,6 +224,7 @@ body {
     .material-symbols-outlined {
       color: white;
     }
+
     border: 0.5px solid lightgray;
     background-color: $dislike-color;
   }
@@ -189,6 +233,7 @@ body {
     .material-symbols-outlined {
       color: white;
     }
+
     border: 0.5px solid lightgray;
     background-color: $like-color;
   }
