@@ -11,27 +11,27 @@ export class ContactService {
   constructor(private http: HttpClient) { }
 
   getAllContacts(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(`http://localhost:8181/api/contact`);
+    return this.http.get<Contact[]>(`https://townsquare-backend.azurewebsites.net/api/contact`);
   }
 
   getAllUserContacts(userId: number): Observable<Contact[]> {
-    return this.http.get<Contact[]>(`http://localhost:8181/api/contact/${userId}`);
+    return this.http.get<Contact[]>(`https://townsquare-backend.azurewebsites.net/api/contact/${userId}`);
   }
 
   getContactById(contactId: number): Observable<Contact> {
-    return this.http.get<Contact>(`http://localhost:8181/api/contact/id/${contactId}`);
+    return this.http.get<Contact>(`https://townsquare-backend.azurewebsites.net/api/contact/id/${contactId}`);
   }
 
   addContact(contact: Contact): Observable<String> {
-    return this.http.post<String>(`http://localhost:8181/api/contact/add`, contact);
+    return this.http.post<String>(`https://townsquare-backend.azurewebsites.net/api/contact/add`, contact);
   }
 
   updateContact(contact: Contact): Observable<String> {
-    return this.http.put<String>(`http://localhost:8181/api/contact/update`, contact);
+    return this.http.put<String>(`https://townsquare-backend.azurewebsites.net/api/contact/update`, contact);
   }
 
   deleteContact(contactId: number): Observable<String> {
-    return this.http.delete<String>(`http://localhost:8181/api/contact/delete/${contactId}`);
+    return this.http.delete<String>(`https://townsquare-backend.azurewebsites.net/api/contact/delete/${contactId}`);
   }
   
 }

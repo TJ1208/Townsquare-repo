@@ -11,27 +11,27 @@ export class EducationService {
   constructor(private http: HttpClient) { }
 
   getAllEducations(): Observable<Education[]> {
-    return this.http.get<Education[]>(`http://localhost:8181/api/education`);
+    return this.http.get<Education[]>(`https://townsquare-backend.azurewebsites.net/api/education`);
   }
 
   getAllUserEducations(userId: number): Observable<Education[]> {
-    return this.http.get<Education[]>(`http://localhost:8181/api/education/${userId}`);
+    return this.http.get<Education[]>(`https://townsquare-backend.azurewebsites.net/api/education/${userId}`);
   }
 
   getEducationById(educationId: number): Observable<Education> {
-    return this.http.get<Education>(`http://localhost:8181/api/education/id/${educationId}`);
+    return this.http.get<Education>(`https://townsquare-backend.azurewebsites.net/api/education/id/${educationId}`);
   }
 
   addEducation(education: Education): Observable<String> {
-    return this.http.post<String>(`http://localhost:8181/api/education/add`, education);
+    return this.http.post<String>(`https://townsquare-backend.azurewebsites.net/api/education/add`, education);
   }
 
   updateEducatione(education: Education): Observable<String> {
-    return this.http.put<String>(`http://localhost:8181/api/education/update`, education);
+    return this.http.put<String>(`https://townsquare-backend.azurewebsites.net/api/education/update`, education);
   }
 
   deleteEducation(educationId: number): Observable<String> {
-    return this.http.delete<String>(`http://localhost:8181/api/Education/delete/${educationId}`);
+    return this.http.delete<String>(`https://townsquare-backend.azurewebsites.net/api/Education/delete/${educationId}`);
   }
   
 }
