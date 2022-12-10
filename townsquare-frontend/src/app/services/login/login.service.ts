@@ -15,7 +15,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(loginData: NgForm): Observable<any> {
-    return this.http.post<any>(`https://townsquare-frontend.azurewebsites.net/authenticate`, loginData, { headers: this.requestHeader });
+    return this.http.post<any>(`https://townsquare-backend.azurewebsites.net/authenticate`, loginData, { headers: this.requestHeader });
   }
 
 }
