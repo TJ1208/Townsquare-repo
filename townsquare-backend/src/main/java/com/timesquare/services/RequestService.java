@@ -1,6 +1,7 @@
 package com.timesquare.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,8 @@ public class RequestService {
 				.collect(Collectors.toList());
 	}
 	
-	public Request getRequestById(Long receiverId, Long requesterId) throws Exception {
-		return requestRepo.findById(new RequestId(receiverId, requesterId))
-				.orElseThrow(() -> new Exception("No friend request was found"
-						+ " with requester id " + requesterId + " and receiver"
-						+ " id " + receiverId));
+	public Optional<Request> getRequestById(Long receiverId, Long requesterId) throws Exception {
+		return requestRepo.findById(new RequestId(receiverId, requesterId));
 	}
 	
 	public void sendRequest(Request request) {

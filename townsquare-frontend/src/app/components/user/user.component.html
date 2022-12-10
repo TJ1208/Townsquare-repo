@@ -4,16 +4,6 @@
     <img class="container-lg landscape img-fluid rounded mx-auto d-block p-0 m-0"
         [src]="userProfile.backgroundImg.trim() == '' ? '' : userProfile.backgroundImg">
     <div class="container-fluid p-0 m-0 profile-pic">
-        <div class="container">
-            <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
-                [(ngModel)]="userProfile.backgroundImg"></textarea>
-            <div class="container-sm background-pic-edit">
-                <span class="material-symbols-rounded btn btn-sm btn-light btn-rounded p-2"
-                    (click)="updatePictureModal(background)" style="float: right;">
-                    edit
-                </span>
-            </div>
-        </div>
         <div class="container-lg">
             <img routerLink="/profile" [src]="userProfile.profileImg" alt=""
                 style="border-radius: 50%; width: 7em; height: 7em;"
@@ -37,52 +27,88 @@
                                 + {{ friends.length - 5 }}
                             </button>
                         </button>
+                        <button class="btn btn-info"
+                            style="margin-left: 5em; margin-top: 1.5em; height: 4em; width: 10em;"
+                            *ngIf="showAddFriend && !showPendingRequest" (click)="sendFriendRequest()">
+                            <span class="material-symbols-outlined">
+                                person_add
+                            </span>
+                        </button>
+                        <button class="btn btn-secondary"
+                            style="margin-left: 5em; margin-top: 1.5em; height: 4em; width: 10em;"
+                            *ngIf="!showAddFriend && showPendingRequest">
+                            <span class="material-symbols-outlined">
+                                person
+                            </span>
+                        </button>
+                        <button class="btn btn-danger"
+                            style="margin-left: 5em; margin-top: 1.5em; height: 4em; width: 10em;"
+                            *ngIf="!showAddFriend && !showPendingRequest" (click)="removeFriend()">
+                            <span class="material-symbols-outlined">
+                                person_remove
+                            </span>
+                        </button>
                     </div>
                 </div>
-                <textarea hidden type="text" class="form-control" id="imageuri2" required name="imageuri2"
-                    [(ngModel)]="userProfile.profileImg"></textarea>
-                <span class="material-symbols-rounded btn btn-sm btn-light btn-rounded p-2"
-                    (click)="updatePictureModal(profile)" style="margin-left: 5em;">
-                    edit
-                </span>
             </div>
             <div class="friends-mobile">
-                <div class="d-flex" style="margin-left: 2em;"
+                <div class="d-flex flex-wrap justify-content-start"
                     [ngStyle]="{'margin-top': friends.length == 0 ? '5em' : '1em'}">
-                    <div *ngFor="let friend of friends | slice:0:5;">
-                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;"
-                            [title]="friend.friend.firstName + ' ' + friend.friend.lastName">
-                            <img (click)="userProfileRedirect(friend)"
-                                [src]="friend.friend.profileImg == '' ? '' : friend.friend.profileImg"
-                                style="border-radius: 50%; width: 7em; height: 7em;">
+                    <div class="d-flex" style="margin-left: 2em;">
+                        <div *ngFor="let friend of friends | slice:0:5;">
+                            <button class="btn btn-rounded p-0" style="margin-left: -2.5em;"
+                                [title]="friend.friend.firstName + ' ' + friend.friend.lastName">
+                                <img (click)="userProfileRedirect(friend)"
+                                    [src]="friend.friend.profileImg == '' ? '' : friend.friend.profileImg"
+                                    style="border-radius: 50%; width: 7em; height: 7em;">
+                            </button>
+                        </div>
+                        <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" *ngIf="friends.length > 5">
+                            <button routerLink="/friend-requests"
+                                style="border-radius: 50%; width: 6em; height: 6em; font-weight: bolder; font-size: larger;"
+                                class="border border-none bg-light text-secondary">
+                                + {{ friends.length - 5 }}
+                            </button>
                         </button>
                     </div>
-                    <button class="btn btn-rounded p-0" style="margin-left: -2.5em;" *ngIf="friends.length > 5">
-                        <button routerLink="/friend-requests"
-                            style="border-radius: 50%; width: 6em; height: 6em; font-weight: bolder; font-size: larger;"
-                            class="border border-none bg-light text-secondary">
-                            + {{ friends.length - 5 }}
+                    <div class="d-flex container-fluid">
+                        <button class="btn btn-info"
+                            style="margin-top: 1.5em; height: 4em; width: 10em;"
+                            *ngIf="showAddFriend && !showPendingRequest" (click)="sendFriendRequest()">
+                            <span class="material-symbols-outlined" title="add friend">
+                                person_add
+                            </span>
                         </button>
-                    </button>
+                        <button class="btn btn-secondary"
+                            style="margin-top: 1.5em; height: 4em; width: 10em;"
+                            *ngIf="!showAddFriend && showPendingRequest" title="pending friend request">
+                            <span class="material-symbols-outlined">
+                                person
+                            </span>
+                        </button>
+                        <button class="btn btn-danger"
+                            style="margin-top: 1.5em; height: 4em; width: 10em;"
+                            *ngIf="!showAddFriend && !showPendingRequest" (click)="removeFriend()" title="unfriend">
+                            <span class="material-symbols-outlined">
+                                person_remove
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 <div class="container-fluid">
     <div class="container-lg">
-        <div class="friends-mobile" style="margin-top: 14em;">
+        <div class="friends-mobile" style="margin-top: 18em;">
             <app-profile-content></app-profile-content>
         </div>
-
         <div class="friends-desktop" style="margin-top: 8em;">
             <app-profile-content></app-profile-content>
         </div>
     </div>
 </div>
-
-
 <!-- Edit background picture Modal -->
 <ng-template #background let-modal>
     <div class="modal-body">

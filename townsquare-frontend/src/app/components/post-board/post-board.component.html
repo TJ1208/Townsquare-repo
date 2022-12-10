@@ -74,9 +74,7 @@
                 </div>
                 <div class="col-12"
                     [hidden]="!(post.imageUrl.endsWith('.mov')) && !(post.imageUrl.endsWith('.webm')) && !(post.imageUrl.endsWith('.mp4'))">
-                    <video controls class="w-100">
-                        <source [src]="post.imageUrl"
-                            [type]="'video/' + post.imageUrl.substring(post.imageUrl.lastIndexOf('.') + 1)">
+                    <video controls class="w-100" [src]="post.imageUrl">
                     </video>
                 </div>
             </div>

@@ -58,7 +58,6 @@ export class ProfileContentComponent implements OnInit {
   routeToUser(friend: Friend): void {
     this.url = this.router.url;
     let userId: any = localStorage.getItem("userId");
-    console.log(this.url);
     if (this.url == '/user' && friend.friend.userId != parseInt(userId)) {
       localStorage.setItem("visitedUser", friend.friend.userId.toString());
       location.reload();

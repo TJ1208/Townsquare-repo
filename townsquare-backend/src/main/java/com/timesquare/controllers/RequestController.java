@@ -2,6 +2,7 @@ package com.timesquare.controllers;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class RequestController {
 	}
 	
 	@GetMapping("/{receiverId}/{requesterId}")
-	public Request getRequestById(@PathVariable Long receiverId,
+	public Optional<Request> getRequestById(@PathVariable Long receiverId,
 			@PathVariable Long requesterId) throws Exception {
 		return requestService.getRequestById(receiverId, requesterId);
 	}

@@ -38,8 +38,6 @@ export class SignupComponent implements OnInit {
     if (new Date().getDate() <= 9) {
       this.maxDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-0" + new Date().getDate();
     }
-    console.log(this.maxDate);
-    console.log(this.user.birthDate instanceof Date);
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
     }
@@ -60,17 +58,14 @@ export class SignupComponent implements OnInit {
       homeTown: "",
       birthDate: this.user.birthDate
     }
-    console.log(this.user);
     this.userService.addUser(this.user).subscribe((user: any) => {
       this.loginForm = {
         username: this.user.email,
         password: this.user.password
       }
-      console.log(this.loginForm);
       this.showSignupError = false;
       this.loginService.login(this.loginForm).subscribe((response: any) => {
         this.authService.setToken(response.jwtToken);
-        console.log(response.user);
         if (response.user) {
           localStorage.setItem("userId", response.user.userId);
         }

@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit {
     this.userService.getAllUsers().subscribe((users) => {
       this.userNames = users.filter((user) => user.userId != this.userId).filter((user) => user.firstName = user.firstName + ' ' + user.lastName);
       this.users = users;
-      console.log(this.userNames);
     })
   }
   getCurrentUserImage(): void {

@@ -5,6 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { Friend } from 'src/app/models/Friend';
 import { Router } from '@angular/router';
+import { RequestService } from 'src/app/services/request/request.service';
+import { Request } from 'src/app/models/Request';
 
 @Component({
   selector: 'app-user',
@@ -14,6 +16,9 @@ import { Router } from '@angular/router';
 export class UserComponent implements OnInit {
   friends: Friend[] = [];
   userId: any = localStorage.getItem("visitedUser");
+  userId2: any = localStorage.getItem("userId");
+  showAddFriend: boolean = true;
+  showPendingRequest: boolean = false;
   userProfile: User = {
     userId: 0,
     firstName: '',
@@ -29,28 +34,69 @@ export class UserComponent implements OnInit {
     homeTown: ''
   };
   constructor(private userService: UserService, private modalService: NgbModal,
-    private friendService: FriendService, private router: Router) {
+    private friendService: FriendService, private router: Router, private requestService: RequestService) {
   }
 
   ngOnInit(): void {
     this.getUserProfile();
+    this.findRequest();
   }
 
   getUserProfile() {
-    console.log(this.userId);
     this.userService.getUserById(parseInt(this.userId)).subscribe((userProfile) => {
       this.userProfile = userProfile;
-      console.log(userProfile);
       this.getUserFriends();
     })
   }
 
+  removeFriend(): void {
+    this.friendService.deleteFriend(this.userId, this.userId2).subscribe(() => {
+      this.showAddFriend = true;
+      this.showPendingRequest = false;
+    })
+    this.friendService.deleteFriend(this.userId2, this.userId).subscribe()
+  }
+
+  sendFriendRequest(): void {
+    let currentId: any = localStorage.getItem('userId');
+    this.userService.getUserById(parseInt(currentId)).subscribe((user: User) => {
+      let request: Request = {
+        requestId: {
+          receiverId: this.userProfile.userId,
+          requesterId: user.userId
+        },
+        receiver: this.userProfile,
+        requester: user
+      }
+      this.requestService.addRequest(request).subscribe(() => {
+        this.showAddFriend = false;
+        this.showPendingRequest = true;
+      })
+    })
+
+  }
+
+  findRequest(): void {
+    this.requestService.getRequestById(this.userId, parseInt(this.userId2)).subscribe((request: Request) => {
+      if (request) {
+        this.showPendingRequest = true;
+      }
+    })
+    this.requestService.getRequestById(parseInt(this.userId2), this.userId).subscribe((request: Request) => {
+      if (request) {
+        this.showPendingRequest = true;
+      } else {
+        this.showPendingRequest = false;
+      }
+    })
+  }
+
   getUserFriends() {
-    console.log(this.userProfile.userId);
     this.friendService.getAllUserFriends(this.userProfile.userId).subscribe((friends) => {
       this.friends = friends;
-      console.log(this.friends);
-      console.log(friends);
+      if (this.friends.find((friend) => friend.friend.userId == parseInt(this.userId2))) {
+        this.showAddFriend = false;
+      }
     })
   }
 

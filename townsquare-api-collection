@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/address",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -35,7 +35,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/address/2",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -65,7 +65,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/address/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -95,7 +95,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/address/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +116,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/address/delete/2",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/delete/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -143,7 +143,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/comment",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -163,7 +163,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/comment/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -193,7 +193,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/comment/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -214,7 +214,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/comment/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -235,7 +235,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/comment/delete/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -262,7 +262,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/contact",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/contact",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -282,7 +282,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/contact/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/contact/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -312,7 +312,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/contact/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/contact/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -342,7 +342,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/contact/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/contact/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -363,7 +363,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/contact/delete/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/contact/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -390,7 +390,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/address",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -410,7 +410,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/education/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/education/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -440,7 +440,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/education/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/education/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -470,7 +470,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/education/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/education/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -491,7 +491,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/education/delete",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/education/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -517,7 +517,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/friend/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/friend/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -538,7 +538,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/friend/1/2",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/friend/1/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -569,7 +569,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/friend/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/friend/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -595,7 +595,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/image",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/image",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -615,7 +615,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/image/2",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/image/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -645,7 +645,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/image/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/image/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -675,7 +675,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/image/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/image/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -696,7 +696,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/image/delete/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/image/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -723,7 +723,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/post",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -743,7 +743,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/post/2",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -773,7 +773,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/post/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -794,7 +794,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/post/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -815,7 +815,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/post/delete/4",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/delete/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -842,7 +842,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/request/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/request/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -863,7 +863,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/request/1/2",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/request/1/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -894,7 +894,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/request/send",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/request/send",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -915,7 +915,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/request/delete/2/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/request/delete/2/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -943,7 +943,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/user",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -963,7 +963,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/user/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/user/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -984,7 +984,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/user/name/t",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/user/name/t",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1015,7 +1015,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/user/register",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/user/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1045,7 +1045,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/user/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/user/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1066,7 +1066,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/user/delete/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/user/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1093,7 +1093,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/work",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/work",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1113,7 +1113,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/work/2",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/work/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1143,7 +1143,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/work/add",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/work/add",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1164,7 +1164,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/work/update",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/work/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1185,7 +1185,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://townsquare-backend.azurewebsites.net/api/work/delete/1",
+							"raw": "http://localhost:8181https://townsquare-backend.azurewebsites.net/api/work/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"

@@ -16,7 +16,7 @@
                 <input type="text" [(ngModel)]="user.lastName" class="form-control" placeholder="Last Name" required>
             </div>
         </div>
-        <input type="date" [(ngModel)]="user.birthDate" class="form-control mb-2" placeholder="Birth Date" [max]="maxDate" required>
+        <input type="date" [(ngModel)]="user.birthDate" class="form-control mb-2" placeholder="mm/dd/yyyy" [max]="maxDate" required>
         <input type="email" [(ngModel)]="user.email" class="form-control" placeholder="Email Address" required>
         <input type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password" required
             autocomplete="off">

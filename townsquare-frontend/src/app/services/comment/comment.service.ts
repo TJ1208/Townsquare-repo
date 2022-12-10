@@ -11,27 +11,27 @@ export class CommentService {
   constructor(private http: HttpClient) { }
 
   getAllComments(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`https://townsquare-backend.azurewebsites.net/api/comment`);
+    return this.http.get<Comment[]>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment`);
   }
 
   getAllUserComments(userId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`https://townsquare-backend.azurewebsites.net/api/comment/${userId}`);
+    return this.http.get<Comment[]>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/${userId}`);
   }
 
   getCommentById(commentId: number): Observable<Comment> {
-    return this.http.get<Comment>(`https://townsquare-backend.azurewebsites.net/api/comment/id/${commentId}`);
+    return this.http.get<Comment>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/id/${commentId}`);
   }
 
   addComment(comment: Comment): Observable<String> {
-    return this.http.post<String>(`https://townsquare-backend.azurewebsites.net/api/comment/add`, comment);
+    return this.http.post<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/add`, comment);
   }
 
   updateComment(comment: Comment): Observable<String> {
-    return this.http.put<String>(`https://townsquare-backend.azurewebsites.net/api/comment/update`, comment);
+    return this.http.put<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/update`, comment);
   }
 
   deleteComment(commentId: number): Observable<String> {
-    return this.http.delete<String>(`https://townsquare-backend.azurewebsites.net/api/comment/delete/${commentId}`);
+    return this.http.delete<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/comment/delete/${commentId}`);
   }
   
 }
