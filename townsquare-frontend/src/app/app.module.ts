@@ -24,7 +24,6 @@ import { FriendRequestsComponent } from './components/friend-requests/friend-req
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ProfileContentComponent } from './components/profile-content/profile-content.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -56,11 +55,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
       useClass: AuthInterceptor,
       multi: true
     },
-    AuthService,
-    {
-      provide: LocationStrategy,
-      useClass: HashLocationStrategy
-    }
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
