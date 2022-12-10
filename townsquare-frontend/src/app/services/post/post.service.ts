@@ -11,27 +11,27 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   getAllPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post`);
+    return this.http.get<Post[]>(`https://townsquare-frontend.azurewebsites.net/api/post`);
   }
 
   getAllUserPosts(userId: number): Observable<Post[]> {
-    return this.http.get<Post[]>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/${userId}`);
+    return this.http.get<Post[]>(`https://townsquare-frontend.azurewebsites.net/api/post/${userId}`);
   }
 
   getPostById(postId: number): Observable<Post> {
-    return this.http.get<Post>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/id/${postId}`);
+    return this.http.get<Post>(`https://townsquare-frontend.azurewebsites.net/api/post/id/${postId}`);
   }
 
   addPost(post: Post): Observable<any> {
-    return this.http.post<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/add`, post);
+    return this.http.post<String>(`https://townsquare-frontend.azurewebsites.net/api/post/add`, post);
   }
 
   updatePost(post: Post): Observable<String> {
-    return this.http.put<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/update`, post);
+    return this.http.put<String>(`https://townsquare-frontend.azurewebsites.net/api/post/update`, post);
   }
 
   deletePost(postId: number): Observable<String> {
-    return this.http.delete<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/post/delete/${postId}`);
+    return this.http.delete<String>(`https://townsquare-frontend.azurewebsites.net/api/post/delete/${postId}`);
   }
   
 }

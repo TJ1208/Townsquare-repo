@@ -11,27 +11,27 @@ export class AddressService {
   constructor(private http: HttpClient) { }
 
   getAllAddresses(): Observable<Address[]> {
-    return this.http.get<Address[]>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address`);
+    return this.http.get<Address[]>(`https://townsquare-frontend.azurewebsites.net/api/address`);
   }
 
   getAllUserAddressses(userId: number): Observable<Address[]> {
-    return this.http.get<Address[]>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/${userId}`);
+    return this.http.get<Address[]>(`https://townsquare-frontend.azurewebsites.net/api/address/${userId}`);
   }
 
   getAddressById(addressId: number): Observable<Address> {
-    return this.http.get<Address>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/id/${addressId}`);
+    return this.http.get<Address>(`https://townsquare-frontend.azurewebsites.net/api/address/id/${addressId}`);
   }
 
   addAddress(address: Address): Observable<String> {
-    return this.http.post<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/add`, address);
+    return this.http.post<String>(`https://townsquare-frontend.azurewebsites.net/api/address/add`, address);
   }
 
   updateAddress(address: Address): Observable<String> {
-    return this.http.put<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/update`, address);
+    return this.http.put<String>(`https://townsquare-frontend.azurewebsites.net/api/address/update`, address);
   }
 
   deleteAddress(addressId: number): Observable<String> {
-    return this.http.delete<String>(`http://localhost:8181https://townsquare-backend.azurewebsites.net/api/address/delete/${addressId}`);
+    return this.http.delete<String>(`https://townsquare-frontend.azurewebsites.net/api/address/delete/${addressId}`);
   }
   
 }
