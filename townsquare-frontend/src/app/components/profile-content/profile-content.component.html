@@ -31,6 +31,12 @@
                                 </span>
                                 <p class="p-0 m-0">From <span>{{ user.homeTown }}</span></p>
                             </div>
+                            <div class="d-flex align-items-center p-2" *ngIf="user.birthplace.trim() != ''">
+                                <span class="material-symbols-outlined text-secondary" style="padding-right: 0.5em;">
+                                    child_care
+                                </span>
+                                <p class="p-0 m-0">Born in <span>{{ user.birthplace }}</span></p>
+                            </div>
                             <div *ngFor="let education of educations">
                                 <div class="d-flex align-items-center p-2">
                                     <div class="d-flex align-items-center" *ngIf="!education.graduated">
@@ -53,7 +59,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="nav-link btn m-2" style="float: right" *ngIf="url == '/profile'">Edit Info</a>
+                            <a class="nav-link btn m-2" style="float: right" *ngIf="url == '/profile'"
+                                (click)="updateProfileModal(profile)">Edit Info</a>
                         </div>
                     </div>
                 </div>
@@ -61,17 +68,19 @@
                     <div style="text-align: left;">
                         <h5 class="bg-white p-2 border">Friends</h5>
                         <p class="d-flex flex-column justify-content-center align-items-center"
-                        style="font-weight: bold; font-size: small;" *ngIf="friends.length == 0">
+                            style="font-weight: bold; font-size: small;" *ngIf="friends.length == 0">
                             <span class="material-symbols-outlined text-info p-1" style="font-size: 30px;">
                                 person_pin
                             </span>
                             No friends so far
                         </p>
                         <div class="d-flex flex-wrap justify-content-center align-items-center m-0 p-0">
-                            <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center" *ngFor="let friend of friends;" style="cursor: pointer;">
-                                    <img [src]="friend.friend.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : friend.friend.profileImg"
+                            <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center"
+                                *ngFor="let friend of friends;" style="cursor: pointer;">
+                                <img [src]="friend.friend.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : friend.friend.profileImg"
                                     class="border img-shrink" style="border-radius: 10%;">
-                                <p class="card-text" style="font-weight: bold;">{{ friend.friend.firstName + ' ' + friend.friend.lastName }}</p>
+                                <p class="card-text" style="font-weight: bold;">{{ friend.friend.firstName + ' ' +
+                                    friend.friend.lastName }}</p>
                             </div>
                         </div>
                     </div>
@@ -83,3 +92,28 @@
             <app-post-board></app-post-board>
         </div>
     </div>
+</div>
+<!-- Edit Profile Modal -->
+<ng-template #profile let-modal>
+    <div class="modal-body p-0 m-0">
+        <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Info</h5>
+        <div class="m-3">
+            <label style="font-weight: bold;">First Name</label>
+            <input type="text" class="form-control m-1" [(ngModel)]="user.firstName" placeholder="firstname">
+            <label style="font-weight: bold;">Last Name</label>
+            <input type="text" class="form-control m-1" [(ngModel)]="user.lastName" placeholder="lastname">
+            <label style="font-weight: bold;">Birth Date</label>
+            <input type="date" class="form-control m-1" [(ngModel)]="user.birthDate" placeholer="Birth Date">
+            <label style="font-weight: bold;">Home Town</label>
+            <input type="text" class="form-control m-1" [(ngModel)]="user.homeTown" placeholer="Home Town">
+            <label style="font-weight: bold;">Born In</label>
+            <input type="text" class="form-control m-1" [(ngModel)]="user.birthplace" placeholer="Birthplace">
+        </div>
+        <div class="container-fluid d-flex flex-nowrap p-1">
+            <button class="btn btn-success w-100 m-1" (click)="updateUser(); modal.dismiss()"
+            [disabled]="user.firstName.trim() == '' || user.lastName.trim() == '' || user.birthDate == null ||
+            user.homeTown.trim() == '' || user.birthplace.trim() == ''">Save</button>
+            <button type="button" class="btn btn-light w-100 m-1 border" (click)="modal.dismiss()">Cancel</button>
+        </div>
+    </div>
+</ng-template>

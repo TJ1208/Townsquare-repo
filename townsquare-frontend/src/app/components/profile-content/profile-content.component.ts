@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Address } from 'src/app/models/Address';
 import { Education } from 'src/app/models/Education';
 import { Friend } from 'src/app/models/Friend';
@@ -35,7 +36,8 @@ export class ProfileContentComponent implements OnInit {
   userId: any;
   url: string = this.router.url;
   constructor(private userService: UserService, private router: Router, private addressService: AddressService,
-    private educationService: EducationService, private friendService: FriendService) { }
+    private educationService: EducationService, private friendService: FriendService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     if (this.url == "/profile") {
@@ -55,6 +57,10 @@ export class ProfileContentComponent implements OnInit {
     })
   }
 
+  updateUser(): void {
+    this.userService.updateUser(this.user).subscribe();
+  }
+
   routeToUser(friend: Friend): void {
     this.url = this.router.url;
     let userId: any = localStorage.getItem("userId");
@@ -68,6 +74,11 @@ export class ProfileContentComponent implements OnInit {
       this.router.navigate(["/profile"]);
     }
   }
+
+  updateProfileModal(picture: any) {
+    this.modalService.open(picture, { size: 'sm', centered: true });
+  }
+
 
   getUserFriends(): void {
     this.friendService.getAllUserFriends(parseInt(this.userId)).subscribe((friends: Friend[]) => {
@@ -97,3 +108,4 @@ export class ProfileContentComponent implements OnInit {
   }
 
 }
+

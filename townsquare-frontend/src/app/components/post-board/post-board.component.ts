@@ -91,15 +91,33 @@ export class PostBoardComponent implements OnInit {
   }
 
   getPosts(): void {
-    this.postService.getAllPosts().subscribe((posts: any) => {
+    this.postService.getAllPosts().subscribe((posts: Post[]) => {
       if (this.url == "/profile") {
         posts = posts.filter((post: any) => post.user.userId == this.userId);
       } else if (this.url == "/user") {
         posts = posts.filter((post: any) => post.user.userId == localStorage.getItem("visitedUser"));
       }
-      this.castPost = posts;
+      this.castPost = this.shuffle(posts);
       this.retrievePosts(posts);
     })
+  }
+
+  shuffle(array: any) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
   }
 
   @HostListener("window:scroll", [])

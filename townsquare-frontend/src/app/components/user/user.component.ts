@@ -17,8 +17,8 @@ export class UserComponent implements OnInit {
   friends: Friend[] = [];
   userId: any = localStorage.getItem("visitedUser");
   userId2: any = localStorage.getItem("userId");
-  showAddFriend: boolean = true;
-  showPendingRequest: boolean = false;
+  showAddFriend: any;
+  showPendingRequest: any;
   userProfile: User = {
     userId: 0,
     firstName: '',
@@ -80,13 +80,6 @@ export class UserComponent implements OnInit {
     this.requestService.getRequestById(this.userId, parseInt(this.userId2)).subscribe((request: Request) => {
       if (request) {
         this.showPendingRequest = true;
-      }
-    })
-    this.requestService.getRequestById(parseInt(this.userId2), this.userId).subscribe((request: Request) => {
-      if (request) {
-        this.showPendingRequest = true;
-      } else {
-        this.showPendingRequest = false;
       }
     })
   }

@@ -27,7 +27,8 @@
                                 + {{ friends.length - 5 }}
                             </button>
                         </button>
-                        <button class="btn btn-info"
+                        <div [ngClass]="{'add-friend': friends.length == 0}">
+                           <button class="btn btn-info"
                             style="margin-left: 5em; margin-top: 1.5em; height: 4em; width: 10em;"
                             *ngIf="showAddFriend && !showPendingRequest" (click)="sendFriendRequest()">
                             <span class="material-symbols-outlined">
@@ -47,7 +48,8 @@
                             <span class="material-symbols-outlined">
                                 person_remove
                             </span>
-                        </button>
+                        </button> 
+                        </div>
                     </div>
                 </div>
             </div>
