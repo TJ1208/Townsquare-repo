@@ -46,15 +46,15 @@ public class WorkController {
 	
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addWorkplace(@RequestBody WorkDTO workplaceDTO) {
+	public void addWorkplace(@RequestBody WorkDTO workplaceDTO) {
 		Work work = dtoToEntity(workplaceDTO);
-		return workService.addWorkplace(work);
+		workService.addWorkplace(work);
 	}
 	
 	@PutMapping("/update")
-	public String updateWorkplace(@RequestBody WorkDTO workplaceDTO) {
+	public void updateWorkplace(@RequestBody WorkDTO workplaceDTO) {
 		Work work = modelMapper.map(workplaceDTO, Work.class);
-		return workService.updateWorkplace(work);
+		workService.updateWorkplace(work);
 	}
 	
 	@DeleteMapping("/delete/{workplaceId}")

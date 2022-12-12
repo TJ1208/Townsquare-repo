@@ -47,15 +47,15 @@ public class AddressController {
 	
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addAddress(@RequestBody AddressDTO addressDTO) throws ParseException {
+	public void addAddress(@RequestBody AddressDTO addressDTO) throws ParseException {
 		Address address = dtoToEntity(addressDTO);
-		return addressService.addAddress(address);
+		addressService.addAddress(address);
 	}
 	
 	@PutMapping("/update")
-	public String updateAddress(@RequestBody AddressDTO addressDTO) throws ParseException {
+	public void updateAddress(@RequestBody AddressDTO addressDTO) throws ParseException {
 		Address address = dtoToEntity(addressDTO);
-		return addressService.updateAddress(address);
+		addressService.updateAddress(address);
 	}
 	
 	@DeleteMapping("/delete/{id}")

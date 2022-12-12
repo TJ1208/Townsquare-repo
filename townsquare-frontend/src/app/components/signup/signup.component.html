@@ -21,7 +21,7 @@
         <input type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password" required
             autocomplete="off">
         <input type="password" id="confirmPassword" #confirmPassword name="confirmPassword" ngModel class="form-control"
-            placeholder="Confirm Password" required>
+            placeholder="Confirm Password" required autocomplete="off">
         <small *ngIf="confirmPassword.value != user.password && (confirmPassword.value != '' && user.password != '')"
             class="p-0 m-0 text-danger" style="font-size: small;">
             <span class="material-symbols-outlined p-1" style="font-size: smaller;">

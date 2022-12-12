@@ -30,19 +30,14 @@ public class WorkService {
 				() -> new Exception("Workplace not found with id " + workplaceId));
 	}
 	
-	public String addWorkplace(Work workplace) {
+	public void addWorkplace(Work workplace) {
 		workRepo.save(workplace);
-		return workplace.getUser().getFirstName() + " " + workplace.getUser().getLastName()
-				+ " now works at " + workplace.getCompany() + "!";
 	}
 	
-	public String updateWorkplace(Work workplace) {
+	public void updateWorkplace(Work workplace) {
 		if (workRepo.findById(workplace.getWorkplaceId()).isPresent()) {
 			workRepo.save(workplace);
-			return "Workplace details for " + workplace.getCompany() + " have"
-					+ " been updated.";
 		}
-		return "No workplace details found for the company " + workplace.getCompany();
 	}
 	
 	public String deleteWorkplace(Long workplaceId) {

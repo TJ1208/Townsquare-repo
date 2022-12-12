@@ -31,21 +31,14 @@ public class AddressService {
 						+ addressId));
 	}
 	
-	public String addAddress(Address address) {
+	public void addAddress(Address address) {
 		addressRepo.save(address);
-		return address.getUser().getFirstName() + address.getUser().getLastName() +
-				"'s address has been added.";
 	}
 	
-	public String updateAddress(Address address) {
+	public void updateAddress(Address address) {
 		if (addressRepo.findById(address.getAddressId()).isPresent()) {
 			addressRepo.save(address);
-			return address.getUser().getFirstName() + address.getUser().getLastName()
-					+ "'s address has been updated.";
 		}
-		return address.getUser().getFirstName() + address.getUser().getLastName() +
-				"'s address has not been found with id: " 
-				+ address.getAddressId();
 	}
 	
 	public String removeAddress(Long addressId) {

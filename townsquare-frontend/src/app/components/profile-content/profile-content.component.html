@@ -23,19 +23,20 @@
                                 <span class="material-symbols-outlined text-primary" style="padding-right: 0.5em;">
                                     house
                                 </span>
-                                <p class="p-0 m-0">Lives in <span>{{ address.city + ", " + address.state }}</span></p>
-                            </div>
-                            <div class="d-flex align-items-center p-2" *ngIf="user.homeTown.trim() != ''">
-                                <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
-                                    home_pin
-                                </span>
-                                <p class="p-0 m-0">From <span>{{ user.homeTown }}</span></p>
+                                <p class="p-0 m-0" *ngIf="address.city != ''">Lives in <span>{{ address.city + ", " + address.state }}</span></p>
+                                <p class="p-0 m-0" *ngIf="address.city == ''">Lives in <span>{{ address.state }}</span></p>
                             </div>
                             <div class="d-flex align-items-center p-2" *ngIf="user.birthplace.trim() != ''">
                                 <span class="material-symbols-outlined text-secondary" style="padding-right: 0.5em;">
                                     child_care
                                 </span>
                                 <p class="p-0 m-0">Born in <span>{{ user.birthplace }}</span></p>
+                            </div>
+                            <div class="d-flex align-items-center p-2" *ngFor="let work of workplaces;">
+                                <span class="material-symbols-outlined text-success" style="padding-right: 0.5em;">
+                                    business_center
+                                </span>
+                                <p class="p-0 m-0">Works at <span>{{ work.company }}</span> as a <span>{{ work.position }}</span></p>
                             </div>
                             <div *ngFor="let education of educations">
                                 <div class="d-flex align-items-center p-2">
@@ -95,24 +96,71 @@
 </div>
 <!-- Edit Profile Modal -->
 <ng-template #profile let-modal>
-    <div class="modal-body p-0 m-0">
+    <div class="modal-body p-0 m-0 bg-light">
         <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Info</h5>
         <div class="m-3">
             <label style="font-weight: bold;">First Name</label>
-            <input type="text" class="form-control m-1" [(ngModel)]="user.firstName" placeholder="firstname">
+            <input type="text" class="form-control m-1" #firstName [value]="user.firstName" placeholder="firstname">
             <label style="font-weight: bold;">Last Name</label>
-            <input type="text" class="form-control m-1" [(ngModel)]="user.lastName" placeholder="lastname">
+            <input type="text" class="form-control m-1" #lastName [value]="user.lastName" placeholder="lastname">
             <label style="font-weight: bold;">Birth Date</label>
-            <input type="date" class="form-control m-1" [(ngModel)]="user.birthDate" placeholer="Birth Date">
-            <label style="font-weight: bold;">Home Town</label>
-            <input type="text" class="form-control m-1" [(ngModel)]="user.homeTown" placeholer="Home Town">
+            <input type="date" class="form-control m-1" #birthDate [value]="user.birthDate" placeholer="Birth Date"
+            [max]="maxDate">
             <label style="font-weight: bold;">Born In</label>
-            <input type="text" class="form-control m-1" [(ngModel)]="user.birthplace" placeholer="Birthplace">
+            <select class="form-select m-1" #country (change)="filterStates(country.value)">
+                <option [selected]="country.value == ''" hidden>Select Country</option>
+                <option *ngFor="let country of countries;" [value]="country.isoCode">{{ country.name }}</option>
+            </select>
+            <div class="d-flex m-1 flex-nowrap">
+                <select class="form-select m-1 container-fluid" #state (change)="filterCity(state.value, country.value)"
+                    [hidden]="states.length == 0 && country.value.trim() != ''" [disabled]="states.length == 0">
+                    <option [selected]="states.length == 0" disabled>State</option>
+                    <option *ngFor="let state of states;" [value]="state.isoCode">{{ state.name }}</option>
+                </select>
+                <select class="form-select m-1 container-fluid" #city [disabled]="cities.length == 0"
+                    [hidden]="states.length == 0 && country.value.trim() != ''">
+                    <option [selected]="cities.length == 0" disabled>City</option>
+                    <option *ngFor="let city of cities;" [value]="city.name">{{ city.name }}</option>
+                </select>
+            </div>
+        </div>
+        <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Location / Work</h5>
+        <div class="m-3">
+            <label style="font-weight: bold;">Residence</label>
+            <select class="form-select m-1" #currentCountry (change)="filterCurrentStates(currentCountry.value)">
+                <option [selected]="country.value == ''" hidden>Select Country</option>
+                <option *ngFor="let country of currentCountries;" [value]="country.isoCode">{{ country.name }}</option>
+            </select>
+            <div class="d-flex m-1 flex-nowrap">
+                <select class="form-select m-1 container-fluid" #currentState
+                    (change)="filterCurrentCity(currentState.value, currentCountry.value)"
+                    [hidden]="currentStates.length == 0 && currentCountry.value.trim() != ''"
+                    [disabled]="currentStates.length == 0">
+                    <option [selected]="currentStates.length == 0" disabled>State</option>
+                    <option *ngFor="let state of currentStates;" [value]="state.isoCode">{{ state.name }}</option>
+                </select>
+                <select class="form-select m-1 container-fluid" #currentCity [disabled]="currentCities.length == 0"
+                    [hidden]="currentStates.length == 0 && currentCountry.value.trim() != ''">
+                    <option [selected]="currentCities.length == 0" disabled>City</option>
+                    <option *ngFor="let city of currentCities;" [value]="city.name">{{ city.name }}</option>
+                </select>
+            </div>
+            <label style="font-weight: bold;">Current Job Site</label>
+            <input type="text" class="form-control m-1" #company placeholder="Company">
+            <div class="d-flex m-1 flex-nowrap">
+                <select class="form-select m-1 container-fluid" #jobCity [disabled]="currentCities.length == 0"
+                    [hidden]="currentStates.length == 0 && currentCountry.value.trim() != ''">
+                    <option [selected]="currentCities.length == 0" disabled>City</option>
+                    <option *ngFor="let city of currentCities;" [value]="city.name">{{ city.name }}</option>
+                </select>
+                <input type="text" class="form-control m-1" #role placeholder="Role">
+            </div>
         </div>
         <div class="container-fluid d-flex flex-nowrap p-1">
-            <button class="btn btn-success w-100 m-1" (click)="updateUser(); modal.dismiss()"
-            [disabled]="user.firstName.trim() == '' || user.lastName.trim() == '' || user.birthDate == null ||
-            user.homeTown.trim() == '' || user.birthplace.trim() == ''">Save</button>
+            <button class="btn btn-success w-100 m-1" (click)="updateUser(firstName.value, lastName.value, birthDate.value, state.value, city.value, 
+            currentState.value, currentCity.value, company.value, jobCity.value, role.value, currentCountry.value); modal.dismiss()" 
+            [disabled]="firstName.value.trim() == '' || lastName.value.trim() == '' || birthDate.value == '' ||
+            currentCountry.value == 'Select Country' || country.value == 'Select Country'">Save</button>
             <button type="button" class="btn btn-light w-100 m-1 border" (click)="modal.dismiss()">Cancel</button>
         </div>
     </div>
