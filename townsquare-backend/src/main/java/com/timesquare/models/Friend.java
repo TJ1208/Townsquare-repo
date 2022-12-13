@@ -1,5 +1,6 @@
 package com.timesquare.models;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -27,6 +28,9 @@ public class Friend {
 	@ManyToOne
 	@MapsId("friendId")
 	private User friend;
+	
+	@Column(name = "relationship")
+	private boolean relationship;
 	
 
 }

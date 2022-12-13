@@ -46,15 +46,15 @@ public class EducationController {
 	
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addEducation(@RequestBody EducationDTO educationDTO) {
+	public void addEducation(@RequestBody EducationDTO educationDTO) {
 		Education education = dtoToEntity(educationDTO);
-		return educationService.addEducation(education);
+		educationService.addEducation(education);
 	}
 	
 	@PutMapping("/update")
-	public String updateEducation(@RequestBody EducationDTO educationDTO) {
+	public void updateEducation(@RequestBody EducationDTO educationDTO) {
 		Education education = dtoToEntity(educationDTO);
-		return educationService.updateEducation(education);
+		educationService.updateEducation(education);
 	}
 	
 	@DeleteMapping("/delete/{educationId}")

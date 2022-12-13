@@ -89,7 +89,8 @@ export class FriendRequestsComponent implements OnInit {
         friendId: request.requester.userId
       },
       user: request.receiver,
-      friend: request.requester
+      friend: request.requester,
+      relationship: false
     }
 
     let friendRequester: Friend = {
@@ -98,7 +99,8 @@ export class FriendRequestsComponent implements OnInit {
         friendId: parseInt(this.userId)
       },
       user: request.requester,
-      friend: request.receiver
+      friend: request.receiver,
+      relationship: false
     }
 
     this.friendService.addFriend(friendReceiver).subscribe(() => {

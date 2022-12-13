@@ -12,7 +12,6 @@ import { FriendService } from 'src/app/services/friend/friend.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Country, State, City } from 'country-state-city';
 import { ICity, IState } from 'country-state-city/lib/interface';
-import { NgForm } from '@angular/forms';
 import { Work } from 'src/app/models/Work';
 import { WorkService } from 'src/app/services/work/work.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -24,6 +23,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ProfileContentComponent implements OnInit {
   maxDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+  showSave: boolean = false;
   user: User = {
     userId: 0,
     firstName: '',
@@ -93,9 +93,10 @@ export class ProfileContentComponent implements OnInit {
     })
   }
 
-  updateUser(fName: string, lName: string, birthDate: string, state: any, city: any,
-    currentState: any, currentCity: any, company: string, jobCity: string, role: string, country: any): void {
-    this.userService.updateUser(this.user).subscribe();
+  updateUser(fName: string, lName: string, birthDate: string, state: any,
+    city: any, country: any): void {
+    state = State.getStateByCodeAndCountry(state, country)?.name;
+    country = Country.getCountryByCode(country)?.name;
     let newUser: User = {
       userId: this.user.userId,
       firstName: fName,
@@ -110,6 +111,81 @@ export class ProfileContentComponent implements OnInit {
       birthplace: city == "City" || state == "State" ? country : city + ", " + state,
       homeTown: ''
     }
+    this.userService.updateUser(newUser).subscribe(() => {
+      this.getUser();
+      this.showSave = true;
+      setTimeout(() => {
+        this.showSave = false;
+      }, 1500)
+    });
+  }
+
+  updateEducation(hightSchool: string, otherEducation: string, degree: string, graduated: string,
+    graduatedOther: string): void {
+    let newEducationHighSchool: Education = {
+      educationId: this.educations.length == 0 ? 0 : this.educations[0].educationId,
+      educationType: false,
+      graduated: graduated == "true" ? true : false,
+      startDate: new Date(),
+      endDate: new Date(),
+      description: '',
+      school: hightSchool,
+      degree: '',
+      user: this.user
+    }
+
+    let newEducationOther: Education = {
+      educationId: this.educations.length == 0 ? 0 : this.educations[1].educationId,
+      educationType: true,
+      graduated: graduatedOther == "true" ? true : false,
+      startDate: new Date(),
+      endDate: new Date(),
+      description: '',
+      school: otherEducation,
+      degree: degree,
+      user: this.user
+    }
+
+    if (newEducationHighSchool.educationId == 0) {
+      this.educationService.addEducation(newEducationHighSchool).subscribe(() => {
+        this.getUserEducation();
+      });
+    } else {
+      this.educationService.updateEducation(newEducationHighSchool).subscribe(() => {
+        this.getUserEducation();
+      });
+    }
+
+    if (newEducationOther.educationId == 0) {
+      this.educationService.addEducation(newEducationOther).subscribe(() => {
+        this.getUserEducation();
+      });
+    } else {
+      this.educationService.updateEducation(newEducationOther).subscribe(() => {
+        this.getUserEducation();
+      });
+    }
+
+    this.showSave = true;
+    setTimeout(() => {
+      this.showSave = false;
+    }, 1500)
+
+  }
+
+  updateLocationAndWork(currentState: any, currentCity: any, company: string, jobCity: string,
+    role: string, country: any): void {
+
+    let newWorkplace: Work = {
+      workplaceId: this.workplaces.length == 0 ? 0 : this.workplaces[0].workplaceId,
+      company: company,
+      position: role,
+      city: jobCity == '' ? '' : jobCity,
+      description: '',
+      startDate: new Date(),
+      endDate: new Date(),
+      user: this.user
+    }
 
     let newAddress: Address = {
       addressId: this.addresses.length == 0 ? 0 : this.addresses[0].addressId,
@@ -117,37 +193,35 @@ export class ProfileContentComponent implements OnInit {
       state: currentState == 'State' ? country : currentState,
       street: '',
       zipcode: '',
-      country: '',
+      country: country,
       apartmentNum: '',
-      user: newUser
+      user: this.user
     }
-
-    let newWorkplace: Work = {
-      workplaceId: this.workplaces.length == 0 ? 0 : this.workplaces[0].workplaceId,
-      company: company,
-      position: role,
-      city: jobCity == '' ? country : jobCity,
-      description: '',
-      startDate: new Date(),
-      endDate: new Date(),
-      user: newUser
-    }
-
-    this.userService.updateUser(newUser).subscribe();
 
     if (newAddress.addressId == 0) {
-      this.addressService.addAddress(newAddress).subscribe();
+      this.addressService.addAddress(newAddress).subscribe(() => {
+        this.getUserAddresses();
+      });
     } else {
-      this.addressService.updateAddress(newAddress).subscribe();
+      this.addressService.updateAddress(newAddress).subscribe(() => {
+        this.getUserAddresses();
+      });
     }
 
     if (newWorkplace.workplaceId == 0) {
-      this.workService.addWorkplace(newWorkplace).subscribe();
+      this.workService.addWorkplace(newWorkplace).subscribe(() => {
+        this.getUserWork();
+      });
     } else {
-      this.workService.updateWorkplace(newWorkplace).subscribe();
+      this.workService.updateWorkplace(newWorkplace).subscribe(() => {
+        this.getUserWork();
+      });
     }
 
-    this.getUser();
+    this.showSave = true;
+    setTimeout(() => {
+      this.showSave = false;
+    }, 1500)
   }
 
   filterStates(countryCode: string): void {
@@ -157,6 +231,10 @@ export class ProfileContentComponent implements OnInit {
 
   filterCity(stateCode: string, countryCode: string): void {
     this.cities = City.getCitiesOfState(countryCode, stateCode);
+  }
+
+  showValue(value: any) {
+    console.log(value);
   }
 
   filterCurrentStates(countryCode: string): void {
@@ -183,7 +261,7 @@ export class ProfileContentComponent implements OnInit {
   }
 
   updateProfileModal(picture: any) {
-    this.modalService.open(picture, { size: 'sm', centered: true, scrollable: true });
+    this.modalService.open(picture, { size: 'md', centered: true, scrollable: true });
     this.countries = Country.getAllCountries();
     this.currentCountries = this.countries;
   }

@@ -75,10 +75,10 @@ public class FriendControllerTest {
 				"Cary, NC", null, null, null, null, null, null, null,
 				null, null, null));
 		
-		friendRepo.save(new Friend(new FriendId(2L, 2L), receiver, receiver));
-		friendRepo.save(new Friend(new FriendId(2L, 1L), receiver, friender));
+		friendRepo.save(new Friend(new FriendId(2L, 2L), receiver, receiver, false));
+		friendRepo.save(new Friend(new FriendId(2L, 1L), receiver, friender, false));
 	
-		friend = new Friend(new FriendId(3L, 2L), receiver2, receiver);
+		friend = new Friend(new FriendId(3L, 2L), receiver2, receiver, false);
 	}
 	
 	@Test
@@ -145,7 +145,7 @@ public class FriendControllerTest {
 				"Raleigh, NC", null, null, null, null, null, null, null,
 				null, null, null));
 		
-		friend = new Friend(new FriendId(2L, 1L), receiver, friender);
+		friend = new Friend(new FriendId(2L, 1L), receiver, friender, false);
 		MvcResult result = mockMvc.perform(put("/api/friend/update")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(friend)))
@@ -170,7 +170,7 @@ public class FriendControllerTest {
 				new Date(65), "Oxford, NC",
 				"Raleigh, NC", null, null, null, null, null, null, null,
 				null, null, null));
-		friend = new Friend(new FriendId(3L, 4L), receiver, friender);
+		friend = new Friend(new FriendId(3L, 4L), receiver, friender, false);
 		MvcResult result = mockMvc.perform(put("/api/friend/update")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(friend)))

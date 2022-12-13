@@ -22,12 +22,12 @@ export class AddressService {
     return this.http.get<Address>(`https://townsquare-backend.azurewebsites.net/api/address/id/${addressId}`);
   }
 
-  addAddress(address: Address): Observable<String> {
-    return this.http.post<String>(`https://townsquare-backend.azurewebsites.net/api/address/add`, address);
+  addAddress(address: Address): Observable<any> {
+    return this.http.post<any>(`https://townsquare-backend.azurewebsites.net/api/address/add`, address);
   }
 
-  updateAddress(address: Address): Observable<String> {
-    return this.http.put<String>(`https://townsquare-backend.azurewebsites.net/api/address/update`, address);
+  updateAddress(address: Address): Observable<any> {
+    return this.http.put<any>(`https://townsquare-backend.azurewebsites.net/api/address/update`, address);
   }
 
   deleteAddress(addressId: number): Observable<String> {

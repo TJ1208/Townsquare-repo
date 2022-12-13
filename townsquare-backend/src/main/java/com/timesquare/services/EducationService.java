@@ -31,21 +31,14 @@ public class EducationService {
 						" with id " + educationId));
 	}
 	
-	public String addEducation(Education education) {
+	public void addEducation(Education education) {
 		educationRepo.save(education);
-		return "New education for " + education.getUser().getFirstName() +
-				" " + education.getUser().getLastName() + " has been added.";
 	}
 	
-	public String updateEducation(Education education) {
+	public void updateEducation(Education education) {
 		if (educationRepo.findById(education.getEducationId()).isPresent()) {
 			educationRepo.save(education);
-			return "Education for " + education.getUser().getFirstName() +
-					" " + education.getUser().getLastName() + " has been updated.";
-		}
-		return "Education with id " + education.getEducationId() 
-				+ " for " + education.getUser().getFirstName() +
-				" " + education.getUser().getLastName() + " was not found.";
+		} 
 	}
 	
 	public String deleteEducation(Long educationId) {

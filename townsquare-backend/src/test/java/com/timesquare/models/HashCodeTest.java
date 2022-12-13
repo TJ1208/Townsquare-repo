@@ -61,8 +61,8 @@ class HashCodeTest {
 	
 	@Test
 	void testFriendHashCode() {
-		Friend friend = new Friend(new FriendId(3L, 3L), user, user);
-		Friend newFriend = new Friend(new FriendId(3L, 2L), user, user);
+		Friend friend = new Friend(new FriendId(3L, 3L), user, user, false);
+		Friend newFriend = new Friend(new FriendId(3L, 2L), user, user, false);
 		assertEquals(friend.hashCode(), friend.hashCode());
 		assertNotEquals(newFriend.hashCode(), friend.hashCode());
 	}

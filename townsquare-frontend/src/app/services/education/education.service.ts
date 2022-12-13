@@ -22,12 +22,12 @@ export class EducationService {
     return this.http.get<Education>(`https://townsquare-backend.azurewebsites.net/api/education/id/${educationId}`);
   }
 
-  addEducation(education: Education): Observable<String> {
-    return this.http.post<String>(`https://townsquare-backend.azurewebsites.net/api/education/add`, education);
+  addEducation(education: Education): Observable<any> {
+    return this.http.post<any>(`https://townsquare-backend.azurewebsites.net/api/education/add`, education);
   }
 
-  updateEducatione(education: Education): Observable<String> {
-    return this.http.put<String>(`https://townsquare-backend.azurewebsites.net/api/education/update`, education);
+  updateEducation(education: Education): Observable<any> {
+    return this.http.put<any>(`https://townsquare-backend.azurewebsites.net/api/education/update`, education);
   }
 
   deleteEducation(educationId: number): Observable<String> {

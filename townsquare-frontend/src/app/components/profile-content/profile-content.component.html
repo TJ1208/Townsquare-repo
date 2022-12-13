@@ -1,5 +1,4 @@
-<div class="bg-light shadow" style="margin-bottom: 1em;">
-    <!-- <p class="p-2 m-2">{{ user.profileBio }}</p> -->
+<div class="bg-light shadow navbar" style="margin-bottom: 1em;">
     <div class="profile-content">
         <div class="width-profile m-2">
             <div class="">
@@ -7,61 +6,82 @@
                     <div style="text-align: left;">
                         <h5 class="bg-white p-2 border">Info</h5>
                         <div>
-                            <div class="d-flex align-items-center p-2">
-                                <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
+                            <div class="d-flex align-items-center p-2 container-fluid hover">
+                                <span class="material-symbols-outlined text-success" style="padding-right: 0.5em;">
                                     account_circle
                                 </span>
                                 <p class="p-0 m-0">Name is <span>{{ user.firstName + ' ' + user.lastName }}</span></p>
                             </div>
-                            <div class="d-flex align-items-center p-2">
+                            <div class="d-flex align-items-center p-2 hover">
                                 <span class="material-symbols-outlined text-warning" style="padding-right: 0.5em;">
                                     cake
                                 </span>
                                 <p class="p-0 m-0">Birthday on <span>{{ formatDate(user.birthDate) }}</span></p>
                             </div>
-                            <div class="d-flex align-items-center p-2" *ngFor="let address of addresses;">
-                                <span class="material-symbols-outlined text-primary" style="padding-right: 0.5em;">
-                                    house
+                            <div class="d-flex align-items-center p-2 hover" *ngFor="let address of addresses;">
+                                <span class="material-symbols-outlined text-warning" style="padding-right: 0.5em;">
+                                    home_pin
                                 </span>
-                                <p class="p-0 m-0" *ngIf="address.city != ''">Lives in <span>{{ address.city + ", " + address.state }}</span></p>
-                                <p class="p-0 m-0" *ngIf="address.city == ''">Lives in <span>{{ address.state }}</span></p>
+                                <p class="p-0 m-0" *ngIf="address.city != ''">Lives in <span>{{ address.city + ", " +
+                                        address.state }}</span></p>
+                                <p class="p-0 m-0" *ngIf="address.city == ''">Lives in <span>{{ address.state }}</span>
+                                </p>
                             </div>
-                            <div class="d-flex align-items-center p-2" *ngIf="user.birthplace.trim() != ''">
-                                <span class="material-symbols-outlined text-secondary" style="padding-right: 0.5em;">
+                            <div class="d-flex align-items-center p-2 hover" *ngIf="user.birthplace.trim() != ''">
+                                <span class="material-symbols-outlined text-muted" style="padding-right: 0.5em;">
                                     child_care
                                 </span>
                                 <p class="p-0 m-0">Born in <span>{{ user.birthplace }}</span></p>
                             </div>
-                            <div class="d-flex align-items-center p-2" *ngFor="let work of workplaces;">
-                                <span class="material-symbols-outlined text-success" style="padding-right: 0.5em;">
+                            <div class="d-flex align-items-center p-2 hover" *ngFor="let work of workplaces;">
+                                <span class="material-symbols-outlined text-muted" style="padding-right: 0.5em;">
                                     business_center
                                 </span>
-                                <p class="p-0 m-0">Works at <span>{{ work.company }}</span> as a <span>{{ work.position }}</span></p>
+                                <p class="p-0 m-0">Works at <span>{{ work.company }}</span> as a <span>{{ work.position
+                                        }}</span></p>
                             </div>
                             <div *ngFor="let education of educations">
-                                <div class="d-flex align-items-center p-2">
-                                    <div class="d-flex align-items-center" *ngIf="!education.graduated">
-                                        <span class="material-symbols-outlined text-success"
-                                            style="padding-right: 0.5em;">
-                                            school
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center p-2 container-fluid hover"
+                                        *ngIf="!education.graduated">
+                                        <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
+                                            local_library
                                         </span>
-                                        <p class="p-0 m-0">
+                                        <p class="p-0 m-0" *ngIf="education.educationType">
                                             Studies at <span>{{ education.school }}</span>
                                         </p>
-                                    </div>
-                                    <div class="d-flex align-items-center" *ngIf="education.graduated">
-                                        <span class="material-symbols-outlined text-secondary"
-                                            style="padding-right: 0.5em;">
-                                            demography
-                                        </span>
-                                        <p class="p-0 m-0">
-                                            Went to <span>{{ education.school }}</span>
+                                        <p class="p-0 m-0" *ngIf="!education.educationType">
+                                            Goes to <span>{{ education.school }}</span>
                                         </p>
                                     </div>
+                                    <div class="d-flex align-items-center p-2 container-fluid hover"
+                                        *ngIf="education.graduated">
+                                        <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
+                                            school
+                                        </span>
+                                        <p class="p-0 m-0" *ngIf="!education.educationType">
+                                            Went to <span>{{ education.school }}</span>
+                                        </p>
+                                        <p class="p-0 m-0" *ngIf="education.educationType">
+                                            Studied at <span>{{ education.school }}</span>
+                                        </p>
+                                    </div>
+                                    <!-- <div class="d-flex align-items-center p-2 container-fluid hover"
+                                        *ngFor="let friend of friends;">
+                                        <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
+                                            favorite
+                                        </span>
+                                        <p class="p-0 m-0" *ngIf="friend.relationship">
+                                            In a relationship with <span>{{ friend.friend.firstName + " " +
+                                                friend.friend.lastName }}</span>
+                                        </p>
+                                    </div> -->
                                 </div>
                             </div>
-                            <a class="nav-link btn m-2" style="float: right" *ngIf="url == '/profile'"
-                                (click)="updateProfileModal(profile)">Edit Info</a>
+                            <a class="nav-link btn m-2 comment" style="float: right" *ngIf="url == '/profile'"
+                                (click)="updateProfileModal(profile)"><span class="material-symbols-outlined">
+                                    edit_square
+                                </span></a>
                         </div>
                     </div>
                 </div>
@@ -97,16 +117,23 @@
 <!-- Edit Profile Modal -->
 <ng-template #profile let-modal>
     <div class="modal-body p-0 m-0 bg-light">
+        <button class="btn btn-success rounded sticky-top m-1 d-flex align-items-center justify-content-center" style="float: right;"
+        [ngClass]="{'showSave': showSave, 'hideSave': !showSave}">
+            Data Saved
+            <span class="material-symbols-outlined p-1" style="font-size: 30px;">
+                check
+            </span>
+        </button>
         <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Info</h5>
         <div class="m-3">
-            <label style="font-weight: bold;">First Name</label>
-            <input type="text" class="form-control m-1" #firstName [value]="user.firstName" placeholder="firstname">
-            <label style="font-weight: bold;">Last Name</label>
-            <input type="text" class="form-control m-1" #lastName [value]="user.lastName" placeholder="lastname">
-            <label style="font-weight: bold;">Birth Date</label>
-            <input type="date" class="form-control m-1" #birthDate [value]="user.birthDate" placeholer="Birth Date"
-            [max]="maxDate">
-            <label style="font-weight: bold;">Born In</label>
+            <label style="font-weight: bold;"><sup>*</sup> First Name</label>
+            <input type="text" class="form-control m-1" #firstName [ngModel]="user.firstName" placeholder="firstname">
+            <label style="font-weight: bold;"><sup>*</sup> Last Name</label>
+            <input type="text" class="form-control m-1" #lastName [ngModel]="user.lastName" placeholder="lastname">
+            <label style="font-weight: bold;"><sup>*</sup> Birth Date</label>
+            <input type="date" class="form-control m-1" #birthDate [ngModel]="user.birthDate" placeholer="Birth Date"
+                [max]="maxDate">
+            <label style="font-weight: bold;"><sup>*</sup> Born In</label>
             <select class="form-select m-1" #country (change)="filterStates(country.value)">
                 <option [selected]="country.value == ''" hidden>Select Country</option>
                 <option *ngFor="let country of countries;" [value]="country.isoCode">{{ country.name }}</option>
@@ -124,9 +151,15 @@
                 </select>
             </div>
         </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-success m-1" (click)="updateUser(firstName.value, lastName.value, birthDate.value,
+                 state.value, city.value, country.value)" [disabled]="firstName.value.trim() == '' || lastName.value.trim() == '' || birthDate.value.trim() == ''
+                 || country.value.trim() == 'Select Country'">Save</button>
+            <button class="btn btn-secondary m-1 text-dark" (click)="modal.dismiss()">Close</button>
+        </div>
         <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Location / Work</h5>
         <div class="m-3">
-            <label style="font-weight: bold;">Residence</label>
+            <label style="font-weight: bold;"><sup>*</sup> Residence</label>
             <select class="form-select m-1" #currentCountry (change)="filterCurrentStates(currentCountry.value)">
                 <option [selected]="country.value == ''" hidden>Select Country</option>
                 <option *ngFor="let country of currentCountries;" [value]="country.isoCode">{{ country.name }}</option>
@@ -145,23 +178,79 @@
                     <option *ngFor="let city of currentCities;" [value]="city.name">{{ city.name }}</option>
                 </select>
             </div>
-            <label style="font-weight: bold;">Current Job Site</label>
-            <input type="text" class="form-control m-1" #company placeholder="Company">
+            <label style="font-weight: bold;"><sup>*</sup> Current Job Site</label>
+            <input type="text" class="form-control m-1" #company [ngModel]="workplaces[0].company"
+                placeholder="Company">
             <div class="d-flex m-1 flex-nowrap">
                 <select class="form-select m-1 container-fluid" #jobCity [disabled]="currentCities.length == 0"
                     [hidden]="currentStates.length == 0 && currentCountry.value.trim() != ''">
                     <option [selected]="currentCities.length == 0" disabled>City</option>
                     <option *ngFor="let city of currentCities;" [value]="city.name">{{ city.name }}</option>
                 </select>
-                <input type="text" class="form-control m-1" #role placeholder="Role">
+                <input type="text" class="form-control m-1" [ngModel]="workplaces[0].position" #role placeholder="Role">
             </div>
         </div>
-        <div class="container-fluid d-flex flex-nowrap p-1">
-            <button class="btn btn-success w-100 m-1" (click)="updateUser(firstName.value, lastName.value, birthDate.value, state.value, city.value, 
-            currentState.value, currentCity.value, company.value, jobCity.value, role.value, currentCountry.value); modal.dismiss()" 
-            [disabled]="firstName.value.trim() == '' || lastName.value.trim() == '' || birthDate.value == '' ||
-            currentCountry.value == 'Select Country' || country.value == 'Select Country'">Save</button>
-            <button type="button" class="btn btn-light w-100 m-1 border" (click)="modal.dismiss()">Cancel</button>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-success m-1"
+                (click)="updateLocationAndWork(currentState.value, currentCity.value, company.value, jobCity.value, role.value, currentCountry.value)"
+                [disabled]="currentCountry.value.trim() == 'Select Country' || company.value.trim() == '' || jobCity.value.trim() == '' || role.value.trim() == ''">Save</button>
+            <button class="btn btn-secondary m-1 text-dark" (click)="modal.dismiss()">Close</button>
+        </div>
+        <!-- <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Relationship</h5> -->
+        <!-- <div class="m-3">
+            <label style="font-weight: bold;"><sup>*</sup> Partner</label>
+            <div class="ng-autocomplete w-100">
+                <ng-autocomplete [data]="userNames" #person [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate" placeholder="Search Friends" (selected)="selectEvent($event)">
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                    <div class="d-flex justify-content-start align-items-center">
+                        <img routerLink="/profile"
+                            [src]="item.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : item.profileImg"
+                            alt="" style="border-radius: 50%; width: 3em; height: 3em; margin-left: 1em;">
+                        <a [innerHTML]="item.firstName"></a>
+                    </div>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-success m-1" (click)="addRelationship(itemTemplate)">Save</button>
+            <button class="btn btn-secondary m-1 text-dark" (click)="modal.dismiss()">Close</button>
+        </div> -->
+        <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Education</h5>
+        <div class="m-3">
+            <label style="font-weight: bold;"><sup>*</sup> High School / Equivalent</label>
+            <input type="text" class="form-control m-1" [ngModel]="educations[0].school" #highSchool
+                placeholder="School Name">
+            <div class="d-flex justify-content-center align-items-center">
+                <label class="form-check-label">Graduated: </label>
+                <select class="form-select m-1 w-25" [ngModel]="educations[0].graduated" #graduated>
+                    <option [value]="false">false</option>
+                    <option [value]="true">true</option>
+                </select>
+            </div>
+            <label style="font-weight: bold;">Further Education</label>
+            <input type="text" class="form-control m-1" [ngModel]="educations[1].school" #otherEducation
+                placeholder="School Name">
+            <label style="font-weight: bold;">Degree / Program</label>
+            <input type="text" class="form-control m-1" [ngModel]="educations[1].degree" #degree
+                placeholder="Degree / Program">
+            <div class="d-flex justify-content-center align-items-center">
+                <label class="form-check-label">Graduated: </label>
+                <select class="form-select m-1 w-25" [ngModel]="educations[1].graduated" #graduatedOther>
+                    <option [value]="false">false</option>
+                    <option [value]="true">true</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-success m-1"
+                (click)="updateEducation(highSchool.value, otherEducation.value, degree.value, graduated.value, graduatedOther.value)"
+                [disabled]="highSchool.value.trim() == ''">Save</button>
+            <button class="btn btn-secondary m-1 text-dark" (click)="modal.dismiss()">Close</button>
         </div>
     </div>
 </ng-template>

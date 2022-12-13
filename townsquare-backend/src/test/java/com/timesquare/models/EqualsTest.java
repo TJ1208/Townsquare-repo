@@ -86,8 +86,8 @@ public class EqualsTest {
 	
 	@Test
 	void testFriendEquals() {
-		Friend friend = new Friend(new FriendId(3L, 3L), user, user);
-		Friend newFriend = new Friend(new FriendId(3L, 3L), user, user);
+		Friend friend = new Friend(new FriendId(3L, 3L), user, user, false);
+		Friend newFriend = new Friend(new FriendId(3L, 3L), user, user, false);
 		boolean equals = friend.equals(newFriend);
 		assertEquals(true, equals);
 		assertNotEquals(false, equals);
