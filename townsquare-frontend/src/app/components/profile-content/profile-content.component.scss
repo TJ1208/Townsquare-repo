@@ -6,14 +6,8 @@ span {
     font-weight: bold;
 }
 
-// a.btn:hover {
-//     color: white;
-//     background: lightgray;
-// }
-
 .friend-hover:hover {
     transition: 0.3s;
-    // color: white;
     background-color: rgb(226, 222, 222);
 }
 
@@ -31,5 +25,7 @@ span {
 
 .showSave {
     transition: 0.5s;
-
+    position: fixed;
+    left: 60%;
+    top: 3%;
 }

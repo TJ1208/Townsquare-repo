@@ -221,7 +221,7 @@ export class ProfileContentComponent implements OnInit {
     this.showSave = true;
     setTimeout(() => {
       this.showSave = false;
-    }, 1500)
+    }, 2000)
   }
 
   filterStates(countryCode: string): void {
