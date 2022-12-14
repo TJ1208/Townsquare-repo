@@ -8,6 +8,8 @@ import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
+import { Image } from 'src/app/models/Image';
+import { ImageService } from 'src/app/services/image/image.service';
 
 @Component({
   selector: 'app-post-board',
@@ -32,7 +34,7 @@ export class PostBoardComponent implements OnInit {
   post: Post;
   url: string = this.router.url;
   constructor(private postService: PostService, private commentService: CommentService,
-    private userService: UserService, private router: Router) {
+    private userService: UserService, private router: Router, private imageService: ImageService) {
       this.post = {
         postId: 0,
         title: "",
@@ -181,9 +183,19 @@ export class PostBoardComponent implements OnInit {
     this.postService.addPost(this.post).subscribe(() => {
       this.getPosts();
     })
+    if (this.post.imageUrl != '') {
+      let image: Image = {
+        imageId: 0,
+        imageUrl: this.post.imageUrl,
+        imageDate: new Date(new Date().getTime() + 8.64e+7),
+        user: this.currentUser
+      }
+      this.imageService.addImage(image).subscribe();
+    }
     this.post.description = "";
     this.post.imageUrl = "";
   }
+  
 
   updatePost(post: Post, e: Event): void {
     if ((e.target as HTMLInputElement).value == "like") {

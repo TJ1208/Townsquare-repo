@@ -14,7 +14,9 @@ import { Country, State, City } from 'country-state-city';
 import { ICity, IState } from 'country-state-city/lib/interface';
 import { Work } from 'src/app/models/Work';
 import { WorkService } from 'src/app/services/work/work.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { ImageService } from 'src/app/services/image/image.service';
+import { Image } from 'src/app/models/Image';
 
 @Component({
   selector: 'app-profile-content',
@@ -44,6 +46,8 @@ export class ProfileContentComponent implements OnInit {
   addresses$ = new BehaviorSubject<Address[]>([]);
   castAddress = this.addresses$.asObservable();
   educations: Education[] = [];
+  educations$ = new BehaviorSubject<Education[]>([]);
+  castEducations = this.educations$.asObservable();
   friends: Friend[] = [];
   workplaces: Work[] = [];
   workplaces$ = new BehaviorSubject<Work[]>([]);
@@ -55,10 +59,15 @@ export class ProfileContentComponent implements OnInit {
   currentCountries: ICountry[] = [];
   currentStates: IState[] = [];
   currentCities: ICity[] = [];
+  images: Image[] = [];
+  images$ = new BehaviorSubject<Image[]>([]);
+  castImages = this.images$.asObservable();
   url: string = this.router.url;
+  chosenImage: any;
   constructor(private userService: UserService, private router: Router, private addressService: AddressService,
     private educationService: EducationService, private friendService: FriendService,
-    private modalService: NgbModal, private workService: WorkService) { }
+    private modalService: NgbModal, private workService: WorkService,
+    private imageService: ImageService) { }
 
   ngOnInit(): void {
     if (this.url == "/profile") {
@@ -71,6 +80,7 @@ export class ProfileContentComponent implements OnInit {
     this.getUserEducation();
     this.getUserFriends();
     this.getUserWork();
+    this.getUserImages();
     this.castUser.subscribe((user) => {
       this.user = user;
     })
@@ -79,6 +89,12 @@ export class ProfileContentComponent implements OnInit {
     })
     this.castWorkplaces.subscribe((workplaces: Work[]) => {
       this.workplaces = workplaces;
+    })
+    this.castEducations.subscribe((educations: Education[]) => {
+      this.educations = educations;
+    })
+    this.castImages.subscribe((images: Image[]) => {
+      this.images = images;
     })
   }
 
@@ -90,6 +106,17 @@ export class ProfileContentComponent implements OnInit {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user: any) => {
       this.castUser = user;
       this.retrieveUser(user);
+    })
+  }
+
+  retrieveImages(images: Image[]): void {
+    this.images$.next(images);
+  }
+
+  getUserImages(): void {
+    this.imageService.getAllUserImages(parseInt(this.userId)).subscribe((images: any) => {
+      this.castImages = images;
+      this.retrieveImages(images);
     })
   }
 
@@ -170,7 +197,23 @@ export class ProfileContentComponent implements OnInit {
     setTimeout(() => {
       this.showSave = false;
     }, 1500)
+    this.getUserEducation();
+  }
 
+  userProfileRedirect(friend: Friend): void {
+    localStorage.setItem("visitedUser", friend.friend.userId.toString());
+    this.userId = localStorage.getItem("visitedUser");
+    this.getUser();
+    this.getUserAddresses();
+    this.getUserEducation();
+    this.getUserFriends();
+    this.getUserImages();
+    this.getUserWork();
+    if (friend.friend.userId.toString() == localStorage.getItem("userId")) {
+      this.router.navigate(['/profile']);
+    } else {
+      location.reload();
+    }
   }
 
   updateLocationAndWork(currentState: any, currentCity: any, company: string, jobCity: string,
@@ -233,10 +276,6 @@ export class ProfileContentComponent implements OnInit {
     this.cities = City.getCitiesOfState(countryCode, stateCode);
   }
 
-  showValue(value: any) {
-    console.log(value);
-  }
-
   filterCurrentStates(countryCode: string): void {
     this.currentStates = State.getStatesOfCountry(countryCode).filter((state) => state.isoCode.startsWith);
     this.currentCities = [];
@@ -266,6 +305,11 @@ export class ProfileContentComponent implements OnInit {
     this.currentCountries = this.countries;
   }
 
+  showGalleryModal(modal: any, image: Image) {
+    this.modalService.open(modal, {size: 'md', centered: true})
+    this.chosenImage = image;
+  }
+
 
   getUserFriends(): void {
     this.friendService.getAllUserFriends(parseInt(this.userId)).subscribe((friends: Friend[]) => {
@@ -284,9 +328,14 @@ export class ProfileContentComponent implements OnInit {
     })
   }
 
+  retrieveEducations(educations: Education[]): void {
+    this.educations$.next(educations);
+  }
+
   getUserEducation(): void {
-    this.educationService.getAllUserEducations(parseInt(this.userId)).subscribe((educations: Education[]) => {
-      this.educations = educations;
+    this.educationService.getAllUserEducations(parseInt(this.userId)).subscribe((educations: any) => {
+      this.castEducations = educations;
+      this.retrieveEducations(educations);
     })
   }
 

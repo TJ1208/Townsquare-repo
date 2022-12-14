@@ -6,6 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { Friend } from 'src/app/models/Friend';
 import { Router } from '@angular/router';
+import { ImageService } from 'src/app/services/image/image.service';
+import { Image } from 'src/app/models/Image';
 
 @Component({
   selector: 'app-profile',
@@ -32,7 +34,7 @@ export class ProfileComponent implements OnInit {
     homeTown: ''
   };
   constructor(private userService: UserService, private modalService: NgbModal,
-      private friendService: FriendService, private router: Router) { }
+      private friendService: FriendService, private router: Router, private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.getUserProfile();
@@ -54,11 +56,25 @@ export class ProfileComponent implements OnInit {
   updateBackgroundPic() {
     this.userProfile.backgroundImg = (<HTMLInputElement>document.getElementById("imageuri")).value;
     this.userService.updateUser(this.userProfile).subscribe();
+    let image: Image = {
+      imageId: 0,
+      imageUrl: this.userProfile.backgroundImg,
+      imageDate: new Date(),
+      user: this.userProfile
+    }
+    this.imageService.addImage(image).subscribe();
   }
 
   updateProfilePic() {
     this.userProfile.profileImg = (<HTMLInputElement>document.getElementById("imageuri2")).value;
     this.userService.updateUser(this.userProfile).subscribe();
+    let image: Image = {
+      imageId: 0,
+      imageUrl: this.userProfile.profileImg,
+      imageDate: new Date(),
+      user: this.userProfile
+    }
+    this.imageService.addImage(image).subscribe();
   }
 
 
