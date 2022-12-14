@@ -16,7 +16,8 @@
                 <input type="text" [(ngModel)]="user.lastName" class="form-control" placeholder="Last Name" required>
             </div>
         </div>
-        <input type="date" [(ngModel)]="user.birthDate" class="form-control mb-2" placeholder="mm/dd/yyyy" [max]="maxDate" required>
+        <input placeholder="Birthdate (mm/dd/yyyy)" class="form-control mb-2" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"
+         (ngModel)="user.birthDate" #inputDate [max]="maxDate" required>
         <input type="email" [(ngModel)]="user.email" class="form-control" placeholder="Email Address" required>
         <input type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password" required
             autocomplete="off">
@@ -32,9 +33,9 @@
             <span class="material-symbols-outlined p-1" style="font-size: smaller;">
                 check_circle
             </span>passwords match</small>
-        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="registerUser()" [disabled]="user.email == '' || user.password == ''
+        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="registerUser(inputDate.value)" [disabled]="user.email == '' || user.password == ''
             || user.firstName == '' || user.lastName == '' ||
-            user.password !== confirmPassword.value || user.birthDate == date">Sign up</button>
+            user.password !== confirmPassword.value || inputDate.value == ''">Sign up</button>
     </div>
     <a routerLink="/login" class="forgot-password">
         <p class="text-black p-0 m-0">Have an account?</p>Login here!

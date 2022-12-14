@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  registerUser() {
+  registerUser(inputDate: any) {
     this.user = {
       userId: 0,
       username: this.user.email,
@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
       birthplace: "",
       backgroundImg: "",
       homeTown: "",
-      birthDate: this.user.birthDate
+      birthDate: inputDate
     }
     this.userService.addUser(this.user).subscribe((user: any) => {
       this.loginForm = {
