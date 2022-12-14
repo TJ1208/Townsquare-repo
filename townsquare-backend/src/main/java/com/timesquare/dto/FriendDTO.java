@@ -15,5 +15,4 @@ public class FriendDTO {
 	private FriendId friendId;
 	private User user;
 	private User friend;
-	private boolean relationship;
 }

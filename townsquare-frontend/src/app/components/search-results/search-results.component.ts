@@ -155,8 +155,7 @@ export class SearchResultsComponent implements OnInit {
         friendId: user.userId
       },
       user: this.user,
-      friend: user,
-      relationship: false
+      friend: user
     }
 
     let friendRequester: Friend = {
@@ -165,8 +164,7 @@ export class SearchResultsComponent implements OnInit {
         friendId: parseInt(this.userId)
       },
       user: user,
-      friend: this.user,
-      relationship: false
+      friend: this.user
     }
 
     this.friendService.addFriend(friendReceiver).subscribe();
