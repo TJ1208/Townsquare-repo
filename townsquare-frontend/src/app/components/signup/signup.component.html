@@ -16,9 +16,9 @@
                 <input type="text" [(ngModel)]="user.lastName" class="form-control" placeholder="Last Name" required>
             </div>
         </div>
-        <input placeholder="Birthdate (mm/dd/yyyy)" class="form-control mb-2" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date"
+        <input placeholder="Birthdate (mm/dd/yyyy)" class="form-control mb-2" [type]="type" (click)="(type='date')" (blur)="(type='text')"
          (ngModel)="user.birthDate" #inputDate [max]="maxDate" required>
-        <input type="email" [(ngModel)]="user.email" class="form-control" placeholder="Email Address" required>
+        <input type="email" [(ngModel)]="user.email" class="form-control" placeholder="Email Address" required autocomplete="off">
         <input type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password" required
             autocomplete="off">
         <input type="password" id="confirmPassword" #confirmPassword name="confirmPassword" ngModel class="form-control"

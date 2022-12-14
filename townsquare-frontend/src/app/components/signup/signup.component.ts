@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
   }
   constructor(private loginService: LoginService, private authService: AuthService,
     private router: Router, private userService: UserService) { }
-
+    type: string = 'text';
   ngOnInit(): void {
     if (new Date().getDate() <= 9) {
       this.maxDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-0" + new Date().getDate();
