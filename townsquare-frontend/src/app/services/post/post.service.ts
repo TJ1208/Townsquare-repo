@@ -30,8 +30,8 @@ export class PostService {
     return this.http.put<String>(`https://townsquare-backend.azurewebsites.net/api/post/update`, post);
   }
 
-  deletePost(postId: number): Observable<String> {
-    return this.http.delete<String>(`https://townsquare-backend.azurewebsites.net/api/post/delete/${postId}`);
+  deletePost(postId: number): Observable<any> {
+    return this.http.delete<any>(`https://townsquare-backend.azurewebsites.net/api/post/delete/${postId}`);
   }
   
 }

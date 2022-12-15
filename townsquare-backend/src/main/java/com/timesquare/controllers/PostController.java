@@ -60,8 +60,8 @@ public class PostController {
 	}
 	
 	@DeleteMapping("/delete/{postId}")
-	public String deletePost(@PathVariable Long postId) {
-		return postService.deletePost(postId);
+	public void deletePost(@PathVariable Long postId) {
+		postService.deletePost(postId);
 	}
 
 	private Post dtoToEntity(PostDTO postDTO) {

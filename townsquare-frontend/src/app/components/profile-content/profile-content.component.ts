@@ -17,6 +17,8 @@ import { WorkService } from 'src/app/services/work/work.service';
 import { BehaviorSubject } from 'rxjs';
 import { ImageService } from 'src/app/services/image/image.service';
 import { Image } from 'src/app/models/Image';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-profile-content',
@@ -64,10 +66,11 @@ export class ProfileContentComponent implements OnInit {
   castImages = this.images$.asObservable();
   url: string = this.router.url;
   chosenImage: any;
+  showDeleteAccount: boolean = false;
   constructor(private userService: UserService, private router: Router, private addressService: AddressService,
     private educationService: EducationService, private friendService: FriendService,
     private modalService: NgbModal, private workService: WorkService,
-    private imageService: ImageService) { }
+    private imageService: ImageService, private authService: AuthService) { }
 
   ngOnInit(): void {
     if (this.url == "/profile") {
@@ -145,6 +148,12 @@ export class ProfileContentComponent implements OnInit {
         this.showSave = false;
       }, 1500)
     });
+  }
+
+  deleteAccount(): void {
+    this.userService.deleteUser(parseInt(this.userId)).subscribe();
+    this.authService.clear();
+    this.router.navigate(['/login']);
   }
 
   updateEducation(hightSchool: string, otherEducation: string, degree: string, graduated: string,
@@ -303,6 +312,10 @@ export class ProfileContentComponent implements OnInit {
     this.modalService.open(picture, { size: 'md', centered: true, scrollable: true });
     this.countries = Country.getAllCountries();
     this.currentCountries = this.countries;
+  }
+
+  showDeleteModal(item: any) {
+    this.modalService.open(item, {size: 'md', centered: true});
   }
 
   showGalleryModal(modal: any, image: Image) {

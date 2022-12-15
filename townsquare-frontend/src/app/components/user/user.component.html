@@ -44,7 +44,7 @@
                         </button>
                         <button class="btn btn-danger"
                             style="margin-left: 5em; margin-top: 1.5em; height: 4em; width: 10em;"
-                            *ngIf="!showAddFriend && !showPendingRequest" (click)="removeFriend()">
+                            *ngIf="!showAddFriend && !showPendingRequest && !hideRequestButton" (click)="removeFriend()">
                             <span class="material-symbols-outlined">
                                 person_remove
                             </span>

@@ -33,8 +33,8 @@ export class UserService {
     return this.http.put<any>(`https://townsquare-backend.azurewebsites.net/api/user/update`, user);
   }
 
-  deleteUser(userId: number): Observable<String> {
-    return this.http.delete<String>(`https://townsquare-backend.azurewebsites.net/api/user/delete/${userId}`);
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete<any>(`https://townsquare-backend.azurewebsites.net/api/user/delete/${userId}`);
   }
   
 }

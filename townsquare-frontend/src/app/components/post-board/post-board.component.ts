@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
 import { Image } from 'src/app/models/Image';
 import { ImageService } from 'src/app/services/image/image.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-board',
@@ -33,8 +34,10 @@ export class PostBoardComponent implements OnInit {
   scrollCount: number = 10;
   post: Post;
   url: string = this.router.url;
+  showDeleteButton: boolean = this.url == '/profile';
   constructor(private postService: PostService, private commentService: CommentService,
-    private userService: UserService, private router: Router, private imageService: ImageService) {
+    private userService: UserService, private router: Router, private imageService: ImageService,
+    private modalService: NgbModal) {
       this.post = {
         postId: 0,
         title: "",
@@ -102,6 +105,16 @@ export class PostBoardComponent implements OnInit {
       this.castPost = this.shuffle(posts);
       this.retrievePosts(posts);
     })
+  }
+
+  deletePost(post: Post): void {
+    this.postService.deletePost(post.postId).subscribe(() => {
+      this.getPosts();
+    })
+  }
+
+  showModal(item: any) {
+    this.modalService.open(item, { size: 'sm', centered: true, scrollable: true });
   }
 
   shuffle(array: any) {

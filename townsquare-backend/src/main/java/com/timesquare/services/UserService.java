@@ -53,11 +53,9 @@ public class UserService {
 		}
 	}
 	
-	public String deleteUserById(Long userId) {
+	public void deleteUserById(Long userId) {
 		if (userRepo.findById(userId).isPresent()) {
 			userRepo.deleteById(userId);
-			return "User with id " + userId + " has been deleted.";
 		}
-		return "User with id " + userId + " does not exist.";
 	}
 }

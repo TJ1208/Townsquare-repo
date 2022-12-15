@@ -2,7 +2,8 @@
     <app-navbar></app-navbar>
 </div>
 
-<div class="container-fluid bg-white main" [ngClass]="{'width': url == '/home'}" style="margin-top: 1em; margin-bottom: 5em; overflow: hidden;">
+<div class="container-fluid bg-white main" [ngClass]="{'width': url == '/home'}"
+    style="margin-top: 1em; margin-bottom: 5em; overflow: hidden;">
     <br>
     <div class="container-fluid p-2 border bg-light" style="box-shadow: 0px 0px 10px lightgray; margin-bottom: 1em;"
         *ngIf="url == '/profile' || url == '/home'">
@@ -38,8 +39,8 @@
             </div>
         </div>
     </div>
-    <p class="d-flex flex-column justify-content-center align-items-center"
-    style="font-size: small; font-weight: bold;" *ngIf="posts.length == 0">Not much going on
+    <p class="d-flex flex-column justify-content-center align-items-center" style="font-size: small; font-weight: bold;"
+        *ngIf="posts.length == 0">Not much going on
         <span class="material-symbols-outlined p-1 text-info" style="font-size: 50px;">
             cabin
         </span>
@@ -59,6 +60,35 @@
                         <br>{{ formatDate(post.date) }}</a>
                 </div>
             </div>
+            <button class="btn dislike p-0 m-0 rounded shadow-none" style="width: 5em; height: 5em;"
+                *ngIf="showDeleteButton" (click)="!(post.imageUrl.endsWith('.webp')) && !(post.imageUrl.endsWith('.gif')) &&
+                !(post.imageUrl.endsWith('.jpeg')) && !(post.imageUrl.endsWith('.png')) && !(post.imageUrl.endsWith('.jpg'))
+                && post.imageUrl.trim() != ''
+                ? showModal(galleryVideo) : showModal(galleryPicture)">
+                <span class="material-symbols-outlined">
+                    delete
+                </span>
+                <!-- ShowPictureGallery -->
+                <ng-template #galleryPicture let-modal>
+                    <img [src]="post.imageUrl">
+                    <div class="d-flex flex-nowrap">
+                        <button class="btn btn-danger container-fluid m-1"
+                            (click)="modal.dismiss(); deletePost(post)">Delete Post</button>
+                        <button class="btn btn-secondary container-fluid m-1" (click)="modal.dismiss()">Cancel</button>
+                    </div>
+                </ng-template>
+
+                <!-- ShowVideoGallery -->
+                <ng-template #galleryVideo let-modal>
+                    <video controls [src]="post.imageUrl" *ngIf="post.imageUrl.trim() != ''">
+                    </video>
+                    <div class="d-flex flex-nowrap">
+                        <button class="btn btn-danger container-fluid m-1"
+                            (click)="modal.dismiss(); deletePost(post)">Delete Post</button>
+                        <button class="btn btn-secondary container-fluid m-1" (click)="modal.dismiss()">Cancel</button>
+                    </div>
+                </ng-template>
+            </button>
         </div>
         <div class="row" style="text-align: left; padding: 0.5em 0em 0.5em 2em;">
             <div class="col-12">
@@ -90,7 +120,8 @@
                 </span>
             </a>
         </div>
-        <div class="container-fluid d-flex justify-content-center align-items-center border-top" style="margin: 0.2em 0em 0em 0em;">
+        <div class="container-fluid d-flex justify-content-center align-items-center border-top"
+            style="margin: 0.2em 0em 0em 0em;">
             <div class="container-fluid p-1 m-0">
                 <button class="container-fluid btn comment" (click)="displayCommentBox(post)"
                     [ngClass]="{'comment-selected': post.showCommentBox}">

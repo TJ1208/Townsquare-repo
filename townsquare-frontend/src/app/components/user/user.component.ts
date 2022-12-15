@@ -17,8 +17,9 @@ export class UserComponent implements OnInit {
   friends: Friend[] = [];
   userId: any = localStorage.getItem("visitedUser");
   userId2: any = localStorage.getItem("userId");
-  showAddFriend: any;
-  showPendingRequest: any;
+  showAddFriend: boolean = false;
+  showPendingRequest: boolean = false;
+  hideRequestButton: boolean = true;
   userProfile: User = {
     userId: 0,
     firstName: '',
@@ -39,7 +40,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserProfile();
-    this.findRequest();
   }
 
   getUserProfile() {
@@ -78,8 +78,13 @@ export class UserComponent implements OnInit {
 
   findRequest(): void {
     this.requestService.getRequestById(this.userId, parseInt(this.userId2)).subscribe((request: Request) => {
+      console.log(request);
       if (request) {
+        console.log(request);
         this.showPendingRequest = true;
+        this.showAddFriend = false;
+      } else {
+        this.showAddFriend = true;
       }
     })
   }
@@ -89,6 +94,9 @@ export class UserComponent implements OnInit {
       this.friends = friends;
       if (this.friends.find((friend) => friend.friend.userId == parseInt(this.userId2))) {
         this.showAddFriend = false;
+        this.hideRequestButton = false;
+      } else {
+        this.findRequest();
       }
     })
   }

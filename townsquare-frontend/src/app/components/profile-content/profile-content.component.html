@@ -54,7 +54,8 @@
                                             Goes to <span>{{ education.school }}</span>
                                         </p>
                                     </div>
-                                    <div class="d-flex align-items-center p-2 hover container-fluid" *ngIf="education.graduated">
+                                    <div class="d-flex align-items-center p-2 hover container-fluid"
+                                        *ngIf="education.graduated">
                                         <span class="material-symbols-outlined text-info" style="padding-right: 0.5em;">
                                             school
                                         </span>
@@ -98,7 +99,8 @@
                             <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center"
                                 *ngFor="let friend of friends;" style="cursor: pointer;">
                                 <img [src]="friend.friend.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : friend.friend.profileImg"
-                                    class="border img-shrink" style="border-radius: 10%;" (click)="userProfileRedirect(friend)">
+                                    class="border img-shrink" style="border-radius: 10%;"
+                                    (click)="userProfileRedirect(friend)">
                                 <p class="card-text" style="font-weight: bold;">{{ friend.friend.firstName + ' ' +
                                     friend.friend.lastName }}</p>
                             </div>
@@ -127,31 +129,61 @@
                                     [hidden]="!(image.imageUrl.endsWith('.mov')) && !(image.imageUrl.endsWith('.webm')) && !(image.imageUrl.endsWith('.mp4'))">
                                     <video [src]="image.imageUrl" class="border img-shrink" style="border-radius: 10%;">
                                     </video>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <button class="btn btn-danger container-fluid " style="font-weight: bold; font-style: italic; margin-top: 2em;"
+            (click)="showDeleteModal(deleteModal)" *ngIf="url == '/profile'">DELETE ACCOUNT</button>
         </div>
-        <div class="container-fluid  shadow-sm border p-0 bg-white" style="text-align: left; margin-top: 1em;">
+        <div class="container-fluid  shadow-sm border p-0 bg-white" style="text-align: left; margin: 0.5em 0em 1em 0em;">
             <h5 class=" p-2 border">Posts</h5>
             <app-post-board></app-post-board>
         </div>
     </div>
 </div>
 
+<!-- deleteModal -->
+<ng-template #deleteModal let-modal>
+    <div class="modal-body rounded" style="text-align: center; background-color: whitesmoke;">
+        <div *ngIf="!showDeleteAccount">
+            <h5 style="font-weight: bold;">Are you sure you want to delete this account?</h5>
+            <p class="text-danger">This action is irreversible!</p>
+        </div>
+        <div *ngIf="showDeleteAccount" class="container-fluid">
+            <h5>Type in <span class="font-weight: bold;">Delete Account</span></h5>
+            <input type="text" #password ngModel class="form-control m-2" placeholder="Delete Account">
+            <div class="d-flex flex-nowrap">
+                <button class="btn btn-danger container-fluid m-1" (click)="modal.dismiss(); deleteAccount()"
+                [disabled]="password.value.toLowerCase() != 'delete account'">Delete
+                    Account</button>
+                <button class="btn btn-secondary container-fluid m-1"
+                    (click)="modal.dismiss(); showDeleteAccount = false">Cancel</button>
+            </div>
+        </div>
+        <div class="d-flex flex-nowrap" *ngIf="!showDeleteAccount">
+            <button class="btn btn-danger container-fluid m-1" (click)="showDeleteAccount = true">Delete
+                Account</button>
+            <button class="btn btn-secondary container-fluid m-1"
+                (click)="modal.dismiss(); showDeleteAccount = false">Cancel</button>
+        </div>
+
+    </div>
+</ng-template>
+
 <!-- ShowPictureGallery -->
 <ng-template #galleryPicture let-modal>
     <div style="margin-bottom: -3.5em; margin-right: 0.5em; z-index: 999;
     font-size: small; color: white;" class="p-0">
-    
-    <div style="float: left; text-align: left; padding-left: 1em;">
-        <p class="m-0">{{  chosenImage.user.firstName + " " + chosenImage.user.lastName  }}</p>
-        <p class="m-0">{{  formatDate(chosenImage.imageDate)  }}</p>
-    </div>
-        <span class="material-symbols-outlined text-white" (click)="modal.dismiss()" style="float: right; cursor: pointer;">
+
+        <div style="float: left; text-align: left; padding-left: 1em;">
+            <p class="m-0">{{ chosenImage.user.firstName + " " + chosenImage.user.lastName }}</p>
+            <p class="m-0">{{ formatDate(chosenImage.imageDate) }}</p>
+        </div>
+        <span class="material-symbols-outlined text-white" (click)="modal.dismiss()"
+            style="float: right; cursor: pointer;">
             close
         </span>
     </div>
@@ -162,12 +194,13 @@
 <ng-template #galleryVideo let-modal>
     <div style="margin-bottom: -3.5em; margin-right: 0.5em; z-index: 999;
     font-size: small; color: white;" class="p-0">
-    
-    <div style="float: left; text-align: left; padding-left: 1em;">
-        <p class="m-0">{{  chosenImage.user.firstName + " " + chosenImage.user.lastName  }}</p>
-        <p class="m-0">{{  formatDate(chosenImage.imageDate)  }}</p>
-    </div>
-        <span class="material-symbols-outlined text-white" (click)="modal.dismiss()" style="float: right; cursor: pointer;">
+
+        <div style="float: left; text-align: left; padding-left: 1em;">
+            <p class="m-0">{{ chosenImage.user.firstName + " " + chosenImage.user.lastName }}</p>
+            <p class="m-0">{{ formatDate(chosenImage.imageDate) }}</p>
+        </div>
+        <span class="material-symbols-outlined text-white" (click)="modal.dismiss()"
+            style="float: right; cursor: pointer;">
             close
         </span>
     </div>

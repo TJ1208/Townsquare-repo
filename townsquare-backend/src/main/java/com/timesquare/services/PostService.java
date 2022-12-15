@@ -40,12 +40,10 @@ public class PostService {
 		}
 	}
 	
-	public String deletePost(Long postId) {
+	public void deletePost(Long postId) {
 		if (postRepo.findById(postId).isPresent()) {
 			postRepo.deleteById(postId);
-			return "Post deleted with id " + postId;
 		}
-		return "No Post found with id " + postId;
 	}
 
 }

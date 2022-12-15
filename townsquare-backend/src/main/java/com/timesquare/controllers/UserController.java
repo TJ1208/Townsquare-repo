@@ -68,8 +68,8 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/delete/{userId}")
-	public String deleteUser(@PathVariable Long userId) {
-		return userService.deleteUserById(userId);
+	public void deleteUser(@PathVariable Long userId) {
+		userService.deleteUserById(userId);
 	}
 	
 	private User dtoToEntity(UserDTO userDTO) throws ParseException {
