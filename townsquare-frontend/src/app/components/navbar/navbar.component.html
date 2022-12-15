@@ -4,8 +4,9 @@
             <li class="nav-item rounded" style="margin-left: -0.2em;">
                 <a class="navbar-brand p-3 m-0 text-black rounded show-logo" style="background-color: #1250867b"
                     routerLink="/home">Town<span class="text-white">Square</span></a>
-                    <a class="navbar-brand p-3 m-0 text-black rounded show-short-logo" style="background-color: #1250867b"
-                    routerLink="/home">Town<span class="text-white"><sup class="p-1" style="border-radius: 50%;">2</sup></span></a>
+                <a class="navbar-brand p-3 m-0 text-black rounded show-short-logo" style="background-color: #1250867b"
+                    routerLink="/home">Town<span class="text-white"><sup class="p-1"
+                            style="border-radius: 50%;">2</sup></span></a>
             </li>
             <li class="nav-item">
                 <a routerLink="/home" class="nav-link">
@@ -17,6 +18,10 @@
             </li>
             <li class="nav-item">
                 <a routerLink="/friend-requests" class="nav-link">
+                    <p class="text-white bg-danger"
+                        style="margin-left: -0.5em; position: absolute; border-radius: 50%; width: 1.5em; height: 1.5em; top: 5%; float: right;
+                        text-align: center;" *ngIf="requests.length > 0">
+                        {{ requests.length}}</p>
                     <span class="material-symbols-rounded btn h-100 d-flex align-items-center p-2"
                         routerLinkActive="active">
                         group
@@ -41,7 +46,7 @@
                     </ng-autocomplete>
                     <ng-template #itemTemplate let-item>
                         <div class="d-flex justify-content-start align-items-center">
-                            <img routerLink="/profile"
+                            <img (click)="selectEventPicture(item.userId)"
                                 [src]="item.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : item.profileImg"
                                 alt="" style="border-radius: 50%; width: 3em; height: 3em; margin-left: 1em;">
                             <a [innerHTML]="item.firstName"></a>
