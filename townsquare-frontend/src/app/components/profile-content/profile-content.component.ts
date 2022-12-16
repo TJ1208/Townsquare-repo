@@ -218,8 +218,8 @@ export class ProfileContentComponent implements OnInit {
     this.getUserFriends();
     this.getUserImages();
     this.getUserWork();
-    if (friend.friend.userId.toString() == localStorage.getItem("userId")) {
-      this.router.navigate(['/profile']);
+    if (this.router.url == '/profile') {
+      this.router.navigate(['/user']);
     } else {
       location.reload();
     }
@@ -269,11 +269,6 @@ export class ProfileContentComponent implements OnInit {
         this.getUserWork();
       });
     }
-
-    this.showSave = true;
-    setTimeout(() => {
-      this.showSave = false;
-    }, 2000)
   }
 
   filterStates(countryCode: string): void {
@@ -315,11 +310,11 @@ export class ProfileContentComponent implements OnInit {
   }
 
   showDeleteModal(item: any) {
-    this.modalService.open(item, {size: 'md', centered: true});
+    this.modalService.open(item, { size: 'md', centered: true });
   }
 
   showGalleryModal(modal: any, image: Image) {
-    this.modalService.open(modal, {size: 'md', centered: true})
+    this.modalService.open(modal, { size: 'md', centered: true })
     this.chosenImage = image;
   }
 
