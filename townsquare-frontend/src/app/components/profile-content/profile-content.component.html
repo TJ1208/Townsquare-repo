@@ -231,7 +231,7 @@
             <input type="date" class="form-control m-1" #birthDate [ngModel]="user.birthDate" placeholer="Birth Date"
                 [max]="maxDate">
             <label style="font-weight: bold;"><sup>*</sup> Born In</label>
-            <select class="form-control m-1" #country (change)="filterStates(country.value)">
+            <select class="form-select m-1" #country (change)="filterStates(country.value)">
                 <option [selected]="country.value == ''" hidden>Select Country</option>
                 <option *ngFor="let country of countries;" [value]="country.isoCode">{{ country.name }}</option>
             </select>
@@ -257,11 +257,7 @@
         <h5 class="bg-white p-2 border rounded container-fluid shadow" style="text-align: center;">Location / Work</h5>
         <div class="m-3">
             <label style="font-weight: bold;"><sup>*</sup> Residence</label>
-            <select class="m-1" #currentCountry (change)="filterCurrentStates(currentCountry.value)">
-                <option [selected]="country.value == ''" hidden>Select Country</option>
-                <option *ngFor="let country of currentCountries;" [value]="country.isoCode">{{ country.name }}</option>
-            </select>
-            <select class="btn m-1" #currentCountry (change)="filterCurrentStates(currentCountry.value)">
+            <select class="form-select m-1" #currentCountry (change)="filterCurrentStates(currentCountry.value)">
                 <option [selected]="country.value == ''" hidden>Select Country</option>
                 <option *ngFor="let country of currentCountries;" [value]="country.isoCode">{{ country.name }}</option>
             </select>

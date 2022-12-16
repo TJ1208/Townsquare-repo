@@ -3,7 +3,7 @@ import { Post } from 'src/app/models/Post';
 import { Comment } from 'src/app/models/Comment';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { PostService } from 'src/app/services/post/post.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwIfEmpty } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -38,17 +38,17 @@ export class PostBoardComponent implements OnInit {
   constructor(private postService: PostService, private commentService: CommentService,
     private userService: UserService, private router: Router, private imageService: ImageService,
     private modalService: NgbModal) {
-      this.post = {
-        postId: 0,
-        title: "",
-        description: "",
-        likes: 0,
-        dislikes: 0,
-        shares: 0,
-        imageUrl: "",
-        date: new Date(new Date().getTime() + 8.64e+7),
-        user: this.currentUser
-      };
+    this.post = {
+      postId: 0,
+      title: "",
+      description: "",
+      likes: 0,
+      dislikes: 0,
+      shares: 0,
+      imageUrl: "",
+      date: new Date(new Date().getTime() + 8.64e+7),
+      user: this.currentUser
+    };
   }
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class PostBoardComponent implements OnInit {
     })
   }
 
-  getCurrentUser(): void  {
+  getCurrentUser(): void {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user: User) => {
       this.post.user = user;
       this.currentUser = user;
@@ -77,7 +77,7 @@ export class PostBoardComponent implements OnInit {
     } else {
       this.router.navigate(['/profile']);
     }
-    
+
   }
 
   retrieveComments(comments: Comment[]) {
@@ -118,20 +118,20 @@ export class PostBoardComponent implements OnInit {
   }
 
   shuffle(array: any) {
-    let currentIndex = array.length,  randomIndex;
-  
+    let currentIndex = array.length, randomIndex;
+
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-  
+
       // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-  
+
       // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-  
+
     return array;
   }
 
@@ -192,23 +192,29 @@ export class PostBoardComponent implements OnInit {
   }
 
   addPost(): void {
-    this.post.imageUrl = (<HTMLInputElement>document.getElementById("imageuri")).value;
+    this.post.imageUrl = (<HTMLInputElement>document.getElementById("imageuri3")).value;
     this.postService.addPost(this.post).subscribe(() => {
       this.getPosts();
     })
-    if (this.post.imageUrl != '') {
+    if (this.post.imageUrl.trim() != '') {
       let image: Image = {
         imageId: 0,
         imageUrl: this.post.imageUrl,
         imageDate: new Date(new Date().getTime() + 8.64e+7),
         user: this.currentUser
       }
-      this.imageService.addImage(image).subscribe();
+        this.imageService.addImage(image).subscribe(() => {
+          this.post.description = "";
+          this.post.imageUrl = "";
+          (<HTMLInputElement>document.getElementById("imageuri3")).value = '';
+        });
     }
+    console.log(this.post);
     this.post.description = "";
     this.post.imageUrl = "";
+    (<HTMLInputElement>document.getElementById("imageuri3")).value = '';
   }
-  
+
 
   updatePost(post: Post, e: Event): void {
     if ((e.target as HTMLInputElement).value == "like") {

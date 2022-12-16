@@ -31,9 +31,8 @@ public class ImageService {
 						" with id" + imageId));
 	}
 	
-	public String addImage(Image image) {
+	public void addImage(Image image) {
 		imageRepo.save(image);
-		return "Image saved successfully";
 	}
 	
 	public String updateImage(Image image) {
@@ -44,11 +43,9 @@ public class ImageService {
 		return "Image not found with id " + image.getImageId();
 	}
 	
-	public String deleteImage(Long imageId) {
+	public void deleteImage(Long imageId) {
 		if (imageRepo.findById(imageId).isPresent()) {
 			imageRepo.deleteById(imageId);
-			return "Image deleted successfully";
 		}
-		return "Image not found with id " + imageId;
 	}
 }

@@ -47,9 +47,9 @@ public class ImageController {
 	
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addImage(@RequestBody ImageDTO imageDTO) throws ParseException {
+	public void addImage(@RequestBody ImageDTO imageDTO) throws ParseException {
 		Image image = dtoToEntity(imageDTO);
-		return imageService.addImage(image);
+		imageService.addImage(image);
 	}
 	
 	@PutMapping("/update")
@@ -59,8 +59,8 @@ public class ImageController {
 	}
 	
 	@DeleteMapping("/delete/{imageId}")
-	public String deleteImage(@PathVariable Long imageId) {
-		return imageService.deleteImage(imageId);
+	public void deleteImage(@PathVariable Long imageId) {
+		imageService.deleteImage(imageId);
 	}
 	
 	private Image dtoToEntity(ImageDTO imageDTO) throws ParseException {
