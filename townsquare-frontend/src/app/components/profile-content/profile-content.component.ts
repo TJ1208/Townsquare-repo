@@ -28,6 +28,10 @@ import { ThisReceiver } from '@angular/compiler';
 export class ProfileContentComponent implements OnInit {
   maxDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
   showSave: boolean = false;
+  showInfo: boolean = true;
+  showFriends: boolean = true;
+  showGallery: boolean = true;
+  showPosts: boolean = true;
   user: User = {
     userId: 0,
     firstName: '',

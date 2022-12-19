@@ -8,5 +8,6 @@ export interface Comment {
     likes: number,
     dislikes: number,
     post: Post,
-    user: User
+    user: User,
+    isLiked?: boolean
 }

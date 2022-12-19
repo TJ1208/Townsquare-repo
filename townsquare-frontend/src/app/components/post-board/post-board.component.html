@@ -1,4 +1,4 @@
-<div *ngIf="url == '/home'">
+<div *ngIf="url == '/home'" class="sticky-top">
     <app-navbar></app-navbar>
 </div>
 
@@ -109,15 +109,15 @@
                 </div>
             </div>
             <a class="container-fluid" style="text-align: right; text-decoration: none; cursor:default;">
-                {{ post.likes }}<span class="material-symbols-outlined text-success" style="font-size: medium;">
+                <span class="material-symbols-outlined text-success p-1" style="font-size: medium;">
                     thumb_up
-                </span>
-                {{ post.dislikes }}<span class="material-symbols-outlined text-danger" style="font-size: medium;">
-                    thumb_down
-                </span>
-                {{ post.shares }}<span class="material-symbols-outlined text-info" style="font-size: medium;">
+                </span>{{ post.likes }}
+                <span class="material-symbols-outlined text-primary p-1" style="font-size: medium;">
+                    comment
+                </span>{{ getCommentsCount(post.postId) }}
+                <span class="material-symbols-outlined text-info p-1" style="font-size: medium;">
                     share
-                </span>
+                </span>{{ post.shares }}
             </a>
         </div>
         <div class="container-fluid d-flex justify-content-center align-items-center border-top"
@@ -132,19 +132,10 @@
             </div>
             <div class="container-fluid p-1 m-0">
                 <button class="container-fluid btn like"
-                    (click)="post.isLiked = !post.isLiked; post.isDisliked = false; updatePost(post, $event)"
+                    (click)="post.isLiked = !post.isLiked; updatePost(post, $event)"
                     [ngClass]="{'like-pressed': post.isLiked}" value="like">
                     <span class="material-symbols-outlined">
                         thumb_up
-                    </span>
-                </button>
-            </div>
-            <div class="container-fluid p-1 m-0">
-                <button class="container-fluid btn dislike"
-                    (click)="post.isDisliked = !post.isDisliked; post.isLiked = false; updatePost(post, $event)"
-                    [ngClass]="{'dislike-pressed': post.isDisliked}" value="dislike">
-                    <span class="material-symbols-outlined">
-                        thumb_down
                     </span>
                 </button>
             </div>
@@ -171,7 +162,7 @@
             <b *ngIf="sendIcon == 'check'" class="text-success p-0 m-0 nav-link">Sent!</b>
         </div>
         <a class="nav-link p-1" (click)="displayComments(post)" style="text-align: right;">{{ post.showComments ? "hide"
-            : "show" }} comments({{ getCommentsCount(post.postId) }})</a>
+            : "show" }} comments</a>
         <button class="container-fluid btn" style="overflow-y: scroll;"
             [ngClass]="{'show-slider': post.showComments, 'hide-slider': !post.showComments}">
             <div class="btn shadow-none bg-light container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"
@@ -187,20 +178,22 @@
                             comment.user.lastName }}
                             <br>{{ formatDate(comment.commentDate) }}</a>
                     </div>
+                    <a class="container-fluid align-items-start" style="text-align: right; text-decoration: none; cursor:default;">
+                        <span class="material-symbols-outlined text-success p-1" style="font-size: medium;">
+                            thumb_up
+                        </span>{{ comment.likes }}
+                    </a>
                 </div>
                 <div class="row p-2">
                     <div class="col-10" style="text-align: left; overflow-wrap:break-word;">
                         <p>{{ comment.comment }}</p>
                     </div>
-                    <div class="">
-                        <button class="btn like">
+                    <div>
+                        <button class="btn like"
+                            (click)="comment.isLiked = !comment.isLiked; updateComment(comment, $event)"
+                            [ngClass]="{'like-pressed': comment.isLiked}" value="like">
                             <span class="material-symbols-outlined">
                                 thumb_up
-                            </span>
-                        </button>
-                        <button class="btn dislike">
-                            <span class="material-symbols-outlined">
-                                thumb_down
                             </span>
                         </button>
                     </div>

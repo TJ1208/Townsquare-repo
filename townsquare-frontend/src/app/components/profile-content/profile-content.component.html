@@ -1,11 +1,12 @@
-<div class="bg-light shadow color" style="margin-bottom: 1em;">
+<div class="bg-light color">
     <div class="profile-content">
         <div class="width-profile m-2">
             <div>
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default;">
                     <div style="text-align: left;">
-                        <h5 class="bg-white p-2 border">Info</h5>
-                        <div>
+                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
+                            (click)="showInfo = !showInfo">Info</h5>
+                        <div [ngClass]="{'show-content': showInfo, 'hide-content': !showInfo}">
                             <div class="d-flex align-items-center p-2 container-fluid hover">
                                 <span class="material-symbols-outlined text-success" style="padding-right: 0.5em;">
                                     account_circle
@@ -87,59 +88,71 @@
                 </div>
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default; margin-top: 2em;">
                     <div style="text-align: left;">
-                        <h5 class="bg-white p-2 border">Friends</h5>
-                        <p class="d-flex flex-column justify-content-center align-items-center"
-                            style="font-weight: bold; font-size: small;" *ngIf="friends.length == 0">
-                            <span class="material-symbols-outlined text-info p-1" style="font-size: 30px;">
-                                person_pin
-                            </span>
-                            No friends so far
-                        </p>
-                        <div class="d-flex flex-wrap justify-content-center align-items-center m-0 p-0">
-                            <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center"
-                                *ngFor="let friend of friends;" style="cursor: pointer;">
-                                <img [src]="friend.friend.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : friend.friend.profileImg"
-                                    class="border img-shrink" style="border-radius: 10%;"
-                                    (click)="userProfileRedirect(friend)">
-                                <p class="card-text" style="font-weight: bold;">{{ friend.friend.firstName + ' ' +
-                                    friend.friend.lastName }}</p>
+                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
+                            (click)="showFriends = !showFriends">Friends</h5>
+                        <div [ngClass]="{'show-content': showFriends, 'hide-content': !showFriends}">
+                            <p class="d-flex flex-column justify-content-center align-items-center"
+                                style="font-weight: bold; font-size: small;" *ngIf="friends.length == 0">
+                                <span class="material-symbols-outlined text-info p-1" style="font-size: 30px;">
+                                    person_pin
+                                </span>
+                                No friends so far
+                            </p>
+                            <div class="d-flex flex-wrap justify-content-center align-items-center m-0 p-0">
+                                <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center"
+                                    *ngFor="let friend of friends;" style="cursor: pointer;">
+                                    <img [src]="friend.friend.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : friend.friend.profileImg"
+                                        class="border img-shrink" style="border-radius: 10%;"
+                                        (click)="userProfileRedirect(friend)">
+                                    <p class="card-text p-0 m-0" style="font-weight: bold;">{{ friend.friend.firstName
+                                        }}</p>
+                                    <p class="card-text p-0 m-0" style="font-weight: bold;">{{ friend.friend.lastName }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default; margin-top: 2em;">
                     <div style="text-align: left;">
-                        <h5 class="bg-white p-2 border">Gallery</h5>
-                        <p class="d-flex flex-column justify-content-center align-items-center"
-                            style="font-weight: bold; font-size: small;" *ngIf="images.length == 0">
-                            <span class="material-symbols-outlined text-white p-1" style="font-size: 30px;">
-                                image
-                            </span>
-                            Your gallery is empty
-                        </p>
-                        <div class="d-flex flex-wrap justify-content-center align-items-center m-0 p-0">
-                            <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center"
-                                *ngFor="let image of images;" style="cursor: pointer;">
-                                <div class="col-12" (click)="showGalleryModal(galleryPicture, image)"
-                                    [hidden]="!(image.imageUrl.endsWith('.webp')) && !(image.imageUrl.endsWith('.gif')) &&
+                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
+                            (click)="showGallery = !showGallery">Gallery</h5>
+                        <div [ngClass]="{'show-content': showGallery, 'hide-content': !showGallery}">
+                            <p class="d-flex flex-column justify-content-center align-items-center"
+                                style="font-weight: bold; font-size: small;" *ngIf="images.length == 0">
+                                <span class="material-symbols-outlined text-white p-1" style="font-size: 30px;">
+                                    image
+                                </span>
+                                Your gallery is empty
+                            </p>
+                            <div class="d-flex flex-wrap justify-content-center align-items-center m-0 p-0">
+                                <div class="p-2 rounded friend-hover d-flex flex-column justify-content-center align-items-center"
+                                    *ngFor="let image of images;" style="cursor: pointer;">
+                                    <div class="col-12" (click)="showGalleryModal(galleryPicture, image)"
+                                        [hidden]="!(image.imageUrl.endsWith('.webp')) && !(image.imageUrl.endsWith('.gif')) &&
                                     !(image.imageUrl.endsWith('.jpeg')) && !(image.imageUrl.endsWith('.png')) && !(image.imageUrl.endsWith('.jpg'))">
-                                    <img [src]="image.imageUrl" class="border img-shrink" style="border-radius: 10%;">
-                                </div>
-                                <div class="col-12" (click)="showGalleryModal(galleryVideo, image)"
-                                    [hidden]="!(image.imageUrl.endsWith('.mov')) && !(image.imageUrl.endsWith('.webm')) && !(image.imageUrl.endsWith('.mp4'))">
-                                    <video [src]="image.imageUrl" class="border img-shrink" style="border-radius: 10%;">
-                                    </video>
+                                        <img [src]="image.imageUrl" class="border img-shrink"
+                                            style="border-radius: 10%;">
+                                    </div>
+                                    <div class="col-12" (click)="showGalleryModal(galleryVideo, image)"
+                                        [hidden]="!(image.imageUrl.endsWith('.mov')) && !(image.imageUrl.endsWith('.webm')) && !(image.imageUrl.endsWith('.mp4'))">
+                                        <video [src]="image.imageUrl" class="border img-shrink"
+                                            style="border-radius: 10%;">
+                                        </video>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-danger container-fluid " style="font-weight: bold; font-style: italic; margin-top: 2em;"
-            (click)="showDeleteModal(deleteModal)" *ngIf="url == '/profile'">DELETE ACCOUNT</button>
+            <button class="btn btn-danger container-fluid "
+                style="font-weight: bold; font-style: italic; margin-top: 2em;" (click)="showDeleteModal(deleteModal)"
+                *ngIf="url == '/profile'">DELETE ACCOUNT</button>
         </div>
-        <div class="container-fluid  shadow-sm border p-0 bg-white" style="text-align: left; margin: 0.5em 0em 1em 0em;">
-            <h5 class=" p-2 border">Posts</h5>
+        <div class="container-fluid  shadow-sm border p-0 bg-white"
+            style="text-align: left; margin: 0.5em 0em 1em 0em;">
+            <h5 class="bg-white p-2 border btn container-fluid" style="font-size: medium; cursor: default; font-weight: bold;">Posts</h5>
             <app-post-board></app-post-board>
         </div>
     </div>
@@ -157,7 +170,7 @@
             <input type="text" #password ngModel class="form-control m-2" placeholder="Delete Account">
             <div class="d-flex flex-nowrap">
                 <button class="btn btn-danger container-fluid m-1" (click)="modal.dismiss(); deleteAccount()"
-                [disabled]="password.value.toLowerCase() != 'delete account'">Delete
+                    [disabled]="password.value.toLowerCase() != 'delete account'">Delete
                     Account</button>
                 <button class="btn btn-secondary container-fluid m-1"
                     (click)="modal.dismiss(); showDeleteAccount = false">Cancel</button>

@@ -13,6 +13,5 @@ export interface Post {
     user: User,
     showComments?: boolean,
     showCommentBox?: boolean,
-    isLiked?: boolean,
-    isDisliked?: boolean
+    isLiked?: boolean
 }

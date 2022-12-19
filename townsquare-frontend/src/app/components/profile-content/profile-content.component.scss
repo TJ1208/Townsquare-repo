@@ -31,5 +31,18 @@ span {
 }
 
 .color {
-    background-image: linear-gradient(whitesmoke, #3567927b);
+    background-image: linear-gradient(whitesmoke, #abb3bb7b);
+}
+
+.show-content {
+    max-height: 500px;
+    transition: max-height 0.3s ease-in;
+    overflow-x: hidden;
+}
+
+.hide-content {
+    max-height: none;
+    position: fixed;
+    z-index: -999;
+    transition: max-height 0.3s ease-out;
 }

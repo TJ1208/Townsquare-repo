@@ -203,11 +203,11 @@ export class PostBoardComponent implements OnInit {
         imageDate: new Date(new Date().getTime() + 8.64e+7),
         user: this.currentUser
       }
-        this.imageService.addImage(image).subscribe(() => {
-          this.post.description = "";
-          this.post.imageUrl = "";
-          (<HTMLInputElement>document.getElementById("imageuri3")).value = '';
-        });
+      this.imageService.addImage(image).subscribe(() => {
+        this.post.description = "";
+        this.post.imageUrl = "";
+        (<HTMLInputElement>document.getElementById("imageuri3")).value = '';
+      });
     }
     console.log(this.post);
     this.post.description = "";
@@ -217,24 +217,22 @@ export class PostBoardComponent implements OnInit {
 
 
   updatePost(post: Post, e: Event): void {
-    if ((e.target as HTMLInputElement).value == "like") {
-      if (post.isLiked) {
-        post.likes += 1;
-        this.postService.updatePost(post).subscribe();
-        return;
-      } else if (!post.isLiked) {
-        post.likes -= 1;
-        this.postService.updatePost(post).subscribe();
-      }
-    } else if ((e.target as HTMLInputElement).value == "dislike") {
-      if (post.isDisliked) {
-        post.dislikes += 1;
-        this.postService.updatePost(post).subscribe();
-        return;
-      } else if (!post.isDisliked) {
-        post.dislikes -= 1;
-        this.postService.updatePost(post).subscribe();
-      }
+    if (post.isLiked) {
+      post.likes += 1;
+      this.postService.updatePost(post).subscribe();
+    } else if (!post.isLiked) {
+      post.likes -= 1;
+      this.postService.updatePost(post).subscribe();
+    }
+  }
+
+  updateComment(comment: Comment, e: Event): void {
+    if (comment.isLiked) {
+      comment.likes += 1;
+      this.commentService.updateComment(comment).subscribe();
+    } else if (!comment.isLiked) {
+      comment.likes -= 1;
+      this.commentService.updateComment(comment).subscribe();
     }
   }
 }
