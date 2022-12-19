@@ -145,6 +145,49 @@
                         </div>
                     </div>
                 </div>
+                <div class="container-fluid btn shadow-sm border p-0" style="cursor: default; margin-top: 2em;">
+                    <div style="text-align: left;">
+                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
+                            (click)="showRankings = !showRankings;">Rankings</h5>
+                        <div [ngClass]="{'show-content': showRankings, 'hide-content': !showRankings}">
+                            <table class="table table-hover table-striped rounded" style="text-align: center;">
+                                <thead class="bg-secondary text-white" style="font-style: italic;">
+                                  <tr>
+                                    <th scope="col" style="font-weight: bold;">Category</th>
+                                    <th scope="col" style="font-weight: bold;" >Total</th>
+                                    <th scope="col"style="font-weight: bold;">Ranking</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr style="font-weight: bold;">
+                                    <th scope="row">Posts</th>
+                                    <td>{{  postTotal  }}</td>
+                                    <td *ngIf="postRank > 3" class="text-muted"><sup>#</sup>{{  postRank  }}</td>
+                                    <td *ngIf="postRank == 3" style="color: rgb(206, 157, 157);">{{  postRank  }}<sup>rd</sup></td>
+                                    <td *ngIf="postRank == 2" class="text-warning">{{  postRank  }}<sup>nd</sup></td>
+                                    <td *ngIf="postRank == 1" class="text-success">{{  postRank  }}<sup>st</sup></td>
+                                  </tr>
+                                  <tr style="font-weight: bold;">
+                                    <th scope="row">Comments</th>
+                                    <td>{{  commentTotal  }}</td>
+                                    <td *ngIf="commentRank > 3" class="text-muted"><sup>#</sup>{{  commentRank  }}</td>
+                                    <td *ngIf="commentRank == 3" style="color: rgb(206, 157, 157);">{{  commentRank  }}<sup>rd</sup></td>
+                                    <td *ngIf="commentRank == 2" class="text-warning">{{  commentRank  }}<sup>nd</sup></td>
+                                    <td *ngIf="commentRank == 1" class="text-success">{{  commentRank  }}<sup>st</sup></td>
+                                  </tr>
+                                  <tr style="font-weight: bold;">
+                                    <th scope="row">Overall Rank</th>
+                                    <td> - </td>
+                                    <td *ngIf="totalRank > 3" class="text-muted"><sup>#</sup>{{  totalRank }}</td>
+                                    <td *ngIf="totalRank == 3" style="color: rgb(206, 157, 157);">{{  totalRank  }}<sup>rd</sup></td>
+                                    <td *ngIf="totalRank == 2" class="text-warning">{{  totalRank  }}<sup>nd</sup></td>
+                                    <td *ngIf="totalRank == 1" class="text-success">{{  totalRank  }}<sup>st</sup></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <button class="btn btn-danger container-fluid "
                 style="font-weight: bold; font-style: italic; margin-top: 2em;" (click)="showDeleteModal(deleteModal)"

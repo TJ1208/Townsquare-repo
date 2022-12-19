@@ -19,6 +19,10 @@ import { ImageService } from 'src/app/services/image/image.service';
 import { Image } from 'src/app/models/Image';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ThisReceiver } from '@angular/compiler';
+import { PostService } from 'src/app/services/post/post.service';
+import { Post } from 'src/app/models/Post';
+import { platformBrowserTesting } from '@angular/platform-browser/testing';
+import { CommentService } from 'src/app/services/comment/comment.service';
 
 @Component({
   selector: 'app-profile-content',
@@ -32,6 +36,7 @@ export class ProfileContentComponent implements OnInit {
   showFriends: boolean = true;
   showGallery: boolean = true;
   showPosts: boolean = true;
+  showRankings: boolean = true;
   user: User = {
     userId: 0,
     firstName: '',
@@ -71,10 +76,16 @@ export class ProfileContentComponent implements OnInit {
   url: string = this.router.url;
   chosenImage: any;
   showDeleteAccount: boolean = false;
+  postRank: number = 4;
+  postTotal: number = 0;
+  commentRank: number = 0;
+  commentTotal: number = 0;
+  totalRank: number = 0;
   constructor(private userService: UserService, private router: Router, private addressService: AddressService,
     private educationService: EducationService, private friendService: FriendService,
     private modalService: NgbModal, private workService: WorkService,
-    private imageService: ImageService, private authService: AuthService) { }
+    private imageService: ImageService, private authService: AuthService,
+    private postService: PostService, private commentService: CommentService) { }
 
   ngOnInit(): void {
     if (this.url == "/profile") {
@@ -105,6 +116,37 @@ export class ProfileContentComponent implements OnInit {
     })
   }
 
+  getPostRankings(): void {
+    let rankings: number[] = [];
+    let users: User[] = [];
+    this.userService.getAllUsers().subscribe((user: User[]) => {
+      users = user;
+      users.forEach((user) => this.postService.getAllUserPosts(user.userId).subscribe((posts: any) => {
+        rankings.push(posts.length);
+      }));
+      this.postService.getAllUserPosts(this.user.userId).subscribe((posts: any) => {
+        this.postRank = ((rankings.length - rankings.filter((num: any) => posts.length >= num).length) + 1);
+        this.postTotal = posts.length;
+      })
+    });
+  }
+
+  getCommentRankings(): void {
+    let rankings: number[] = [];
+    let users: User[] = [];
+    this.userService.getAllUsers().subscribe((user: User[]) => {
+      users = user;
+      users.forEach((user) => this.commentService.getAllUserComments(user.userId).subscribe((comments: any) => {
+        rankings.push(comments.length);
+      }));
+      this.commentService.getAllUserComments(this.user.userId).subscribe((comments: any) => {
+        this.commentRank = ((rankings.length - rankings.filter((num: any) => comments.length >= num).length) + 1);
+        this.commentTotal = comments.length;
+        this.totalRank = Math.round((this.commentRank + this.postRank) / 2);
+      })
+    });
+  }
+
   retrieveUser(user: User): void {
     this.user$.next(user);
   }
@@ -113,6 +155,8 @@ export class ProfileContentComponent implements OnInit {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user: any) => {
       this.castUser = user;
       this.retrieveUser(user);
+      this.getPostRankings();
+      this.getCommentRankings();
     })
   }
 
