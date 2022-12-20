@@ -136,6 +136,7 @@
                                         <img [src]="image.imageUrl" class="border img-shrink"
                                             style="border-radius: 10%;">
                                     </div>
+
                                     <div class="col-12" (click)="showGalleryModal(galleryVideo, image)"
                                         [hidden]="!(image.imageUrl.endsWith('.mov')) && !(image.imageUrl.endsWith('.webm')) && !(image.imageUrl.endsWith('.mp4'))">
                                         <video [src]="image.imageUrl" class="border img-shrink"
@@ -212,8 +213,7 @@
                                     (click)="this.showStatsLoading = true; this.getRankings()">Calculate
                                     Rankings
                                 </button>
-                                <button type="button" class="btn btn-info m-2" disabled
-                                    *ngIf="this.showStatsLoading">
+                                <button type="button" class="btn btn-info m-2" disabled *ngIf="this.showStatsLoading">
                                     <span class="spinner-border spinner-border-sm" role="status"
                                         aria-hidden="true"></span>
                                     Loading...

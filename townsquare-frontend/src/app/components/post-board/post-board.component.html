@@ -34,8 +34,15 @@
                 </button>
             </div>
             <div class="container-fluid">
-                <button class="btn btn-success w-100 m-1" (click)="addPost();"
+                <button class="btn btn-success w-100 m-1" (click)="showSave = true; addPost();"
                     [disabled]="!post.description.trim()">POST</button>
+                <button class="btn btn-success rounded sticky-top m-1 d-flex align-items-center justify-content-center"
+                    style="float: right;" [ngClass]="{'showSave': showSave, 'hideSave': !showSave}">
+                    Posted!
+                    <span class="material-symbols-outlined p-1" style="font-size: 30px;">
+                        check
+                    </span>
+                </button>
             </div>
         </div>
     </div>
@@ -123,25 +130,25 @@
         <div class="container-fluid d-flex justify-content-center align-items-center border-top"
             style="margin: 0.2em 0em 0em 0em;">
             <div class="container-fluid p-1 m-0">
-                <button class="container-fluid btn comment" (click)="displayCommentBox(post)"
+                <button class="container-fluid btn comment tilt-hover" (click)="displayCommentBox(post)"
                     [ngClass]="{'comment-selected': post.showCommentBox}">
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined tilt">
                         comment
                     </span>
                 </button>
             </div>
             <div class="container-fluid p-1 m-0">
-                <button class="container-fluid btn like"
+                <button class="container-fluid btn like tilt-hover"
                     (click)="post.isLiked = !post.isLiked; updatePost(post, $event)"
                     [ngClass]="{'like-pressed': post.isLiked}" value="like">
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined tilt">
                         thumb_up
                     </span>
                 </button>
             </div>
             <div class="container-fluid p-1 m-0">
-                <button class="container-fluid btn share">
-                    <span class="material-symbols-outlined">
+                <button class="container-fluid btn share tilt-hover">
+                    <span class="material-symbols-outlined tilt">
                         share
                     </span>
                 </button>
@@ -178,7 +185,8 @@
                             comment.user.lastName }}
                             <br>{{ formatDate(comment.commentDate) }}</a>
                     </div>
-                    <a class="container-fluid align-items-start" style="text-align: right; text-decoration: none; cursor:default;">
+                    <a class="container-fluid align-items-start"
+                        style="text-align: right; text-decoration: none; cursor:default;">
                         <span class="material-symbols-outlined text-success p-1" style="font-size: medium;">
                             thumb_up
                         </span>{{ comment.likes }}
@@ -189,10 +197,10 @@
                         <p>{{ comment.comment }}</p>
                     </div>
                     <div>
-                        <button class="btn like"
+                        <button class="btn like tilt-hover"
                             (click)="comment.isLiked = !comment.isLiked; updateComment(comment, $event)"
                             [ngClass]="{'like-pressed': comment.isLiked}" value="like">
-                            <span class="material-symbols-outlined">
+                            <span class="material-symbols-outlined tilt">
                                 thumb_up
                             </span>
                         </button>

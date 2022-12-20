@@ -8,6 +8,8 @@ import { Friend } from 'src/app/models/Friend';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image/image.service';
 import { Image } from 'src/app/models/Image';
+import { Post } from 'src/app/models/Post';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +36,8 @@ export class ProfileComponent implements OnInit {
     homeTown: ''
   };
   constructor(private userService: UserService, private modalService: NgbModal,
-      private friendService: FriendService, private router: Router, private imageService: ImageService) { }
+      private friendService: FriendService, private router: Router, private imageService: ImageService,
+      private postService: PostService) { }
 
   ngOnInit(): void {
     this.getUserProfile();
@@ -53,7 +56,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  updateBackgroundPic() {
+  updateBackgroundPic(): void {
     this.userProfile.backgroundImg = (<HTMLInputElement>document.getElementById("imageuri")).value;
     this.userService.updateUser(this.userProfile).subscribe();
     let image: Image = {
@@ -63,6 +66,40 @@ export class ProfileComponent implements OnInit {
       user: this.userProfile
     }
     this.imageService.addImage(image).subscribe();
+  }
+
+  postBackgroundPic(): void {
+    this.updateBackgroundPic()
+    let post: Post = {
+      postId: 0,
+      title: '',
+      description: this.userProfile.firstName + " " + this.userProfile.lastName
+      + " updated their background picture.",
+      likes: 0,
+      dislikes: 0,
+      shares: 0,
+      imageUrl: this.userProfile.backgroundImg,
+      date: new Date(new Date().getTime() + 8.64e+7),
+      user: this.userProfile
+    }
+    this.postService.addPost(post).subscribe();
+  }
+
+  postProfilePic(): void {
+    this.updateProfilePic()
+    let post: Post = {
+      postId: 0,
+      title: '',
+      description: this.userProfile.firstName + " " + this.userProfile.lastName
+      + " updated their profile picture.",
+      likes: 0,
+      dislikes: 0,
+      shares: 0,
+      imageUrl: this.userProfile.profileImg,
+      date: new Date(new Date().getTime() + 8.64e+7),
+      user: this.userProfile
+    }
+    this.postService.addPost(post).subscribe();
   }
 
   updateProfilePic() {

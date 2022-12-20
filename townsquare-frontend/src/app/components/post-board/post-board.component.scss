@@ -5,19 +5,41 @@ a {
 }
 
 .hover-a:hover {
-    text-decoration:underline;
+    text-decoration: underline;
     cursor: pointer;
 }
 
 div.btn:hover {
-    cursor:default;
+    cursor: default;
+}
+
+.hideSave {
+    // top: 50%;
+    height: 0em;
+    position: fixed;
+    z-index: -999;
+}
+
+.showSave {
+    transition: 0.5s;
+    position: fixed;
+    left: 68%;
+    top: 11%;
+    z-index: 999;
+}
+
+.tilt-hover:hover {
+    .tilt {
+        transition: 0.5s;
+        transform: rotate(-0.05turn);
+    }
 }
 
 .hide-comment-box {
     height: 0em;
     position: fixed;
     z-index: -999;
-   
+
 }
 
 .show-comment-box {

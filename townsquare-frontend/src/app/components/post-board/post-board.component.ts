@@ -34,6 +34,7 @@ export class PostBoardComponent implements OnInit {
   scrollCount: number = 10;
   post: Post;
   url: string = this.router.url;
+  showSave: boolean = false;
   showDeleteButton: boolean = this.url == '/profile';
   constructor(private postService: PostService, private commentService: CommentService,
     private userService: UserService, private router: Router, private imageService: ImageService,
@@ -226,6 +227,10 @@ export class PostBoardComponent implements OnInit {
     this.post.description = "";
     this.post.imageUrl = "";
     (<HTMLInputElement>document.getElementById("imageuri3")).value = '';
+    this.showSave = true;
+      setTimeout(() => {
+        this.showSave = false;
+      }, 1500);
   }
 
 

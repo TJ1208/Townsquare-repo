@@ -92,7 +92,7 @@
             <button class="btn btn-info w-100 m-1" onclick="openWidget('imageuri', 'postimage')">Edit</button>
             <button class="btn btn-success w-100 m-1" (click)="updateBackgroundPic(); modal.dismiss()">Save</button>
         </div>
-        <button type="button" class="btn btn-success w-100 m-1" (click)="updateBackgroundPic(); modal.dismiss()">Save & Post</button>
+        <button type="button" class="btn btn-success w-100 m-1" (click)="postBackgroundPic(); modal.dismiss()">Save & Post</button>
         <button type="button" class="btn btn-light w-100 m-1" (click)="modal.dismiss()">Cancel</button>
     </div>
 </ng-template>
@@ -107,6 +107,7 @@
             <button class="btn btn-info w-100 m-1" onclick="openWidget('imageuri2', 'profileimage')">Edit</button>
             <button class="btn btn-success w-100 m-1" (click)="updateProfilePic(); modal.dismiss()">Save</button>
         </div>
+        <button type="button" class="btn btn-success w-100 m-1" (click)="postProfilePic(); modal.dismiss()">Save & Post</button>
         <button type="button" class="btn btn-light w-100 m-1" (click)="modal.dismiss()">Cancel</button>
     </div>
 </ng-template>
