@@ -55,11 +55,11 @@ export class PostBoardComponent implements OnInit {
     this.getCurrentUser();
     this.getPosts();
     this.getComments();
-    this.cast.subscribe((comments) => {
-      this.comments = comments;
-    })
     this.castPost.subscribe((posts) => {
       this.posts = posts;
+    })
+    this.cast.subscribe((comments) => {
+      this.comments = comments;
     })
   }
 
@@ -96,15 +96,29 @@ export class PostBoardComponent implements OnInit {
   }
 
   getPosts(): void {
-    this.postService.getAllPosts().subscribe((posts: Post[]) => {
+    this.postService.getAllPosts().subscribe((posts: any) => {
       if (this.url == "/profile") {
-        posts = posts.filter((post: any) => post.user.userId == this.userId);
+        posts = posts.filter((post: any) => post.user.userId == this.userId).reverse();
       } else if (this.url == "/user") {
-        posts = posts.filter((post: any) => post.user.userId == localStorage.getItem("visitedUser"));
+        posts = posts.filter((post: any) => post.user.userId == localStorage.getItem("visitedUser")).reverse();
+      } else {
+        let oldPosts: Post[] = [];
+        for (let i = 0; i < posts.length; i++) {
+          if (new Date(posts[i].date) < new Date(new Date().getTime() - 6.048e+8)) {
+            oldPosts.push(posts[i]);
+            posts.splice(i, 1);
+            i -= 1;
+          }
+        }
+        posts = this.shuffle(posts);
+        oldPosts = this.shuffle(oldPosts);
+        for (let i = 0; i < oldPosts.length; i++) {
+          posts.push(oldPosts[i]);
+        }
       }
-      this.castPost = this.shuffle(posts);
+      this.castPost = posts;
       this.retrievePosts(posts);
-    })
+    });
   }
 
   deletePost(post: Post): void {
@@ -131,7 +145,6 @@ export class PostBoardComponent implements OnInit {
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-
     return array;
   }
 

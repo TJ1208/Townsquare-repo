@@ -4,8 +4,8 @@
             <div>
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default;">
                     <div style="text-align: left;">
-                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
-                            (click)="showInfo = !showInfo">Info</h5>
+                        <h5 class="bg-white p-2 border form-select btn container-fluid"
+                            style="font-size: medium; font-weight: bold;" (click)="showInfo = !showInfo">Info</h5>
                         <div [ngClass]="{'show-content': showInfo, 'hide-content': !showInfo}">
                             <div class="d-flex align-items-center p-2 container-fluid hover">
                                 <span class="material-symbols-outlined text-success" style="padding-right: 0.5em;">
@@ -88,8 +88,9 @@
                 </div>
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default; margin-top: 2em;">
                     <div style="text-align: left;">
-                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
-                            (click)="showFriends = !showFriends">Friends</h5>
+                        <h5 class="bg-white p-2 border form-select btn container-fluid"
+                            style="font-size: medium; font-weight: bold;" (click)="showFriends = !showFriends">Friends
+                        </h5>
                         <div [ngClass]="{'show-content': showFriends, 'hide-content': !showFriends}">
                             <p class="d-flex flex-column justify-content-center align-items-center"
                                 style="font-weight: bold; font-size: small;" *ngIf="friends.length == 0">
@@ -115,8 +116,9 @@
                 </div>
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default; margin-top: 2em;">
                     <div style="text-align: left;">
-                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
-                            (click)="showGallery = !showGallery">Gallery</h5>
+                        <h5 class="bg-white p-2 border form-select btn container-fluid"
+                            style="font-size: medium; font-weight: bold;" (click)="showGallery = !showGallery">Gallery
+                        </h5>
                         <div [ngClass]="{'show-content': showGallery, 'hide-content': !showGallery}">
                             <p class="d-flex flex-column justify-content-center align-items-center"
                                 style="font-weight: bold; font-size: small;" *ngIf="images.length == 0">
@@ -147,44 +149,76 @@
                 </div>
                 <div class="container-fluid btn shadow-sm border p-0" style="cursor: default; margin-top: 2em;">
                     <div style="text-align: left;">
-                        <h5 class="bg-white p-2 border form-select btn container-fluid" style="font-size: medium; font-weight: bold;"
-                            (click)="showRankings = !showRankings;">Rankings</h5>
+                        <h5 class="bg-white p-2 border form-select btn container-fluid"
+                            style="font-size: medium; font-weight: bold;" (click)="showRankings = !showRankings;">
+                            Rankings</h5>
                         <div [ngClass]="{'show-content': showRankings, 'hide-content': !showRankings}">
                             <table class="table table-hover table-striped rounded" style="text-align: center;">
                                 <thead class="bg-secondary text-white" style="font-style: italic;">
-                                  <tr>
-                                    <th scope="col" style="font-weight: bold;">Category</th>
-                                    <th scope="col" style="font-weight: bold;" >Total</th>
-                                    <th scope="col"style="font-weight: bold;">Ranking</th>
-                                  </tr>
+                                    <tr>
+                                        <th scope="col" style="font-weight: bold;">Category</th>
+                                        <th scope="col" style="font-weight: bold;">Total</th>
+                                        <th scope="col" style="font-weight: bold;">Ranking</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                  <tr style="font-weight: bold;">
-                                    <th scope="row">Posts</th>
-                                    <td>{{  postTotal  }}</td>
-                                    <td *ngIf="postRank > 3" class="text-muted"><sup>#</sup>{{  postRank  }}</td>
-                                    <td *ngIf="postRank == 3" style="color: rgb(206, 157, 157);">{{  postRank  }}<sup>rd</sup></td>
-                                    <td *ngIf="postRank == 2" class="text-warning">{{  postRank  }}<sup>nd</sup></td>
-                                    <td *ngIf="postRank == 1" class="text-success">{{  postRank  }}<sup>st</sup></td>
-                                  </tr>
-                                  <tr style="font-weight: bold;">
-                                    <th scope="row">Comments</th>
-                                    <td>{{  commentTotal  }}</td>
-                                    <td *ngIf="commentRank > 3" class="text-muted"><sup>#</sup>{{  commentRank  }}</td>
-                                    <td *ngIf="commentRank == 3" style="color: rgb(206, 157, 157);">{{  commentRank  }}<sup>rd</sup></td>
-                                    <td *ngIf="commentRank == 2" class="text-warning">{{  commentRank  }}<sup>nd</sup></td>
-                                    <td *ngIf="commentRank == 1" class="text-success">{{  commentRank  }}<sup>st</sup></td>
-                                  </tr>
-                                  <tr style="font-weight: bold;">
-                                    <th scope="row">Overall Rank</th>
-                                    <td> - </td>
-                                    <td *ngIf="totalRank > 3" class="text-muted"><sup>#</sup>{{  totalRank }}</td>
-                                    <td *ngIf="totalRank == 3" style="color: rgb(206, 157, 157);">{{  totalRank  }}<sup>rd</sup></td>
-                                    <td *ngIf="totalRank == 2" class="text-warning">{{  totalRank  }}<sup>nd</sup></td>
-                                    <td *ngIf="totalRank == 1" class="text-success">{{  totalRank  }}<sup>st</sup></td>
-                                  </tr>
+                                    <tr style="font-weight: bold;">
+                                        <th scope="row">Posts</th>
+                                        <td>{{ postTotal }}</td>
+                                        <td *ngIf="postRank > 3" class="text-muted"><sup>#</sup>{{ postRank }}</td>
+                                        <td *ngIf="postRank == 3" style="color: rgb(206, 157, 157);">{{ postRank
+                                            }}<sup>rd</sup></td>
+                                        <td *ngIf="postRank == 2" class="text-warning">{{ postRank }}<sup>nd</sup></td>
+                                        <td *ngIf="postRank == 1" class="text-success">{{ postRank }}<sup>st</sup></td>
+                                    </tr>
+                                    <tr style="font-weight: bold;">
+                                        <th scope="row">Comments</th>
+                                        <td>{{ commentTotal }}</td>
+                                        <td *ngIf="commentRank > 3" class="text-muted"><sup>#</sup>{{ commentRank }}
+                                        </td>
+                                        <td *ngIf="commentRank == 3" style="color: rgb(206, 157, 157);">{{ commentRank
+                                            }}<sup>rd</sup></td>
+                                        <td *ngIf="commentRank == 2" class="text-warning">{{ commentRank }}<sup>nd</sup>
+                                        </td>
+                                        <td *ngIf="commentRank == 1" class="text-success">{{ commentRank }}<sup>st</sup>
+                                        </td>
+                                    </tr>
+                                    <tr style="font-weight: bold;">
+                                        <th scope="row">Friends</th>
+                                        <td>{{ friendTotal }}</td>
+                                        <td *ngIf="friendRank > 3" class="text-muted"><sup>#</sup>{{ friendRank }}</td>
+                                        <td *ngIf="friendRank == 3" style="color: rgb(206, 157, 157);">{{ friendRank
+                                            }}<sup>rd</sup></td>
+                                        <td *ngIf="friendRank == 2" class="text-warning">{{ friendRank }}<sup>nd</sup>
+                                        </td>
+                                        <td *ngIf="friendRank == 1" class="text-success">{{ friendRank }}<sup>st</sup>
+                                        </td>
+                                    </tr>
+                                    <tr style="font-weight: bold;">
+                                        <th scope="row">Overall Rank</th>
+                                        <td> - </td>
+                                        <td *ngIf="totalRank > 3" class="text-muted"><sup>#</sup>{{ totalRank }}</td>
+                                        <td *ngIf="totalRank == 3" style="color: rgb(206, 157, 157);">{{ totalRank
+                                            }}<sup>rd</sup></td>
+                                        <td *ngIf="totalRank == 2" class="text-warning">{{ totalRank }}<sup>nd</sup>
+                                        </td>
+                                        <td *ngIf="totalRank == 1" class="text-success">{{ totalRank }}<sup>st</sup>
+                                        </td>
+                                    </tr>
                                 </tbody>
-                              </table>
+                            </table>
+                            <div class="d-flex">
+                                <button type="button" class="btn btn-info m-2" *ngIf="!this.showStatsLoading"
+                                    (click)="this.showStatsLoading = true; this.getRankings()">Calculate
+                                    Rankings
+                                </button>
+                                <button type="button" class="btn btn-info m-2" disabled
+                                    *ngIf="this.showStatsLoading">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                    Loading...
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -195,7 +229,8 @@
         </div>
         <div class="container-fluid  shadow-sm border p-0 bg-white"
             style="text-align: left; margin: 0.5em 0em 1em 0em;">
-            <h5 class="bg-white p-2 border btn container-fluid" style="font-size: medium; cursor: default; font-weight: bold;">Posts</h5>
+            <h5 class="bg-white p-2 border btn container-fluid"
+                style="font-size: medium; cursor: default; font-weight: bold;">Posts</h5>
             <app-post-board></app-post-board>
         </div>
     </div>

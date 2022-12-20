@@ -37,6 +37,7 @@ export class ProfileContentComponent implements OnInit {
   showGallery: boolean = true;
   showPosts: boolean = true;
   showRankings: boolean = true;
+  showStatsLoading: boolean = false;
   user: User = {
     userId: 0,
     firstName: '',
@@ -76,10 +77,12 @@ export class ProfileContentComponent implements OnInit {
   url: string = this.router.url;
   chosenImage: any;
   showDeleteAccount: boolean = false;
-  postRank: number = 4;
+  postRank: number = 0;
   postTotal: number = 0;
   commentRank: number = 0;
   commentTotal: number = 0;
+  friendRank: number = 0;
+  friendTotal: number = 0;
   totalRank: number = 0;
   constructor(private userService: UserService, private router: Router, private addressService: AddressService,
     private educationService: EducationService, private friendService: FriendService,
@@ -116,6 +119,13 @@ export class ProfileContentComponent implements OnInit {
     })
   }
 
+  getRankings(): void {
+    this.showStatsLoading = true;
+    this.getPostRankings();
+    this.getCommentRankings();
+    this.getFriendRankings();
+  }
+
   getPostRankings(): void {
     let rankings: number[] = [];
     let users: User[] = [];
@@ -127,6 +137,7 @@ export class ProfileContentComponent implements OnInit {
       this.postService.getAllUserPosts(this.user.userId).subscribe((posts: any) => {
         this.postRank = ((rankings.length - rankings.filter((num: any) => posts.length >= num).length) + 1);
         this.postTotal = posts.length;
+        this.totalRank = Math.round((this.commentRank + this.postRank + this.friendRank) / 3);
       })
     });
   }
@@ -142,7 +153,24 @@ export class ProfileContentComponent implements OnInit {
       this.commentService.getAllUserComments(this.user.userId).subscribe((comments: any) => {
         this.commentRank = ((rankings.length - rankings.filter((num: any) => comments.length >= num).length) + 1);
         this.commentTotal = comments.length;
-        this.totalRank = Math.round((this.commentRank + this.postRank) / 2);
+        this.totalRank = Math.round((this.commentRank + this.postRank + this.friendRank) / 3);
+      })
+    });
+  }
+
+  getFriendRankings(): void {
+    let rankings: number[] = [];
+    let users: User[] = [];
+    this.userService.getAllUsers().subscribe((user: User[]) => {
+      users = user;
+      users.forEach((user) => this.friendService.getAllUserFriends(user.userId).subscribe((friends: any) => {
+        rankings.push(friends.length);
+      }));
+      this.friendService.getAllUserFriends(this.user.userId).subscribe((friends: any) => {
+        this.friendRank = ((rankings.length - rankings.filter((num: any) => friends.length >= num).length) + 1);
+        this.friendTotal = friends.length;
+        this.showStatsLoading = false;
+        this.totalRank = Math.round((this.commentRank + this.postRank + this.friendRank) / 3);
       })
     });
   }
@@ -155,8 +183,7 @@ export class ProfileContentComponent implements OnInit {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user: any) => {
       this.castUser = user;
       this.retrieveUser(user);
-      this.getPostRankings();
-      this.getCommentRankings();
+      // this.getRankings();
     })
   }
 
