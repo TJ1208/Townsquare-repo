@@ -52,7 +52,7 @@
             cabin
         </span>
     </p>
-    <div class="container-fluid p-1 btn border bg-white d-flex flex-column"
+    <div class="container-fluid p-1 btn border bg-muted d-flex flex-column"
         style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; margin-bottom: 1em; width: 90%;"
         *ngFor="let post of posts | slice:0:scrollCount;">
         <div class="d-flex p-1 m-0" style="border-bottom: 1px solid gray;">
@@ -62,7 +62,7 @@
             </div>
             <div class="container-fluid" style="text-align: left; padding-left: 1em;">
                 <div>
-                    <a class="hover-a" (click)="viewUser(post)">{{ post.user.firstName + " " +
+                    <a class="hover-a text-dark" (click)="viewUser(post)">{{ post.user.firstName + " " +
                         post.user.lastName }}
                         <br>{{ formatDate(post.date) }}</a>
                 </div>

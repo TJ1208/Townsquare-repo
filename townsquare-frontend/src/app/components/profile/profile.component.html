@@ -8,7 +8,7 @@
             <textarea hidden type="text" class="form-control" id="imageuri" required name="imageuri"
                 [(ngModel)]="userProfile.backgroundImg"></textarea>
             <div class="container-sm background-pic-edit">
-                <span class="material-symbols-rounded btn btn-sm btn-light btn-rounded p-2"
+                <span class="material-symbols-rounded btn btn-sm btn-light btn-rounded p-2 comment"
                     (click)="updatePictureModal(background)" style="float: right;">
                     edit
                 </span>
@@ -41,7 +41,7 @@
                 </div>
                 <textarea hidden type="text" class="form-control" id="imageuri2" required name="imageuri2"
                     [(ngModel)]="userProfile.profileImg"></textarea>
-                <span class="material-symbols-rounded btn btn-sm btn-light btn-rounded p-2"
+                <span class="material-symbols-rounded comment btn btn-sm btn-light btn-rounded p-2"
                     (click)="updatePictureModal(profile)" style="margin-left: 5em;">
                     edit
                 </span>
