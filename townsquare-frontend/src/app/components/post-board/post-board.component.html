@@ -168,8 +168,23 @@
             </button>
             <b *ngIf="sendIcon == 'check'" class="text-success p-0 m-0 nav-link">Sent!</b>
         </div>
-        <a class="nav-link p-1" (click)="displayComments(post)" style="text-align: right;">{{ post.showComments ? "hide"
-            : "show" }} comments</a>
+        <a class="nav-link p-1" (click)="displayComments(post)" *ngIf="post.showComments">
+            <div class="d-flex justify-content-end">
+                <p class="p-1">Hide Comments</p>
+                <span class="material-symbols-outlined">
+                    arrow_drop_up
+                </span>
+            </div>
+
+        </a>
+        <a class="nav-link p-1" (click)="displayComments(post)" *ngIf="!post.showComments">
+            <div class="d-flex justify-content-end text-primary">
+                <p class="p-1">Show Comments</p>
+                <span class="material-symbols-outlined">
+                    arrow_drop_down
+                </span>
+            </div>
+        </a>
         <button class="container-fluid btn" style="overflow-y: scroll;"
             [ngClass]="{'show-slider': post.showComments, 'hide-slider': !post.showComments}">
             <div class="btn shadow-none bg-light container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"

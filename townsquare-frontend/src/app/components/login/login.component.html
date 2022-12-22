@@ -4,6 +4,15 @@
         <p id="profile-name" class="profile-name-card"></p>
         <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
             <span id="reauth-email" class="reauth-email"></span>
+            <small *ngIf="showSuccessMessage" class="d-flex p-0 m-1 text-success justify-content-center" style="font-size: small;">
+                <span class="material-symbols-outlined p-1" style="font-size: large;">
+                    check
+                </span>
+                <small class="p-1">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Logging In...
+                </small>
+            </small>
             <p *ngIf="showLoginError" class="container-fluid text-danger p-0 m-0" style="font-size: small;">Incorrect
                 username and/or password</p>
             <input type="email" id="username" name="username" ngModel class="form-control" placeholder="Email address"
@@ -18,7 +27,7 @@
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
                 [disabled]="loginForm.value.username == '' || loginForm.value.password == ''">Sign in</button>
         </form>
-        <a class="forgot-password">
+        <a class="forgot-password" routerLink="/password-reset">
             <p class="text-black p-0 m-0">Forgot your password?</p>Change password.
         </a>
         <a routerLink="/signup" class="forgot-password">

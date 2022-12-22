@@ -11,6 +11,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class LoginComponent implements OnInit {
   showLoginError: boolean = false;
+  showSuccessMessage: boolean = false;
   constructor(private loginService: LoginService, private authService: AuthService,
     private router: Router) { }
 
@@ -23,14 +24,19 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm) {
     this.loginService.login(loginForm.value).subscribe((response: any) => {
       this.authService.setToken(response.jwtToken);
-      if(response.user) {
+      if (response.user) {
+        this.showSuccessMessage = true;
         localStorage.setItem("userId", response.user.userId);
       }
       this.showLoginError = false;
-      this.router.navigate(['/home']);
+      setTimeout(() => {
+        this.showSuccessMessage = false;
+        this.router.navigate(['/home']);
+      }, 1000)
+
     }, (error) => {
       this.showLoginError = true;
-       console.log(error);
+      console.log(error);
     });
   }
 

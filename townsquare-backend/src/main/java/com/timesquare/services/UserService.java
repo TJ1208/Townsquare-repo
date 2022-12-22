@@ -49,6 +49,7 @@ public class UserService {
 	
 	public void updateUser(User user) {
 		if (userRepo.findById(user.getUserId()).isPresent()) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userRepo.save(user);
 		}
 	}
