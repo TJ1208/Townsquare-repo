@@ -11,6 +11,7 @@ import com.timesquare.models.JwtResponse;
 import com.timesquare.services.JwtService;
 
 @RestController
+@CrossOrigin
 public class JwtController {
 
 	@Autowired

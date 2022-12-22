@@ -22,6 +22,7 @@ import com.timesquare.services.PostService;
 
 @RestController
 @RequestMapping("/api/post")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PostController {
 
 	@Autowired

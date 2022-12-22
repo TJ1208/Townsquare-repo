@@ -17,13 +17,10 @@
             </div>
         </div>
         <div class="d-flex justify-content-space-evenly align-items-center">
-            <span class="material-symbols-outlined text-info"
-                style="margin-bottom: 0.5em; margin-top: 0.2em; font-size: 2em;"
-                title="Birthday">
-                cake
-            </span>
-            <input type="date" [(ngModel)]="user.birthDate" class="form-control" style="margin-bottom: 0.5em;"
-                placeholder="" [max]="maxDate" required>
+            <label class="btn shadow-none bg-muted border mb-2 d-flex  align-items-center container-fluid">BirthDate:
+                <input type="date" [(ngModel)]="user.birthDate" class="form-control container-fluid" placeholder="mm/dd/yyyy"
+                [max]="maxDate" required>
+            </label>
         </div>
         <input type="email" [(ngModel)]="user.email" class="form-control" placeholder="Email Address" required>
         <input type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password" required
