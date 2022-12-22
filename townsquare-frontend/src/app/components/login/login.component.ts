@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoginService } from 'src/app/services/login/login.service';
 
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home']);
     }, (error) => {
       this.showLoginError = true;
+      console.log('hey');
        console.log(error);
     });
   }

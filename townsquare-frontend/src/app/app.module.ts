@@ -24,6 +24,7 @@ import { FriendRequestsComponent } from './components/friend-requests/friend-req
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ProfileContentComponent } from './components/profile-content/profile-content.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ProfileContentComponent } from './components/profile-content/profile-co
     UserComponent,
     SearchResultsComponent,
     FriendRequestsComponent,
-    ProfileContentComponent
+    ProfileContentComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

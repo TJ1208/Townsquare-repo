@@ -21,6 +21,10 @@ export class UserService {
     return this.http.get<User[]>(`https://townsquare-backend.azurewebsites.net/api/user/name/${username}`);
   }
 
+  findUserByUsername(username: string): Observable<User> {
+    return this.http.get<User>(`https://townsquare-backend.azurewebsites.net/api/user/username/${username}`, { headers: this.requestHeader});
+  }
+
   getUserById(userId: number): Observable<User> {
     return this.http.get<User>(`https://townsquare-backend.azurewebsites.net/api/user/${userId}`);
   }
@@ -30,7 +34,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    return this.http.put<any>(`https://townsquare-backend.azurewebsites.net/api/user/update`, user);
+    return this.http.put<any>(`https://townsquare-backend.azurewebsites.net/api/user/update`, user, { headers: this.requestHeader });
   }
 
   deleteUser(userId: number): Observable<any> {
