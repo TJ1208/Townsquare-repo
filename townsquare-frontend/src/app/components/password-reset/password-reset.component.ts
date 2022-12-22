@@ -65,7 +65,7 @@ export class PasswordResetComponent implements OnInit {
   }
 
   resetPassword(password: any): void {
-    this.user.birthDate = new Date(new Date(this.user.birthDate).getTime() + 8.64e+7);
+    // this.user.birthDate = new Date(new Date(this.user.birthDate).getTime() + 8.64e+7);
     this.user.password = password;
     this.userService.updateUser(this.user).subscribe(() => {
       this.showSuccessMessage = true;
