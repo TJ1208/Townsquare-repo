@@ -22,6 +22,7 @@ import com.timesquare.services.CommentService;
 
 @RestController
 @RequestMapping("/api/comment")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommentController {
 	
 	@Autowired
