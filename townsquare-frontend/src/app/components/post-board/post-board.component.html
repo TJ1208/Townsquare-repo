@@ -115,16 +115,22 @@
                     </video>
                 </div>
             </div>
-            <a class="container-fluid" style="text-align: right; text-decoration: none; cursor:default;">
-                <span class="material-symbols-outlined text-success p-1" style="font-size: medium;">
-                    thumb_up
-                </span>{{ post.likes }}
-                <span class="material-symbols-outlined text-primary p-1" style="font-size: medium;">
-                    comment
-                </span>{{ getCommentsCount(post.postId) }}
-                <span class="material-symbols-outlined text-info p-1" style="font-size: medium;">
-                    share
-                </span>{{ post.shares }}
+            <a class="container-fluid d-flex justify-content-end" style="text-decoration: none; cursor:default;">
+                <div class="tilt-hover">
+                    <span class="material-symbols-outlined text-success p-1 tilt" style="font-size: medium;">
+                        thumb_up
+                    </span>{{ post.likes }}
+                </div>
+                <div class="tilt-hover">
+                    <span class="material-symbols-outlined text-primary p-1 tilt" style="font-size: medium;">
+                        comment
+                    </span>{{ getCommentsCount(post.postId) }}
+                </div>
+                <div class="tilt-hover">
+                    <span class="material-symbols-outlined text-info p-1 tilt" style="font-size: medium;">
+                        share
+                    </span>{{ post.shares }}
+                </div>
             </a>
         </div>
         <div class="container-fluid d-flex justify-content-center align-items-center border-top"

@@ -3,13 +3,13 @@ $secondary-color: #292b2c4e;
 $like-color: #5cb85c;
 $dislike-color: #d9534f;
 $share-color: #5bc0de;
-$comment-color: #0274d87b;
+$comment-color: #b7efff;
 
 html,
 body {
   
   font-family: 'IBM Plex Mono', monospace;
-  background-color: #F7F7F7;
+  background-color: white;
 
   .btn {
     text-transform: none;
@@ -23,12 +23,12 @@ body {
   .material-symbols-rounded:hover {
     transition: 0.2s;
     color: white;
-    background-color: #0274d87b;
+    background-color: #93e5fc;
   }
 
   span.active {
     color: white;
-    background-color: #0274d87b;
+    background-color: #93e5fc;
   }
 
   @media (max-width: 768px) {

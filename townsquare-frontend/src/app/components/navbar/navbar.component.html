@@ -1,11 +1,11 @@
-<div class="sticky-top navbar nav bg-light p-0 m-0 flex-wrap">
+<div class="sticky-top navbar nav p-0 m-0 flex-wrap">
     <div class="container-fluid p-0 m-0 flex-nowrap">
         <ul class="nav d-flex flex-nowrap">
             <li class="nav-item rounded" style="margin-left: -0.2em;">
-                <a class="navbar-brand p-3 m-0 text-black rounded show-logo" style="background-color: #1250867b"
-                    routerLink="/home">Town<span class="text-white">Square</span></a>
-                <a class="navbar-brand p-3 m-0 text-black rounded show-short-logo" style="background-color: #1250867b"
-                    routerLink="/home">Town<span class="text-white"><sup class="p-1"
+                <a class="navbar-brand p-3 m-0 text-dark rounded show-logo"
+                    routerLink="/home">Town<span class="text-dark">Square</span></a>
+                <a class="navbar-brand p-3 m-0 text-dark rounded show-short-logo"
+                    routerLink="/home">Town<span class="text-dark"><sup class="p-1"
                             style="border-radius: 50%;">sqr</sup></span></a>
             </li>
             <li class="nav-item">
@@ -30,11 +30,11 @@
             </li>
         </ul>
         <ul class="nav align-items-center flex-nowrap show-search w-100">
-            <li class="nav-item d-flex">
+            <li class="nav-item d-flex bg-white">
                 <button class="m-0 p-0 btn" (click)="searchUser(searchWord)" [disabled]="!(searchWord.trim() != '')">
                     <span class="material-symbols-outlined btn h-100 d-flex align-items-center"
                         style="padding: 0em 1em 0em 1em;">
-                        person_search
+                        search
                     </span>
                 </button>
                 <div class="ng-autocomplete w-100">
@@ -74,11 +74,11 @@
         </a>
     </div>
     <ul class="nav align-items-center flex-nowrap hide-search w-100" >
-        <li class="nav-item d-flex">
+        <li class="nav-item d-flex bg-white">
             <button class="m-0 btn" style="padding: 0em 2em 0em 2em;" (click)="searchUser(searchWord)"
                 [disabled]="!(searchWord.trim() != '')">
                 <span class="material-symbols-outlined d-flex align-items-center">
-                    person_search
+                    search
                 </span>
             </button>
             <div class="ng-autocomplete w-100">
