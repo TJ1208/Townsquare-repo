@@ -26,6 +26,16 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ProfileContentComponent } from './components/profile-content/profile-content.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
+
+const config: SocketIoConfig = {
+  url: environment.socketUrl,
+  options: {
+    transports: ['websocket']
+  }
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +58,8 @@ import { PasswordResetComponent } from './components/password-reset/password-res
     FormsModule,
     RouterModule,
     NgbModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     AuthGuard, 

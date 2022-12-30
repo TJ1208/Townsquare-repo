@@ -3,14 +3,14 @@ import { Post } from 'src/app/models/Post';
 import { Comment } from 'src/app/models/Comment';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { PostService } from 'src/app/services/post/post.service';
-import { BehaviorSubject, throwIfEmpty } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/User';
-import { LoginService } from 'src/app/services/login/login.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
 import { Image } from 'src/app/models/Image';
 import { ImageService } from 'src/app/services/image/image.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
   selector: 'app-post-board',
@@ -18,6 +18,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./post-board.component.scss']
 })
 export class PostBoardComponent implements OnInit {
+  newMessage: any = {
+    message: '',
+    id: '',
+    proileImg: ''
+  };
+  messageList: any[] = [];
+  displayChat: boolean = false;
   posts: Post[] = [];
   comments$ = new BehaviorSubject<Comment[]>([]);
   cast = this.comments$.asObservable();
@@ -38,7 +45,7 @@ export class PostBoardComponent implements OnInit {
   showDeleteButton: boolean = this.url == '/profile';
   constructor(private postService: PostService, private commentService: CommentService,
     private userService: UserService, private router: Router, private imageService: ImageService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, private socketService: SocketService) {
     this.post = {
       postId: 0,
       title: "",
@@ -62,13 +69,34 @@ export class PostBoardComponent implements OnInit {
     this.cast.subscribe((comments) => {
       this.comments = comments;
     })
+    this.socketService.getNewMessage().subscribe((message: string) => {
+      this.messageList.push(message);
+    })
+  }
+
+  sendMessage(): void {
+    if (this.newMessage.message.trim() != '') {
+      this.socketService.sendMessage(this.newMessage);
+      console.log(this.messageList);
+      this.newMessage.message = '';
+    }
   }
 
   getCurrentUser(): void {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user: User) => {
       this.post.user = user;
       this.currentUser = user;
+      this.newMessage.id = user.userId;
+      this.newMessage.profileImg = user.profileImg;
     })
+  }
+
+  getChatUser(userId: string) {
+    let profile: string = '';
+    this.userService.getUserById(parseInt(userId)).subscribe((user: User) => {
+      profile = user.profileImg;
+    })
+    // return profile;
   }
 
   viewUser(user: any): void {
@@ -228,9 +256,9 @@ export class PostBoardComponent implements OnInit {
     this.post.imageUrl = "";
     (<HTMLInputElement>document.getElementById("imageuri3")).value = '';
     this.showSave = true;
-      setTimeout(() => {
-        this.showSave = false;
-      }, 1500);
+    setTimeout(() => {
+      this.showSave = false;
+    }, 1500);
   }
 
 

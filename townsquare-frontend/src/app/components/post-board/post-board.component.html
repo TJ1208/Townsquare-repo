@@ -46,6 +46,43 @@
             </div>
         </div>
     </div>
+    <div>
+        <button class="btn btn-muted form-select" (click)="displayChat = !displayChat" style="font-weight: bold;">
+            {{ displayChat ? 'Close Chat' : 'Open Chat'}}
+        </button>
+        <div *ngIf="displayChat" class="d-flex flex-column container-fluid border p-0 m-0 bg-light">
+            <div style="min-height: 30em; max-height: 30em;">
+                <div *ngFor="let message of messageList" style="overflow-anchor: auto;">
+                    <div *ngIf="message.id == userId" class="d-flex flex-nowrap imessage container-lg bg-light">
+                        <p style="text-align: right;" class="from-me m-0">
+                            {{ message.message }}
+                            <img routerLink="/profile"
+                                [src]="currentUser == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : currentUser.profileImg"
+                                style="border-radius: 50%; width: 1.5em; height: 1.5em; margin-left: -90%; margin-top: 1em; position: absolute;">
+                        </p>
+                    </div>
+                    <div *ngIf="message.id != userId && message.message" class="d-flex flex-nowrap imessage container-lg bg-light">
+                        <p style="text-align: left;" class="from-them m-0">
+                            {{ message.message }}
+                            <img routerLink="/profile"
+                                [src]=" message.profileImg == null ? 'https://wallpaperaccess.com/full/1556621.jpg' : message.profileImg"
+                                style="border-radius: 50%; width: 1.5em; height: 1.5em; margin-right: -90%; margin-top: 1em; position: absolute;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid d-flex flex-nowrap">
+                <input [(ngModel)]="newMessage.message" (keyup)="$event.keyCode == 13 && sendMessage()"
+                    class="form-control m-1">
+                <button class="btn d-flex justify-content-center align-items-center comment m-1">
+                    <span class="material-symbols-outlined">
+                        keyboard_return
+                    </span>
+                </button>
+            </div>
+
+        </div>
+    </div>
     <p class="d-flex flex-column justify-content-center align-items-center" style="font-size: small; font-weight: bold;"
         *ngIf="posts.length == 0">Not much going on
         <span class="material-symbols-outlined p-1 text-info" style="font-size: 50px;">
@@ -55,7 +92,7 @@
     <div class="container-fluid p-1 btn border bg-muted d-flex flex-column"
         style="box-shadow: 0px 0px 10px lightgray; margin-top: 1em; margin-bottom: 1em; width: 90%;"
         *ngFor="let post of posts | slice:0:scrollCount;">
-        <div class="d-flex p-1 m-0" style="border-bottom: 1px solid gray;">
+        <div class="d-flex p-1 m-0" style="border-bottom: 1px solid lightgray;">
             <div class="d-flex justify-content-center">
                 <img [src]="post.user.profileImg" style="border-radius: 50%; width: 6em; height: 6em;" class="point"
                     (click)="viewUser(post)">
@@ -191,7 +228,7 @@
                 </span>
             </div>
         </a>
-        <button class="container-fluid btn" style="overflow-y: scroll;"
+        <button class="container-fluid btn"
             [ngClass]="{'show-slider': post.showComments, 'hide-slider': !post.showComments}">
             <div class="btn shadow-none bg-light container-fluid p-0 border rounded" style="margin: 1em 1em 0em 0em;"
                 *ngFor="let comment of getCommentsByPost(post.postId)">
