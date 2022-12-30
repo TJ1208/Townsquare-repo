@@ -26,8 +26,6 @@ jobs:
       - name: npm install, build, and test
         run: |
           cd townsquare-frontend
-          npm install --force
-          npm run build --prod
           cd server
           npm start
         
