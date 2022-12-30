@@ -28,6 +28,8 @@ jobs:
           cd townsquare-frontend
           npm install --force
           npm run build --prod
+          cd server
+          npm start
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
