@@ -28,6 +28,12 @@ jobs:
           cd townsquare-frontend
           npm install --force
           npm run build --prod
+          
+      - name: run socket.io server
+        run: |
+          cd townsquare-frontend
+          cd server
+          npm start
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
