@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  socketUrl: 'https://townsquare-frontend.azurewebsites.net'
+  socketUrl: 'http://localhost:3000'
 };
 
 /*
