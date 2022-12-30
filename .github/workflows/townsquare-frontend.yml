@@ -30,7 +30,7 @@ jobs:
           npm run build --prod
           cd server
           npm install --force
-          ng build
+          npm run build
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
