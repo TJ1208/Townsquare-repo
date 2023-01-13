@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { Image } from 'src/app/models/Image';
 import { ImageService } from 'src/app/services/image/image.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
   selector: 'app-post-board',
@@ -45,7 +44,7 @@ export class PostBoardComponent implements OnInit {
   showDeleteButton: boolean = this.url == '/profile';
   constructor(private postService: PostService, private commentService: CommentService,
     private userService: UserService, private router: Router, private imageService: ImageService,
-    private modalService: NgbModal, private socketService: SocketService) {
+    private modalService: NgbModal) {
     this.post = {
       postId: 0,
       title: "",
@@ -69,19 +68,8 @@ export class PostBoardComponent implements OnInit {
     this.cast.subscribe((comments) => {
       this.comments = comments;
     })
-    this.socketService.getNewMessage().subscribe((message: string) => {
-      this.messageList.push(message);
-    })
   }
-
-  sendMessage(): void {
-    if (this.newMessage.message.trim() != '') {
-      this.socketService.sendMessage(this.newMessage);
-      console.log(this.messageList);
-      this.newMessage.message = '';
-    }
-  }
-
+  
   getCurrentUser(): void {
     this.userService.getUserById(parseInt(this.userId)).subscribe((user: User) => {
       this.post.user = user;

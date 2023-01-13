@@ -71,16 +71,6 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid d-flex flex-nowrap">
-                <input [(ngModel)]="newMessage.message" (keyup)="$event.keyCode == 13 && sendMessage()"
-                    class="form-control m-1">
-                <button class="btn d-flex justify-content-center align-items-center comment m-1">
-                    <span class="material-symbols-outlined">
-                        keyboard_return
-                    </span>
-                </button>
-            </div>
-
         </div>
     </div>
     <p class="d-flex flex-column justify-content-center align-items-center" style="font-size: small; font-weight: bold;"
